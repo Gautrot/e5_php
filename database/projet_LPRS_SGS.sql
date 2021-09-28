@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  mar. 14 sep. 2021 à 09:51
+-- Généré le :  mar. 28 sep. 2021 à 09:12
 -- Version du serveur :  5.7.26
 -- Version de PHP :  7.2.18
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données :  `projet_LPRS_SGS`
+-- Base de données :  `projet_lprs_sgs`
 --
 
 -- --------------------------------------------------------
@@ -30,8 +30,8 @@ SET time_zone = "+00:00";
 
 DROP TABLE IF EXISTS `administrateur`;
 CREATE TABLE IF NOT EXISTS `administrateur` (
-  `statut` int(4) NOT NULL,
-  `validation` int(1) NOT NULL
+  `statut` int(1) DEFAULT '4',
+  `validation` int(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -57,9 +57,18 @@ CREATE TABLE IF NOT EXISTS `discussion` (
 
 DROP TABLE IF EXISTS `eleve`;
 CREATE TABLE IF NOT EXISTS `eleve` (
-  `statut` int(2) NOT NULL,
-  `classe` varchar(40) NOT NULL
+  `statut` int(1) NOT NULL DEFAULT '2',
+  `classe` varchar(40) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `eleve`
+--
+
+INSERT INTO `eleve` (`statut`, `classe`) VALUES
+(2, '2nde'),
+(2, '1ere'),
+(2, 'Term');
 
 -- --------------------------------------------------------
 
@@ -89,11 +98,18 @@ CREATE TABLE IF NOT EXISTS `evenement` (
 
 DROP TABLE IF EXISTS `parent`;
 CREATE TABLE IF NOT EXISTS `parent` (
-  `statut` int(3) NOT NULL,
-  `metier` varchar(40) NOT NULL,
+  `statut` int(1) NOT NULL DEFAULT '3',
+  `metier` varchar(40) DEFAULT NULL,
   `idEleve` int(11) NOT NULL,
   KEY `idEleve` (`idEleve`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `parent`
+--
+
+INSERT INTO `parent` (`statut`, `metier`, `idEleve`) VALUES
+(3, 'Banque', 1);
 
 -- --------------------------------------------------------
 
@@ -103,10 +119,17 @@ CREATE TABLE IF NOT EXISTS `parent` (
 
 DROP TABLE IF EXISTS `professeur`;
 CREATE TABLE IF NOT EXISTS `professeur` (
-  `statut` int(1) NOT NULL,
-  `matiere` varchar(40) NOT NULL,
-  `validation` int(1) NOT NULL
+  `statut` int(1) NOT NULL DEFAULT '1',
+  `matiere` varchar(40) DEFAULT NULL,
+  `validation` int(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `professeur`
+--
+
+INSERT INTO `professeur` (`statut`, `matiere`, `validation`) VALUES
+(1, 'Math', 1);
 
 -- --------------------------------------------------------
 
@@ -116,17 +139,27 @@ CREATE TABLE IF NOT EXISTS `professeur` (
 
 DROP TABLE IF EXISTS `utilisateur`;
 CREATE TABLE IF NOT EXISTS `utilisateur` (
-  `idUtilisateur` int(11) NOT NULL AUTO_INCREMENT,
-  `nom` varchar(40) NOT NULL,
-  `prenom` varchar(40) NOT NULL,
-  `dateNaissance` date NOT NULL,
-  `adresse` text NOT NULL,
-  `telephone` int(11) NOT NULL,
-  `mail` text NOT NULL,
-  `statut` int(11) NOT NULL,
-  `validUtilisateur` int(11) NOT NULL,
+  `idUtilisateur` int(2) NOT NULL AUTO_INCREMENT,
+  `nom` varchar(40) DEFAULT NULL,
+  `prenom` varchar(40) DEFAULT NULL,
+  `dateNaissance` date DEFAULT NULL,
+  `adresse` text,
+  `telephone` varchar(10) DEFAULT NULL,
+  `mail` text,
+  `statut` int(1) NOT NULL DEFAULT '0',
+  `validUtilisateur` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`idUtilisateur`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `utilisateur`
+--
+
+INSERT INTO `utilisateur` (`idUtilisateur`, `nom`, `prenom`, `dateNaissance`, `adresse`, `telephone`, `mail`, `statut`, `validUtilisateur`) VALUES
+(1, 'root', 'root', '2021-09-28', 'root', '0999999999', 'root@gmail.com', 4, 1),
+(2, 'eleve', 'eleve', '2021-09-28', 'eleve', '0999999999', 'eleve@gmail.com', 1, 0),
+(3, 'parent', 'parent', '2021-09-28', 'parent', '0999999999', 'parent@gmail.com', 2, 0),
+(4, 'prof', 'prof', '2021-09-28', 'prof', '0999999999', 'prof@gmail.com', 3, 1);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
