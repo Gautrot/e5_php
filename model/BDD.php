@@ -1,6 +1,6 @@
 <?php
 
-class bdd
+class BDD
 {
 // déclaration des attributs
     public $bdd;
@@ -16,7 +16,6 @@ class bdd
             // affiche un message
             echo "Connection failed : " . $e->getMessage();
         }
-
     }
 
     public function getBase()
