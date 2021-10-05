@@ -33,12 +33,12 @@
 </head>
 
 <body>
-  BONJOUR !
-  <!-- preloader start -->
-  <div class="preloader">
-    <img src="images/preloader.gif" alt="preloader">
-  </div>
-  <!-- preloader end -->
+BONJOUR !
+<!-- preloader start -->
+<div class="preloader">
+  <img src="images/preloader.gif" alt="preloader">
+</div>
+<!-- preloader end -->
 
 <!-- header -->
 <header class="fixed-top header">
@@ -60,8 +60,8 @@
             <li class="list-inline-item"><a class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block" href="notice.html">notice</a></li>
             <li class="list-inline-item"><a class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block" href="research.html">research</a></li>
             <li class="list-inline-item"><a class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block" href="scholarship.html">SCHOLARSHIP</a></li>
-            <li class="list-inline-item"><a class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block" href="#" data-toggle="modal" data-target="#loginModal">Login</a></li>
-            <li class="list-inline-item"><a class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block" href="#" data-toggle="modal" data-target="#signupModal">Inscription</a></li>
+            <li class="list-inline-item"><a class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block" href="#" data-toggle="modal" data-target="#loginModal">login</a></li>
+            <li class="list-inline-item"><a class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block" href="#" data-toggle="modal" data-target="#signupModal">register</a></li>
           </ul>
         </div>
       </div>
@@ -71,9 +71,9 @@
   <div class="navigation w-100">
     <div class="container">
       <nav class="navbar navbar-expand-lg navbar-dark p-0">
-        <a class="navbar-brand" href="index.html"><img src="images/logo.png" alt="logo"></a>
+        <a class="navbar-brand" href="index.html"><img src="images/logoLPRS1.jpg" alt="logo"></a>
         <button class="navbar-toggler rounded-0" type="button" data-toggle="collapse" data-target="#navigation"
-          aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+                aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -96,7 +96,7 @@
             </li>
             <li class="nav-item dropdown view">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
+                 aria-haspopup="true" aria-expanded="false">
                 Pages
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -121,74 +121,140 @@
   </div>
 </header>
 <!-- /header -->
-<!-- Modal -->
+<!-- Modal Inscription-->
 <div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content rounded-0 border-0 p-4">
-            <div class="modal-header border-0">
-                <h3>Inscription</h3>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content rounded-0 border-0 p-4">
+      <div class="modal-header border-0">
+        <h3>inscription</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="login">
+          <form action="#" class="row">
+            <div class="col-12">
+              <input type="text" class="form-control mb-3" id="signupNom" name="signupNom" placeholder="Nom">
             </div>
-            <div class="modal-body">
-                <div class="login">
-                    <form method="POST" action="#" class="row">
-                        <div class="col-12">
-                            <input type="text" class="form-control mb-3" id="signupNom" name="signupNom" placeholder="Nom">
-                        </div>
-                        <div class="col-12">
-                            <input type="text" class="form-control mb-3" id="signupPrenom" name="signupPrenom" placeholder="Prénom">
-                        </div>
-                        <div class="col-12">
-                            <input type="date" class="form-control mb-3" id="signupDatenaissance" name="signupDatenaissance" placeholder="Date de naissance">
-                        </div>
-                        <div class="col-12">
-                            <input type="text" class="form-control mb-3" id="signupAdresse" name="signupAdresse" placeholder="Adresse">
-                        </div>
-                        <div class="col-12">
-                            <input type="number" class="form-control mb-3" id="signupTelephone" name="signupTelephone" placeholder="Téléphone">
-                        </div>
-                        <div class="col-12">
-                            <input type="email" class="form-control mb-3" id="signupEmail" name="signupEmail" placeholder="Email">
-                        </div>
-                        <div class="col-12">
-                            <input type="password" class="form-control mb-3" id="signupPassword" name="signupPassword" placeholder="Password">
-                        </div>
-                        <div class="col-12">
-                            <button type="submit" class="btn btn-primary">S'INSCRIRE</button>
-                        </div>
-                    </form>
-                </div>
+            <div class="col-12">
+              <input type="text" class="form-control mb-3" id="signupPrenom" name="signupPrenom" placeholder="Prénom">
             </div>
+            <div class="col-12">
+              <input type="date" class="form-control mb-3" id="signupDatenaissance" name="signupDatenaissance" placeholder="Date de naissance">
+            </div>
+            <div class="col-12">
+              <input type="text" class="form-control mb-3" id="signupAdresse" name="signupAdresse" placeholder="Adresse">
+            </div>
+            <div class="col-12">
+              <input type="number" class="form-control mb-3" id="signupTelephone" name="signupTelephone" placeholder="Téléphone">
+            </div>
+            <div class="col-12">
+              <input type="email" class="form-control mb-3" id="signupEmail" name="signupEmail" placeholder="Email">
+            </div>
+            <div class="col-12">
+              <input type="password" class="form-control mb-3" id="signupPassword" name="signupPassword" placeholder="Password">
+            </div>
+            <div class="col-12">
+              <button type="submit" class="btn btn-primary">SIGN UP</button>
+            </div>
+          </form>
         </div>
+      </div>
     </div>
+  </div>
 </div>
-<!-- Modal -->
-<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content rounded-0 border-0 p-4">
-            <div class="modal-header border-0">
-                <h3>Login</h3>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form method="POST" action="../../../traitement/connexion-tr.php">
-                    <div class="col-12">
-                        <input type="text" class="form-control mb-3" id="login" name="login" placeholder="Login">
-                    </div>
-                    <div class="col-12">
-                        <input type="password" class="form-control mb-3" id="mdp" name="mdp" placeholder="Password">
-                    </div>
-                    <div class="col-12">
-                        <button type="submit" class="btn btn-primary">SE CONNECTER</button>
-                    </div>
-                </form>
-            </div>
+<!-- Modal MotsDePasse-->
+<div class="modal fade" id="MDPModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content rounded-0 border-0 p-4">
+      <div class="modal-header border-0">
+        <h3>Mots de passe oublié</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+          <meta charset="UTF-8">
+          <meta http-equiv="X-UA-Compatible" content="IE=edge">
+          <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1.0">
+
+          <meta name="description" content=""/>
+          <link rel="icon" sizes="16x16" href="../../images/logoLPRS1.jpg">
+          <meta name="author" content=""/>
+          <!-- Bootstrap css -->
+          <?php include $_SERVER['DOCUMENT_ROOT'] . "/Projet_snack/include/link_css.php";
+    include $_SERVER['DOCUMENT_ROOT'] . "/Projet_snack/include/link_js.php"; ?>
+        </head>
+
+        <body style="background-image: url('../../Design/image/backgroundImage.png');">
+
+
+        <a class="navbar-brand" href="index.html"><img src="images/logoLPRS1.jpg" alt="logo"></a>
+
+        <div class="text-center mt-3">
+          <p class="maintTitle mt-4 ">Recevez un mail pour votre mot de passe oublié</p>
+          <a> Chaque <a class="asterix">*</a>est obligatoire</a>
         </div>
+
+        <!-- Formulaire mot de passe oublié  -->
+        <form action="/Projet_snack/traitement/Mdp&Connexion/traitement_mot_de_passe_oublie.php" method="POST">
+          <div class="text-center mb-4 mt-5">
+            <p class="se_connecter">Je ne parviens pas à me connecter à mon compte LPRS </p>
+            <p class="asterix"><?=((array_key_exists("err", $_GET) && $_GET["err"] == "mail" )? "Une erreur est survenue, l'email saisi n'a pas été reconnu" : "") ?></p>
+            <input type="email" class="inputform" placeholder="Entrez un mail" name="mail"
+                   required <?=((array_key_exists("mail", $_GET))? 'value="'.$_GET["mail"].'"' : "") ?>
+            <button type="submit" name="submit" class="btn btn-primary">Recevoir un mail</button>
+
+            <br> <!--a href="#" id="cancel_reset"><i class="fas fa-angle-left" aria-hidden="true"></i> Retour</a-->
+          </div>
+        </form>
+        </body>
+        </html>
+
+      </div>
     </div>
+  </div>
+</div>
+<!-- Modal Login-->
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content rounded-0 border-0 p-4">
+      <div class="modal-header border-0">
+        <h3>Login</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="#" class="row">
+          <div class="col-12">
+            <input type="text" class="form-control mb-3" id="loginPhone" name="loginPhone" placeholder="Phone">
+          </div>
+          <div class="col-12">
+            <input type="text" class="form-control mb-3" id="loginName" name="loginName" placeholder="Name">
+          </div>
+          <div class="col-12">
+            <input type="password" class="form-control mb-3" id="loginPassword" name="loginPassword" placeholder="Password">
+
+            <div class="text-center">
+              <div class="text-danger text-center"><?php echo $error_password; ?></div>
+              <div class="text-danger text-center"><?php echo $error_captcha; ?></div>
+              <button type="button" class="btn btn-primary" data-dismiss="modal" href="#" data-toggle="modal" data-target="#MDPModal" aria-label="Close">Mots de passe oublié</button>
+            </div>
+
+          </div>
+          <div class="col-12">
+            <button type="submit" class="btn btn-primary">LOGIN</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- hero slider -->
@@ -199,7 +265,7 @@
       <div class="hero-slider-item">
         <div class="row">
           <div class="col-md-8">
-            <h1 class="text-white" data-animation-out="fadeOutRight" data-delay-out="5" data-duration-in=".3" data-animation-in="fadeInLeft" data-delay-in=".1">Lycée Privé & UFA Robert Schuman</h1>
+            <h1 class="text-white" data-animation-out="fadeOutRight" data-delay-out="5" data-duration-in=".3" data-animation-in="fadeInLeft" data-delay-in=".1">Your bright future is our mission</h1>
             <p class="text-muted mb-4" data-animation-out="fadeOutRight" data-delay-out="5" data-duration-in=".3" data-animation-in="fadeInLeft" data-delay-in=".4">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
               tempor
               incididunt ut labore et
@@ -212,7 +278,7 @@
       <div class="hero-slider-item">
         <div class="row">
           <div class="col-md-8">
-            <h1 class="text-white" data-animation-out="fadeOutUp" data-delay-out="5" data-duration-in=".3" data-animation-in="fadeInDown" data-delay-in=".1">Lycée Privé & UFA Robert Schuman</h1>
+            <h1 class="text-white" data-animation-out="fadeOutUp" data-delay-out="5" data-duration-in=".3" data-animation-in="fadeInDown" data-delay-in=".1">Your bright future is our mission</h1>
             <p class="text-muted mb-4" data-animation-out="fadeOutUp" data-delay-out="5" data-duration-in=".3" data-animation-in="fadeInDown" data-delay-in=".4">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
               tempor
               incididunt ut labore et
@@ -225,7 +291,7 @@
       <div class="hero-slider-item">
         <div class="row">
           <div class="col-md-8">
-            <h1 class="text-white" data-animation-out="fadeOutDown" data-delay-out="5" data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".1">Lycée Privé & UFA Robert Schuman</h1>
+            <h1 class="text-white" data-animation-out="fadeOutDown" data-delay-out="5" data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".1">Your bright future is our mission</h1>
             <p class="text-muted mb-4" data-animation-out="fadeOutDown" data-delay-out="5" data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".4">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
               tempor
               incididunt ut labore et
@@ -312,117 +378,117 @@
       </div>
     </div>
     <!-- course list -->
-<div class="row justify-content-center">
-  <!-- course item -->
-  <div class="col-lg-4 col-sm-6 mb-5">
-    <div class="card p-0 border-primary rounded-0 hover-shadow">
-      <img class="card-img-top rounded-0" src="images/courses/course-1.jpg" alt="course thumb">
-      <div class="card-body">
-        <ul class="list-inline mb-2">
-          <li class="list-inline-item"><i class="ti-calendar mr-1 text-color"></i>02-14-2018</li>
-          <li class="list-inline-item"><a class="text-color" href="#">Humanities</a></li>
-        </ul>
-        <a href="course-single.html">
-          <h4 class="card-title">Photography</h4>
-        </a>
-        <p class="card-text mb-4"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-          incididunt ut labore et dolore magna.</p>
-        <a href="course-single.html" class="btn btn-primary btn-sm">Apply now</a>
+    <div class="row justify-content-center">
+      <!-- course item -->
+      <div class="col-lg-4 col-sm-6 mb-5">
+        <div class="card p-0 border-primary rounded-0 hover-shadow">
+          <img class="card-img-top rounded-0" src="images/courses/course-1.jpg" alt="course thumb">
+          <div class="card-body">
+            <ul class="list-inline mb-2">
+              <li class="list-inline-item"><i class="ti-calendar mr-1 text-color"></i>02-14-2018</li>
+              <li class="list-inline-item"><a class="text-color" href="#">Humanities</a></li>
+            </ul>
+            <a href="course-single.html">
+              <h4 class="card-title">Photography</h4>
+            </a>
+            <p class="card-text mb-4"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+              incididunt ut labore et dolore magna.</p>
+            <a href="course-single.html" class="btn btn-primary btn-sm">Apply now</a>
+          </div>
+        </div>
+      </div>
+      <!-- course item -->
+      <div class="col-lg-4 col-sm-6 mb-5">
+        <div class="card p-0 border-primary rounded-0 hover-shadow">
+          <img class="card-img-top rounded-0" src="images/courses/course-2.jpg" alt="course thumb">
+          <div class="card-body">
+            <ul class="list-inline mb-2">
+              <li class="list-inline-item"><i class="ti-calendar mr-1 text-color"></i>02-14-2018</li>
+              <li class="list-inline-item"><a class="text-color" href="#">Humanities</a></li>
+            </ul>
+            <a href="course-single.html">
+              <h4 class="card-title">Programming</h4>
+            </a>
+            <p class="card-text mb-4"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+              incididunt ut labore et dolore magna.</p>
+            <a href="course-single.html" class="btn btn-primary btn-sm">Apply now</a>
+          </div>
+        </div>
+      </div>
+      <!-- course item -->
+      <div class="col-lg-4 col-sm-6 mb-5">
+        <div class="card p-0 border-primary rounded-0 hover-shadow">
+          <img class="card-img-top rounded-0" src="images/courses/course-3.jpg" alt="course thumb">
+          <div class="card-body">
+            <ul class="list-inline mb-2">
+              <li class="list-inline-item"><i class="ti-calendar mr-1 text-color"></i>02-14-2018</li>
+              <li class="list-inline-item"><a class="text-color" href="#">Humanities</a></li>
+            </ul>
+            <a href="course-single.html">
+              <h4 class="card-title">Lifestyle Archives</h4>
+            </a>
+            <p class="card-text mb-4"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+              incididunt ut labore et dolore magna.</p>
+            <a href="course-single.html" class="btn btn-primary btn-sm">Apply now</a>
+          </div>
+        </div>
+      </div>
+      <!-- course item -->
+      <div class="col-lg-4 col-sm-6 mb-5">
+        <div class="card p-0 border-primary rounded-0 hover-shadow">
+          <img class="card-img-top rounded-0" src="images/courses/course-4.jpg" alt="course thumb">
+          <div class="card-body">
+            <ul class="list-inline mb-2">
+              <li class="list-inline-item"><i class="ti-calendar mr-1 text-color"></i>02-14-2018</li>
+              <li class="list-inline-item"><a class="text-color" href="#">Humanities</a></li>
+            </ul>
+            <a href="course-single.html">
+              <h4 class="card-title">Complete Freelancing</h4>
+            </a>
+            <p class="card-text mb-4"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+              incididunt ut labore et dolore magna.</p>
+            <a href="course-single.html" class="btn btn-primary btn-sm">Apply now</a>
+          </div>
+        </div>
+      </div>
+      <!-- course item -->
+      <div class="col-lg-4 col-sm-6 mb-5">
+        <div class="card p-0 border-primary rounded-0 hover-shadow">
+          <img class="card-img-top rounded-0" src="images/courses/course-5.jpg" alt="course thumb">
+          <div class="card-body">
+            <ul class="list-inline mb-2">
+              <li class="list-inline-item"><i class="ti-calendar mr-1 text-color"></i>02-14-2018</li>
+              <li class="list-inline-item"><a class="text-color" href="#">Humanities</a></li>
+            </ul>
+            <a href="course-single.html">
+              <h4 class="card-title">Branding Design</h4>
+            </a>
+            <p class="card-text mb-4"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+              incididunt ut labore et dolore magna.</p>
+            <a href="course-single.html" class="btn btn-primary btn-sm">Apply now</a>
+          </div>
+        </div>
+      </div>
+      <!-- course item -->
+      <div class="col-lg-4 col-sm-6 mb-5">
+        <div class="card p-0 border-primary rounded-0 hover-shadow">
+          <img class="card-img-top rounded-0" src="images/courses/course-6.jpg" alt="course thumb">
+          <div class="card-body">
+            <ul class="list-inline mb-2">
+              <li class="list-inline-item"><i class="ti-calendar mr-1 text-color"></i>02-14-2018</li>
+              <li class="list-inline-item"><a class="text-color" href="#">Humanities</a></li>
+            </ul>
+            <a href="course-single.html">
+              <h4 class="card-title">Art Design</h4>
+            </a>
+            <p class="card-text mb-4"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+              incididunt ut labore et dolore magna.</p>
+            <a href="course-single.html" class="btn btn-primary btn-sm">Apply now</a>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-  <!-- course item -->
-  <div class="col-lg-4 col-sm-6 mb-5">
-    <div class="card p-0 border-primary rounded-0 hover-shadow">
-      <img class="card-img-top rounded-0" src="images/courses/course-2.jpg" alt="course thumb">
-      <div class="card-body">
-        <ul class="list-inline mb-2">
-          <li class="list-inline-item"><i class="ti-calendar mr-1 text-color"></i>02-14-2018</li>
-          <li class="list-inline-item"><a class="text-color" href="#">Humanities</a></li>
-        </ul>
-        <a href="course-single.html">
-          <h4 class="card-title">Programming</h4>
-        </a>
-        <p class="card-text mb-4"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-          incididunt ut labore et dolore magna.</p>
-        <a href="course-single.html" class="btn btn-primary btn-sm">Apply now</a>
-      </div>
-    </div>
-  </div>
-  <!-- course item -->
-  <div class="col-lg-4 col-sm-6 mb-5">
-    <div class="card p-0 border-primary rounded-0 hover-shadow">
-      <img class="card-img-top rounded-0" src="images/courses/course-3.jpg" alt="course thumb">
-      <div class="card-body">
-        <ul class="list-inline mb-2">
-          <li class="list-inline-item"><i class="ti-calendar mr-1 text-color"></i>02-14-2018</li>
-          <li class="list-inline-item"><a class="text-color" href="#">Humanities</a></li>
-        </ul>
-        <a href="course-single.html">
-          <h4 class="card-title">Lifestyle Archives</h4>
-        </a>
-        <p class="card-text mb-4"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-          incididunt ut labore et dolore magna.</p>
-        <a href="course-single.html" class="btn btn-primary btn-sm">Apply now</a>
-      </div>
-    </div>
-  </div>
-  <!-- course item -->
-  <div class="col-lg-4 col-sm-6 mb-5">
-    <div class="card p-0 border-primary rounded-0 hover-shadow">
-      <img class="card-img-top rounded-0" src="images/courses/course-4.jpg" alt="course thumb">
-      <div class="card-body">
-        <ul class="list-inline mb-2">
-          <li class="list-inline-item"><i class="ti-calendar mr-1 text-color"></i>02-14-2018</li>
-          <li class="list-inline-item"><a class="text-color" href="#">Humanities</a></li>
-        </ul>
-        <a href="course-single.html">
-          <h4 class="card-title">Complete Freelancing</h4>
-        </a>
-        <p class="card-text mb-4"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-          incididunt ut labore et dolore magna.</p>
-        <a href="course-single.html" class="btn btn-primary btn-sm">Apply now</a>
-      </div>
-    </div>
-  </div>
-  <!-- course item -->
-  <div class="col-lg-4 col-sm-6 mb-5">
-    <div class="card p-0 border-primary rounded-0 hover-shadow">
-      <img class="card-img-top rounded-0" src="images/courses/course-5.jpg" alt="course thumb">
-      <div class="card-body">
-        <ul class="list-inline mb-2">
-          <li class="list-inline-item"><i class="ti-calendar mr-1 text-color"></i>02-14-2018</li>
-          <li class="list-inline-item"><a class="text-color" href="#">Humanities</a></li>
-        </ul>
-        <a href="course-single.html">
-          <h4 class="card-title">Branding Design</h4>
-        </a>
-        <p class="card-text mb-4"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-          incididunt ut labore et dolore magna.</p>
-        <a href="course-single.html" class="btn btn-primary btn-sm">Apply now</a>
-      </div>
-    </div>
-  </div>
-  <!-- course item -->
-  <div class="col-lg-4 col-sm-6 mb-5">
-    <div class="card p-0 border-primary rounded-0 hover-shadow">
-      <img class="card-img-top rounded-0" src="images/courses/course-6.jpg" alt="course thumb">
-      <div class="card-body">
-        <ul class="list-inline mb-2">
-          <li class="list-inline-item"><i class="ti-calendar mr-1 text-color"></i>02-14-2018</li>
-          <li class="list-inline-item"><a class="text-color" href="#">Humanities</a></li>
-        </ul>
-        <a href="course-single.html">
-          <h4 class="card-title">Art Design</h4>
-        </a>
-        <p class="card-text mb-4"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-          incididunt ut labore et dolore magna.</p>
-        <a href="course-single.html" class="btn btn-primary btn-sm">Apply now</a>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- /course list -->
+    <!-- /course list -->
     <!-- mobile see all button -->
     <div class="row">
       <div class="col-12 text-center">
@@ -483,49 +549,49 @@
       </div>
     </div>
     <div class="row justify-content-center">
-  <!-- event -->
-  <div class="col-lg-4 col-sm-6 mb-5 mb-lg-0">
-    <div class="card border-0 rounded-0 hover-shadow">
-      <div class="card-img position-relative">
-        <img class="card-img-top rounded-0" src="images/events/event-1.jpg" alt="event thumb">
-        <div class="card-date"><span>18</span><br>December</div>
+      <!-- event -->
+      <div class="col-lg-4 col-sm-6 mb-5 mb-lg-0">
+        <div class="card border-0 rounded-0 hover-shadow">
+          <div class="card-img position-relative">
+            <img class="card-img-top rounded-0" src="images/events/event-1.jpg" alt="event thumb">
+            <div class="card-date"><span>18</span><br>December</div>
+          </div>
+          <div class="card-body">
+            <!-- location -->
+            <p><i class="ti-location-pin text-primary mr-2"></i>Dhanmondi Lake, Dhaka</p>
+            <a href="event-single.html"><h4 class="card-title">Lorem ipsum dolor amet, consectetur adipisicing.</h4></a>
+          </div>
+        </div>
       </div>
-      <div class="card-body">
-        <!-- location -->
-        <p><i class="ti-location-pin text-primary mr-2"></i>Dhanmondi Lake, Dhaka</p>
-        <a href="event-single.html"><h4 class="card-title">Lorem ipsum dolor amet, consectetur adipisicing.</h4></a>
+      <!-- event -->
+      <div class="col-lg-4 col-sm-6 mb-5 mb-lg-0">
+        <div class="card border-0 rounded-0 hover-shadow">
+          <div class="card-img position-relative">
+            <img class="card-img-top rounded-0" src="images/events/event-2.jpg" alt="event thumb">
+            <div class="card-date"><span>21</span><br>December</div>
+          </div>
+          <div class="card-body">
+            <!-- location -->
+            <p><i class="ti-location-pin text-primary mr-2"></i>Dhanmondi Lake, Dhaka</p>
+            <a href="event-single.html"><h4 class="card-title">Lorem ipsum dolor amet, consectetur adipisicing.</h4></a>
+          </div>
+        </div>
+      </div>
+      <!-- event -->
+      <div class="col-lg-4 col-sm-6 mb-5 mb-lg-0">
+        <div class="card border-0 rounded-0 hover-shadow">
+          <div class="card-img position-relative">
+            <img class="card-img-top rounded-0" src="images/events/event-3.jpg" alt="event thumb">
+            <div class="card-date"><span>23</span><br>December</div>
+          </div>
+          <div class="card-body">
+            <!-- location -->
+            <p><i class="ti-location-pin text-primary mr-2"></i>Dhanmondi Lake, Dhaka</p>
+            <a href="event-single.html"><h4 class="card-title">Lorem ipsum dolor amet, consectetur adipisicing.</h4></a>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-  <!-- event -->
-  <div class="col-lg-4 col-sm-6 mb-5 mb-lg-0">
-    <div class="card border-0 rounded-0 hover-shadow">
-      <div class="card-img position-relative">
-        <img class="card-img-top rounded-0" src="images/events/event-2.jpg" alt="event thumb">
-        <div class="card-date"><span>21</span><br>December</div>
-      </div>
-      <div class="card-body">
-        <!-- location -->
-        <p><i class="ti-location-pin text-primary mr-2"></i>Dhanmondi Lake, Dhaka</p>
-        <a href="event-single.html"><h4 class="card-title">Lorem ipsum dolor amet, consectetur adipisicing.</h4></a>
-      </div>
-    </div>
-  </div>
-  <!-- event -->
-  <div class="col-lg-4 col-sm-6 mb-5 mb-lg-0">
-    <div class="card border-0 rounded-0 hover-shadow">
-      <div class="card-img position-relative">
-        <img class="card-img-top rounded-0" src="images/events/event-3.jpg" alt="event thumb">
-        <div class="card-date"><span>23</span><br>December</div>
-      </div>
-      <div class="card-body">
-        <!-- location -->
-        <p><i class="ti-location-pin text-primary mr-2"></i>Dhanmondi Lake, Dhaka</p>
-        <a href="event-single.html"><h4 class="card-title">Lorem ipsum dolor amet, consectetur adipisicing.</h4></a>
-      </div>
-    </div>
-  </div>
-</div>
     <!-- mobile see all button -->
     <div class="row">
       <div class="col-12 text-center">
@@ -611,67 +677,67 @@
       </div>
     </div>
     <div class="row justify-content-center">
-  <!-- blog post -->
-  <article class="col-lg-4 col-sm-6 mb-5 mb-lg-0">
-    <div class="card rounded-0 border-bottom border-primary border-top-0 border-left-0 border-right-0 hover-shadow">
-      <img class="card-img-top rounded-0" src="images/blog/post-1.jpg" alt="Post thumb">
-      <div class="card-body">
-        <!-- post meta -->
-        <ul class="list-inline mb-3">
-          <!-- post date -->
-          <li class="list-inline-item mr-3 ml-0">August 28, 2018</li>
-          <!-- author -->
-          <li class="list-inline-item mr-3 ml-0">By Somrat Sorkar</li>
-        </ul>
-        <a href="blog-single.html">
-          <h4 class="card-title">Lorem ipsum dolor amet, adipisicing eiusmod tempor.</h4>
-        </a>
-        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicin</p>
-        <a href="blog-single.html" class="btn btn-primary btn-sm">read more</a>
-      </div>
+      <!-- blog post -->
+      <article class="col-lg-4 col-sm-6 mb-5 mb-lg-0">
+        <div class="card rounded-0 border-bottom border-primary border-top-0 border-left-0 border-right-0 hover-shadow">
+          <img class="card-img-top rounded-0" src="images/blog/post-1.jpg" alt="Post thumb">
+          <div class="card-body">
+            <!-- post meta -->
+            <ul class="list-inline mb-3">
+              <!-- post date -->
+              <li class="list-inline-item mr-3 ml-0">August 28, 2018</li>
+              <!-- author -->
+              <li class="list-inline-item mr-3 ml-0">By Somrat Sorkar</li>
+            </ul>
+            <a href="blog-single.html">
+              <h4 class="card-title">Lorem ipsum dolor amet, adipisicing eiusmod tempor.</h4>
+            </a>
+            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicin</p>
+            <a href="blog-single.html" class="btn btn-primary btn-sm">read more</a>
+          </div>
+        </div>
+      </article>
+      <!-- blog post -->
+      <article class="col-lg-4 col-sm-6 mb-5 mb-lg-0">
+        <div class="card rounded-0 border-bottom border-primary border-top-0 border-left-0 border-right-0 hover-shadow">
+          <img class="card-img-top rounded-0" src="images/blog/post-2.jpg" alt="Post thumb">
+          <div class="card-body">
+            <!-- post meta -->
+            <ul class="list-inline mb-3">
+              <!-- post date -->
+              <li class="list-inline-item mr-3 ml-0">August 13, 2018</li>
+              <!-- author -->
+              <li class="list-inline-item mr-3 ml-0">By Jonathon Drew</li>
+            </ul>
+            <a href="blog-single.html">
+              <h4 class="card-title">Lorem ipsum dolor amet, adipisicing eiusmod tempor.</h4>
+            </a>
+            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicin</p>
+            <a href="blog-single.html" class="btn btn-primary btn-sm">read more</a>
+          </div>
+        </div>
+      </article>
+      <!-- blog post -->
+      <article class="col-lg-4 col-sm-6 mb-5 mb-lg-0">
+        <div class="card rounded-0 border-bottom border-primary border-top-0 border-left-0 border-right-0 hover-shadow">
+          <img class="card-img-top rounded-0" src="images/blog/post-3.jpg" alt="Post thumb">
+          <div class="card-body">
+            <!-- post meta -->
+            <ul class="list-inline mb-3">
+              <!-- post date -->
+              <li class="list-inline-item mr-3 ml-0">August 24, 2018</li>
+              <!-- author -->
+              <li class="list-inline-item mr-3 ml-0">By Alex Pitt</li>
+            </ul>
+            <a href="blog-single.html">
+              <h4 class="card-title">Lorem ipsum dolor amet, adipisicing eiusmod tempor.</h4>
+            </a>
+            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicin</p>
+            <a href="blog-single.html" class="btn btn-primary btn-sm">read more</a>
+          </div>
+        </div>
+      </article>
     </div>
-  </article>
-  <!-- blog post -->
-  <article class="col-lg-4 col-sm-6 mb-5 mb-lg-0">
-    <div class="card rounded-0 border-bottom border-primary border-top-0 border-left-0 border-right-0 hover-shadow">
-      <img class="card-img-top rounded-0" src="images/blog/post-2.jpg" alt="Post thumb">
-      <div class="card-body">
-        <!-- post meta -->
-        <ul class="list-inline mb-3">
-          <!-- post date -->
-          <li class="list-inline-item mr-3 ml-0">August 13, 2018</li>
-          <!-- author -->
-          <li class="list-inline-item mr-3 ml-0">By Jonathon Drew</li>
-        </ul>
-        <a href="blog-single.html">
-          <h4 class="card-title">Lorem ipsum dolor amet, adipisicing eiusmod tempor.</h4>
-        </a>
-        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicin</p>
-        <a href="blog-single.html" class="btn btn-primary btn-sm">read more</a>
-      </div>
-    </div>
-  </article>
-  <!-- blog post -->
-  <article class="col-lg-4 col-sm-6 mb-5 mb-lg-0">
-    <div class="card rounded-0 border-bottom border-primary border-top-0 border-left-0 border-right-0 hover-shadow">
-      <img class="card-img-top rounded-0" src="images/blog/post-3.jpg" alt="Post thumb">
-      <div class="card-body">
-        <!-- post meta -->
-        <ul class="list-inline mb-3">
-          <!-- post date -->
-          <li class="list-inline-item mr-3 ml-0">August 24, 2018</li>
-          <!-- author -->
-          <li class="list-inline-item mr-3 ml-0">By Alex Pitt</li>
-        </ul>
-        <a href="blog-single.html">
-          <h4 class="card-title">Lorem ipsum dolor amet, adipisicing eiusmod tempor.</h4>
-        </a>
-        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicin</p>
-        <a href="blog-single.html" class="btn btn-primary btn-sm">read more</a>
-      </div>
-    </div>
-  </article>
-</div>
   </div>
 </section>
 <!-- /blog -->
