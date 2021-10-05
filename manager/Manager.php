@@ -218,10 +218,9 @@ class Manager
         $req->execute([
             'idUtilisateur' => $user->getIdUtilisateur()
         ]);
-        $res = $req->fetchall();
+        $res = $req->fetch();
         if ($res) {
-            $_SESSION['idUtilisateur'] = $res["idUtilisateur"];
-            header("Location: ../view/utilisateur/" . $_SESSION['idUtilisateur']);
+            header("Location: ../view/utilisateur?idUtilisateur=" . $res['idUtilisateur']);
         } else {
             // sinon affiche un message d'erreur
             header('Location: ../view/admin/table-util');

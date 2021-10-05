@@ -16,7 +16,6 @@
         <tr>
             <th>ID</th>
             <th>Nom</th>
-<!--            <th>Prénom</th>-->
             <th>Né.e le</th>
             <th>Adresse</th>
             <th>Tél.</th>
@@ -31,7 +30,6 @@
         <tr>
             <th>ID</th>
             <th>Nom</th>
-<!--            <th>Prénom</th>-->
             <th>Né.e le</th>
             <th>Adresse</th>
             <th>Tél.</th>

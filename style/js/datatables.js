@@ -23,21 +23,20 @@ $(document).ready(function () {
             {
                 // Donne un lien pour afficher les détails de l'utilisateur dans une nouvelle page
                 data: 'nom',
-                render: function (data, type, row, meta) {
+                render: function (data, type, row) {
                     var id = row.idUtilisateur;
                     var nom = data;
                     var prenom = row.prenom;
-                    return '<a href="../../traitement/cherche-util-tr/' + id + '"/>' +
+                    return '<a href="../../traitement/cherche-util-tr?idUtilisateur=' + id + '"/>' +
                         nom + ' ' + prenom +
                         '</a>';
                 }
             },
-            // {data: 'prenom'},
             {data: 'dateNaissance'},
             {data: 'adresse'},
             {
                 data: 'telephone',
-                render: function (data, type, row) {
+                render: function (data) {
                     var tel = '';
 
                     // Ajoute un espace pour tout les deux chiffres du tel
