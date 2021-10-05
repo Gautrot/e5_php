@@ -48,7 +48,7 @@ class Manager
 
         } else {
             // sinon affiche un message d'erreur
-            header('Location: ../view/connexion');
+            header('Location: ../template/themes/template/index.php');
             throw new Exception("Erreur pendant la connexion.", 1);
         }
 //        die();
