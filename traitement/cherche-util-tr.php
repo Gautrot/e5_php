@@ -11,7 +11,7 @@ try {
 //instanciation du manager
     $man = new Manager();
 //appel
-    $man->chercheUtil($user);
+    //$man->chercheUtil($user);
 } catch (Exception $e) {
     $_SESSION["erreur"] = $e->getMessage();
 }

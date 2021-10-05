@@ -24,46 +24,69 @@ $(document).ready(function () {
                 // Donne un lien pour afficher les détails de l'utilisateur dans une nouvelle page
                 data: 'nom',
                 render: function (data, type, row, meta) {
-                    return '<a href="../../traitement/cherche-util-tr/' + row.idUtilisateur + '"/>' +
-                        data + ' ' + row.prenom +
+                    var id = row.idUtilisateur;
+                    var nom = data;
+                    var prenom = row.prenom;
+                    return '<a href="../../traitement/cherche-util-tr/' + id + '"/>' +
+                        nom + ' ' + prenom +
                         '</a>';
                 }
             },
             // {data: 'prenom'},
             {data: 'dateNaissance'},
             {data: 'adresse'},
-            {data: 'telephone'},
+            {
+                data: 'telephone',
+                render: function (data, type, row) {
+                    var tel = '';
+
+                    // Ajoute un espace pour tout les deux chiffres du tel
+                    for (var i = 0; i < data.length; i = i + 2) {
+                        tel += data.charAt(i) + data.charAt(i + 1) + ' ';
+                    }
+                    return tel;
+                }
+            },
             {data: 'mail'},
             {data: 'login'},
             {data: 'mdp'},
-            {data: 'statut'},
             {
-                // Affiche le bouton "Valider" pour chaque ligne
+                data: 'statut',
+                render: function (data) {
+                    switch (data) {
+                        case '1':
+                            return 'Eleve'
+                        case '2':
+                            return 'Parent'
+                        case '3':
+                            return 'Professeur'
+                        case '4':
+                            return 'Administrateur'
+                        default:
+                            return 'Utilisateur'
+                    }
+                }
+            },
+            {
                 data: 'validUtilisateur',
                 render: function (data, type, row) {
-                    console.log(data);
-                    switch (data) {
-                        case 1:
-                            // console.log('Test 1');
-                            return '<button type="submit" value="Validé.e" disabled/>';
-                        default:
-                            // console.log('Test 2');
-                            return '<form method="post" action="../../traitement/valid-util-tr/' + row.idUtilisateur + '">' +
-                                '<input name="' + data + '" value="' + data + '" hidden/>' +
-                                '<button type="submit">Valider</button>' +
-                                '</form>';
+                    var id = row.idUtilisateur;
+                    var value = 'Activer';
+                    var traitement = 'activer';
+
+                    // Affiche le bouton "Désactiver" pour chaque ligne si valid = 1
+                    if (data === '1') {
+                        value = 'Désactiver';
+                        traitement = 'desactiver';
                     }
+                    // Affiche le bouton "Activer" pour chaque ligne si valid = 0
+                    return '<form method="post" action="../../traitement/' + traitement + '-util-tr/' + id + '">' +
+                        '<button type="submit" value="' + id + '" name="idUtilisateur"> ' + value + ' </button>' +
+                        '</form>';
                 }
             }
         ],
         // Organise automatiquement par ID, dans l'ordre croissant.
         "order": [0, 'asc']
     });
-
-    /*
-    $('#utilisateur tbody').on( 'click', 'tr', function () {
-        var data = table.row( this ).data() ;
-        alert(data['idUtilisateur']);
-    });
-    */
 });

@@ -10,7 +10,7 @@ try {
     # Instancie la classe Manager
     $manager = new Manager();
     #Lance la méthode validUtil
-    $manager->validUtil($user);
+    $manager->activerUtil($user);
 } catch (Exception $e) {
     # Affiche un message d'erreur
     $_SESSION['erreur'] = 'Erreur : ' . $e->getMessage();

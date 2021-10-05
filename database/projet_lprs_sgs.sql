@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3306
--- Generation Time: Oct 01, 2021 at 09:01 AM
--- Server version: 5.7.31
--- PHP Version: 7.3.21
+-- Hôte : 127.0.0.1:3306
+-- Généré le :  mar. 05 oct. 2021 à 09:39
+-- Version du serveur :  5.7.26
+-- Version de PHP :  7.2.18
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -18,68 +19,74 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `projet_lprs_sgs`
+-- Base de données :  `projet_lprs_sgs`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `administrateur`
+-- Structure de la table `administrateur`
 --
 
 DROP TABLE IF EXISTS `administrateur`;
 CREATE TABLE IF NOT EXISTS `administrateur` (
-  `statut` int(1) DEFAULT '4',
-  `validation` int(1) NOT NULL DEFAULT '1'
+  `idAdmin` int(2) NOT NULL,
+  `statut` int(1) NOT NULL DEFAULT '4',
+  `validation` int(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`idAdmin`),
+  UNIQUE KEY `statut` (`statut`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `administrateur`
+-- Déchargement des données de la table `administrateur`
 --
 
-INSERT INTO `administrateur` (`statut`, `validation`) VALUES
-(4, 1);
+INSERT INTO `administrateur` (`idAdmin`, `statut`, `validation`) VALUES
+(1, 4, 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `discussion`
+-- Structure de la table `discussion`
 --
 
 DROP TABLE IF EXISTS `discussion`;
 CREATE TABLE IF NOT EXISTS `discussion` (
-  `idDiscussion` int(11) NOT NULL,
+  `idDiscussion` int(11) NOT NULL AUTO_INCREMENT,
   `idCreateur` int(11) NOT NULL,
   `idInvite` int(11) NOT NULL,
   `dateCreation` datetime NOT NULL,
-  `archive` text NOT NULL
+  `archive` text NOT NULL,
+  PRIMARY KEY (`idDiscussion`),
+  UNIQUE KEY `idCreateur` (`idCreateur`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `eleve`
+-- Structure de la table `eleve`
 --
 
 DROP TABLE IF EXISTS `eleve`;
 CREATE TABLE IF NOT EXISTS `eleve` (
-  `statut` int(1) NOT NULL DEFAULT '2',
-  `classe` varchar(40) DEFAULT NULL
+  `idEleve` int(2) NOT NULL,
+  `statut` int(1) NOT NULL DEFAULT '1',
+  `classe` varchar(10) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`idEleve`),
+  UNIQUE KEY `statut` (`statut`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `eleve`
+-- Déchargement des données de la table `eleve`
 --
 
-INSERT INTO `eleve` (`statut`, `classe`) VALUES
-(2, '2nde'),
-(2, '1ere'),
-(2, 'Term');
+INSERT INTO `eleve` (`idEleve`, `statut`, `classe`) VALUES
+(2, 1, '2nde');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `evenement`
+-- Structure de la table `evenement`
 --
 
 DROP TABLE IF EXISTS `evenement`;
@@ -99,68 +106,75 @@ CREATE TABLE IF NOT EXISTS `evenement` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `parent`
+-- Structure de la table `parent`
 --
 
 DROP TABLE IF EXISTS `parent`;
 CREATE TABLE IF NOT EXISTS `parent` (
-  `statut` int(1) NOT NULL DEFAULT '3',
-  `metier` varchar(40) DEFAULT NULL,
+  `idParent` int(2) NOT NULL,
+  `statut` int(1) NOT NULL DEFAULT '2',
+  `metier` varchar(40) NOT NULL,
   `idEleve` int(11) NOT NULL,
-  KEY `idEleve` (`idEleve`)
+  PRIMARY KEY (`idParent`),
+  UNIQUE KEY `idEleve` (`idEleve`),
+  UNIQUE KEY `statut` (`statut`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `parent`
+-- Déchargement des données de la table `parent`
 --
 
-INSERT INTO `parent` (`statut`, `metier`, `idEleve`) VALUES
-(3, 'Banque', 1);
+INSERT INTO `parent` (`idParent`, `statut`, `metier`, `idEleve`) VALUES
+(3, 2, 'Banque', 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `professeur`
+-- Structure de la table `professeur`
 --
 
 DROP TABLE IF EXISTS `professeur`;
 CREATE TABLE IF NOT EXISTS `professeur` (
-  `statut` int(1) NOT NULL DEFAULT '1',
-  `matiere` varchar(40) DEFAULT NULL,
-  `validation` int(1) NOT NULL DEFAULT '1'
+  `idProf` int(2) NOT NULL,
+  `statut` int(1) NOT NULL DEFAULT '3',
+  `matiere` varchar(40) NOT NULL,
+  `validation` int(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`idProf`),
+  UNIQUE KEY `statut` (`statut`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `professeur`
+-- Déchargement des données de la table `professeur`
 --
 
-INSERT INTO `professeur` (`statut`, `matiere`, `validation`) VALUES
-(1, 'Math', 1);
+INSERT INTO `professeur` (`idProf`, `statut`, `matiere`, `validation`) VALUES
+(4, 3, 'Math', 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `utilisateur`
+-- Structure de la table `utilisateur`
 --
 
 DROP TABLE IF EXISTS `utilisateur`;
 CREATE TABLE IF NOT EXISTS `utilisateur` (
   `idUtilisateur` int(2) NOT NULL AUTO_INCREMENT,
-  `nom` varchar(40) DEFAULT NULL,
-  `prenom` varchar(40) DEFAULT NULL,
-  `dateNaissance` date DEFAULT NULL,
-  `adresse` text,
-  `telephone` varchar(10) DEFAULT NULL,
-  `mail` text,
-  `login` varchar(40) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
-  `mdp` text,
+  `nom` varchar(40) NOT NULL,
+  `prenom` varchar(40) NOT NULL,
+  `dateNaissance` date NOT NULL,
+  `adresse` text NOT NULL,
+  `telephone` varchar(10) NOT NULL,
+  `mail` text NOT NULL,
+  `login` varchar(40) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `mdp` text NOT NULL,
   `statut` int(1) NOT NULL DEFAULT '0',
   `validUtilisateur` int(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`idUtilisateur`)
+  PRIMARY KEY (`idUtilisateur`),
+  UNIQUE KEY `statut` (`statut`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `utilisateur`
+-- Déchargement des données de la table `utilisateur`
 --
 
 INSERT INTO `utilisateur` (`idUtilisateur`, `nom`, `prenom`, `dateNaissance`, `adresse`, `telephone`, `mail`, `login`, `mdp`, `statut`, `validUtilisateur`) VALUES
