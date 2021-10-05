@@ -3,16 +3,15 @@ require_once '../model/Utilisateur.php';
 require_once '../manager/Manager.php';
 
 try {
-//instanciation de l'objet client
-    $a = new Utilisateur([
+# Instancie la classe Utilisateur
+    $user = new Utilisateur([
         "login" => $_POST['login'],
         "mdp" => $_POST['mdp']
     ]);
-
-//instanciation du manager
-    $man = new Manager();
-//appel
-    $man->connexion($a);
+# Instancie la classe Manager
+    $manager = new Manager();
+# Lance la méthode connexion
+    $manager->connexion($user);
 } catch (Exception $e) {
     $_SESSION["erreur"] = $e->getMessage();
 }

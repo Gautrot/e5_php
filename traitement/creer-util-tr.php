@@ -3,7 +3,7 @@ require_once '../model/Utilisateur.php';
 require_once '../manager/Manager.php';
 
 try {
-    # Instancie la classe Utilisateur
+# Instancie la classe Utilisateur
     $user = new Utilisateur([
         'nom' => $_POST['nom'],
         'prenom' => $_POST['prenom'],
@@ -16,12 +16,12 @@ try {
         'statut' => $_POST['statut'],
         'validUtilisateur' => '0'
     ]);
-    # Instancie la classe Manager
+# Instancie la classe Manager
     $manager = new Manager();
-    #Lance la méthode creerUtil
+# Lance la méthode creerUtil
     $manager->creerUtil($user);
 } catch (Exception $e) {
-    # Affiche un message d'erreur
+# Affiche un message d'erreur
     $_SESSION['erreur'] = 'Erreur : ' . $e->getMessage();
     header("Location: ../view/admin/table-util.php");
 }
