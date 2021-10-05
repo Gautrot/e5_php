@@ -51,7 +51,7 @@ class Manager
         session_start();
         $_SESSION['id'] = 0;
         // redirection vers la page index.php
-        header("Location: ../index");
+        header("Location: ../index.php");
     }
 
     // méthode inscription pour un utilisateur
