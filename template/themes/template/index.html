@@ -202,9 +202,9 @@ BONJOUR !
         </div>
 
         <!-- Formulaire mot de passe oublié  -->
-        <form action="/Projet_snack/traitement/Mdp&Connexion/traitement_mot_de_passe_oublie.php" method="POST">
+        <form action="/e5_php/traitement/MDPoublie.php" method="POST">
           <div class="text-center mb-4 mt-5">
-            <p class="se_connecter">Je ne parviens pas à me connecter à mon compte LPRS </p>
+            <p class="se_connecter">Je n'arrive pas à me connecter à mon compte LPRS </p>
             <p class="asterix"><?=((array_key_exists("err", $_GET) && $_GET["err"] == "mail" )? "Une erreur est survenue, l'email saisi n'a pas été reconnu" : "") ?></p>
             <input type="email" class="inputform" placeholder="Entrez un mail" name="mail"
                    required <?=((array_key_exists("mail", $_GET))? 'value="'.$_GET["mail"].'"' : "") ?>
