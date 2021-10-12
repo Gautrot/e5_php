@@ -38,11 +38,11 @@ class Manager
         // si le mot de passe est correct alors la connexion est réussi et on entre dans le compte
         if (password_verify($user->getMdp(), $res['mdp']) || $res['mdp']) {
             // Dirige vers la page 'table-util' (temporaire) - Alex
-            header("Location: ../view/admin/table-util");
+            //header("Location: ../view/admin/table-util");
             return $_SESSION['user'] = $res;
         } else {
             // sinon affiche un message d'erreur
-            //header('Location: ../template/themes/template/index.php');
+            header('Location: ../template/themes/template/index.php');
             throw new Exception("Erreur pendant la connexion.", 1);
         }
     }
