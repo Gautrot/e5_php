@@ -60,8 +60,8 @@ BONJOUR !
             <li class="list-inline-item"><a class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block" href="notice.html">notice</a></li>
             <li class="list-inline-item"><a class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block" href="research.html">research</a></li>
             <li class="list-inline-item"><a class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block" href="scholarship.html">SCHOLARSHIP</a></li>
-            <li class="list-inline-item"><a class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block" href="#" data-toggle="modal" data-target="#loginModal">login</a></li>
-            <li class="list-inline-item"><a class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block" href="#" data-toggle="modal" data-target="#signupModal">register</a></li>
+            <li class="list-inline-item"><a class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block" href="#" data-toggle="modal" data-target="#loginModal">Connexion</a></li>
+            <li class="list-inline-item"><a class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block" href="#" data-toggle="modal" data-target="#signupModal">Inscription</a></li>
           </ul>
         </div>
       </div>
@@ -231,15 +231,12 @@ BONJOUR !
         </button>
       </div>
       <div class="modal-body">
-        <form action="#" class="row">
+        <form action="../../traitement/connexion-tr.php" class="row">
           <div class="col-12">
-            <input type="text" class="form-control mb-3" id="loginPhone" name="loginPhone" placeholder="Phone">
+            <input type="text" class="form-control mb-3" id="login" name="login" placeholder="Login">
           </div>
           <div class="col-12">
-            <input type="text" class="form-control mb-3" id="loginName" name="loginName" placeholder="Name">
-          </div>
-          <div class="col-12">
-            <input type="password" class="form-control mb-3" id="loginPassword" name="loginPassword" placeholder="Password">
+            <input type="password" class="form-control mb-3" id="loginMdp" name="loginMdp" placeholder="Mot de passe">
 
             <div class="text-center">
               <div class="text-danger text-center"><?php echo $error_password; ?></div>

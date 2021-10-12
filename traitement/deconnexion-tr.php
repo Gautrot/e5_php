@@ -10,4 +10,3 @@ $user = new Utilisateur([
 $manager = new Manager();
 # Lance la méthode deconnexion
 $manager->deconnexion($user);
-?>

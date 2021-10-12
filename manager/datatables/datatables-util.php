@@ -67,5 +67,3 @@ require('../../vendor/datatables/datatables/examples/server_side/scripts/ssp.cla
 echo json_encode(
     SSP::simple($_POST, $sql_details, $table, $primaryKey, $columns)
 );
-
-//var_dump($columns[1] . '' . $columns[2]);
