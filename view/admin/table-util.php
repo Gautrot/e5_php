@@ -16,7 +16,6 @@
         <tr>
             <th>ID</th>
             <th>Nom</th>
-<!--            <th>Prénom</th>-->
             <th>Né.e le</th>
             <th>Adresse</th>
             <th>Tél.</th>
@@ -31,7 +30,6 @@
         <tr>
             <th>ID</th>
             <th>Nom</th>
-<!--            <th>Prénom</th>-->
             <th>Né.e le</th>
             <th>Adresse</th>
             <th>Tél.</th>
@@ -46,7 +44,7 @@
 </div>
 <div>
     <h1>Ajouter un utilisateur</h1>
-    <form method="post" action="../../traitement/creer-util-tr.php">
+    <form method="post" action="../../traitement/creer-util-tr">
         <table>
             <thead></thead>
             <tbody>
@@ -83,7 +81,7 @@
                 </td>
                 <td>
                     <label>
-                        <input type="login" name="nom" placeholder="Login" required maxlength="40">
+                        <input type="text" name="login" placeholder="Login" required maxlength="40">
                     </label>
                 </td>
                 <td>
@@ -112,7 +110,7 @@
 </div>
 <div>
     <h1>Se déconnecter</h1>
-    <form method="post" action="../../traitement/deconnexion-tr.php">
+    <form method="post" action="../../traitement/deconnexion-tr">
         <button type="submit">Se déconnecter</button>
     </form>
 </div>

@@ -188,5 +188,7 @@ class Utilisateur
             // Si c'est le cas, c'est tout bon, on assigne la valeur à l'attribut correspondant.
             $this->validUtilisateur = $validUtilisateur;
         }
+
+        return $this->validUtilisateur;
     }
 }
