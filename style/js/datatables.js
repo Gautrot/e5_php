@@ -70,6 +70,7 @@ $(document).ready(function () {
                 data: 'validUtilisateur',
                 render: function (data, type, row) {
                     var id = row.idUtilisateur;
+                    var statut = row.statut;
                     var value = 'Activer';
                     var traitement = 'activer';
 
@@ -79,9 +80,13 @@ $(document).ready(function () {
                         traitement = 'desactiver';
                     }
                     // Affiche le bouton "Activer" pour chaque ligne si valid = 0
-                    return '<form method="post" action="../../traitement/' + traitement + '-util-tr/' + id + '">' +
-                        '<button type="submit" value="' + id + '" name="idUtilisateur"> ' + value + ' </button>' +
-                        '</form>';
+                    if (statut === '4') {
+                        return '<button type="submit" disabled> ' + value + ' </button>';
+                    } else {
+                        return '<form method="post" action="../../traitement/' + traitement + '-util-tr/' + id + '">' +
+                            '<button type="submit" value="' + id + '" name="idUtilisateur"> ' + value + ' </button>' +
+                            '</form>';
+                    }
                 }
             }
         ],

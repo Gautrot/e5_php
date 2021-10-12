@@ -6,7 +6,7 @@ require_once '../model/BDD.php';
 // création de la classe manager
 class Manager
 {
-    // méthode connexion
+    // Méthode de connexion
     public function connexion(Utilisateur $user)
     {
         session_start();
@@ -14,27 +14,27 @@ class Manager
         $bdd = (new BDD)->getBase();
 
         // gestion d'erreur : si l'utilisateur ne rentre rien pour le login ou le mot de passe alors le message "champ vide" apparaitra
-        /*if ($a->getLogin() === '' && $a->getMdp() == '' || $a->getLogin() === null  && $a->getMdp() === null) {
+        /*if ($user->getLogin() === '' && $user->getMdp() == '' || $user->getLogin() === null  && $user->getMdp() === null) {
             throw new Exception("Champs vide", 1);
         }
-        if ($a->getLogin() === ''  || $a->getLogin() === null) {
+        if ($user->getLogin() === ''  || $user->getLogin() === null) {
             throw new Exception("Login vide", 1);
         }
-        if ($a->getMdp() === '' || $a->getMdp() === null) {
+        if ($user->getMdp() === '' || $user->getMdp() === null) {
             throw new Exception("Mot de passe vide", 1);
         }*/
 
         // préparation de la requête pour la connexion d'un utilisateur
         $req = $bdd->prepare("SELECT login, mdp FROM utilisateur WHERE login = :login");
         $req->execute([
-            'login' => $a->getLogin(),
-            'mdp' => $a->getMdp()
+            'login' => $user->getLogin(),
+            'mdp' => $user->getMdp()
         ]);
         $res = $req->fetch();
 
         //vérification du mot de passe entré par l'utilisateur :
         // si le mot de passe est correct alors la connexion est réussi et on entre dans le compte
-        if (password_verify($a->getMdp(), $res['mdp']) || $res['mdp']) {
+        if (password_verify($user->getMdp(), $res['mdp']) || $res['mdp']) {
             $_SESSION['login'] = $res["login"];
             // Dirige vers la page 'table-util' (temporaire) - Alex
             header("Location: ../view/admin/table-util");
@@ -45,7 +45,7 @@ class Manager
         }
     }
 
-    // méthode déconnexion
+    // Méthode de déconnexion
     public function deconnexion()
     {
         session_start();
@@ -54,14 +54,14 @@ class Manager
         header("Location: ../index.php");
     }
 
-    // méthode inscription pour un utilisateur
+    // Méthode d'inscription pour un utilisateur
     public function inscription(Utilisateur $user)
     {
         session_start();
         $bdd = (new BDD)->getBase();
         $req = $bdd->prepare('SELECT * FROM utilisateur WHERE login = :login ');
         $req->execute([
-            'login' => $a->getLogin()
+            'login' => $user->getLogin()
         ]);
         $res = $req->fetch();
 
@@ -72,7 +72,7 @@ class Manager
         }
 
         //si les getters sont différents de rien alors :
-        if ($a->getNom() != '' and $a->getPrenom() != '' and $a->getMail() != '' and $a->getLogin() != '' and $a->getMdp() != '') {
+        if ($user->getNom() != '' and $user->getPrenom() != '' and $user->getMail() != '' and $user->getLogin() != '' and $user->getMdp() != '') {
             // création de l'objet bdd pour s'y connecter
             $bdd = (new BDD)->getBase();
             // preparation de la requête
