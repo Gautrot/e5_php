@@ -10,7 +10,7 @@ $(document).ready(function () {
         'processing': true,
         'serverSide': true,
         'ajax': {
-            'url': '../../manager/datatables/datatables-util.php',
+            'url': '../../../manager/datatables/datatables-util.php',
             'type': 'POST',
             "datatype": "json",
         },
@@ -28,7 +28,7 @@ $(document).ready(function () {
                     var id = row.idUtilisateur;
                     var nom = data;
                     var prenom = row.prenom;
-                    return '<a href="../../traitement/cherche-util-tr?idUtilisateur=' + id + '"/>' +
+                    return '<a href="../../../traitement/cherche-util-tr?idUtilisateur=' + id + '"/>' +
                         nom + ' ' + prenom +
                         '</a>';
                 }
@@ -84,7 +84,7 @@ $(document).ready(function () {
                     if (statut === '4') {
                         return '<button type="submit" disabled> ' + value + ' </button>';
                     } else {
-                        return '<form method="post" action="../../traitement/' + traitement + '-util-tr/' + id + '">' +
+                        return '<form method="post" action="../../../traitement/' + traitement + '-util-tr/' + id + '">' +
                             '<button type="submit" value="' + id + '" name="idUtilisateur"> ' + value + ' </button>' +
                             '</form>';
                     }

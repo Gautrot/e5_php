@@ -63,7 +63,7 @@ try {
     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 }
 
-// utilisation du fichier BDD.php
+// utilisation du fichier BDD
 require_once '../model/BDD.php';
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
@@ -101,11 +101,11 @@ class Manager
         // si le mot de passe est correct alors la connexion est réussi et on entre dans le compte
         if (password_verify($user->getMdp(), $res['mdp']) || $res['mdp']) {
             // Dirige vers la page 'table-util' (temporaire) - Alex
-            //header("Location: ../view/admin/table-util");
+            //header("Location: ../template/themes/template/table-util");
             return $_SESSION['user'] = $res;
         } else {
             // sinon affiche un message d'erreur
-            header('Location: ../template/themes/template/index.php');
+            header('Location: ../template/themes/template/index');
             throw new Exception("Erreur pendant la connexion.", 1);
         }
     }
@@ -114,8 +114,8 @@ class Manager
     public function deconnexion()
     {
         session_destroy();
-        // redirection vers la page index.php
-        header("Location: ../index.php");
+        // redirection vers la page index
+        header("Location: ../index");
     }
 
     // Méthode d'inscription pour un utilisateur
@@ -161,7 +161,7 @@ class Manager
             if ($res) {
                 $_SESSION['mdp'] = $res['mdp'];
                 header('Location: ../index');
-            } // sinon redirection vers la page inscription.php
+            } // sinon redirection vers la page inscription
             else {
                 header('Location: ../index');
             }
@@ -181,10 +181,10 @@ class Manager
 
         if ($res) {
             # Si le compte existe dans la BDD.
-            header("Location: ../view/admin/table-util");
+            header("Location: ../template/themes/template/table-util");
             throw new Exception("Ce compte existe.");
         } else {
-            $req = $bdd->prepare('INSERT INTO utilisateur (nom, prenom, dateNaissance, adresse, telephone, mail, statut, validUtilisateur) VALUES (:nom, :prenom, :dateNaissance, :adresse, :telephone, :mail, :statut, :validUtilisateur)');
+            $req = $bdd->prepare('INSERT INTO utilisateur (nom, prenom, dateNaissance, adresse, telephone, mail, login, mdp, statut, validUtilisateur) VALUES (:nom, :prenom, :dateNaissance, :adresse, :telephone, :mail, :login, :mdp, :statut, :validUtilisateur)');
             $res2 = $req->execute([
                 'nom' => $user->getNom(),
                 'prenom' => $user->getPrenom(),
@@ -199,10 +199,10 @@ class Manager
             ]);
 
             if ($res2) {
-                header("Location: ../view/admin/table-util");
+                header("Location: ../template/themes/template/table-util");
             } else {
                 # Si un ou plusieurs champs sont vides.
-                header("Location: ../view/admin/table-util");
+                header("Location: ../template/themes/template/table-util");
                 throw new Exception("Ajout échouée !");
             }
         }
@@ -226,14 +226,14 @@ class Manager
             ]);
 
             if ($req) {
-                header("Location: ../../view/admin/table-util");
+                header("Location: ../../template/themes/template/table-util");
             } else {
-                header("Location: ../../view/admin/table-util");
+                header("Location: ../../template/themes/template/table-util");
                 throw new Exception("Activation échouée !");
             }
         } else {
             # Si le compte existe dans la BDD.
-            header("Location: ../../view/admin/table-util");
+            header("Location: ../../template/themes/template/table-util");
             throw new Exception("Ce compte n'existe pas.");
         }
     }
@@ -256,14 +256,14 @@ class Manager
             ]);
 
             if ($res2) {
-                header("Location: ../../view/admin/table-util");
+                header("Location: ../../template/themes/template/table-util");
             } else {
-                header("Location: ../../view/admin/table-util");
+                header("Location: ../../template/themes/template/table-util");
                 throw new Exception("Désactivation échouée !");
             }
         } else {
             # Si le compte existe dans la BDD.
-            header("Location: ../../view/admin/table-util");
+            header("Location: ../../template/themes/template/table-util");
             throw new Exception("Ce compte n'existe pas.");
         }
     }
@@ -304,7 +304,7 @@ class Manager
             return $_SESSION['show'] = $res2;
         } else {
             // sinon affiche un message d'erreur
-            header('Location: ../view/admin/table-util');
+            header('Location: ../template/themes/template/table-util');
             throw new Exception("Erreur pendant la recherche de l'utilisateur.", 1);
         }
     }
@@ -515,6 +515,6 @@ Pas de probl&#232;me, cliquez sur le bouton pour acceder &#224; un changement de
     public function retourUtil(Utilisateur $user)
     {
         unset($_SESSION['show']);
-        return header('Location: ../view/admin/table-util');
+        return header('Location: ../template/themes/template/table-util');
     }
 }

@@ -23,5 +23,5 @@ try {
 } catch (Exception $e) {
 # Affiche un message d'erreur
     $_SESSION['erreur'] = 'Erreur : ' . $e->getMessage();
-    header("Location: ../view/admin/table-util.php");
+    header("Location: ../template/themes/template/table-util");
 }
