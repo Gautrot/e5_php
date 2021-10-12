@@ -1,6 +1,7 @@
 $(document).ready(function () {
+
     //Table Utilisateur
-    var table = $('#utilisateur').DataTable({
+    $('#utilisateur').DataTable({
         // Traduction française
         "language": {
             "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json"

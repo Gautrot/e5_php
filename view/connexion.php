@@ -5,7 +5,7 @@
 </head>
 
 <body>
-<form method="post" action="../traitement/connexion-tr.php">
+<form method="post" action="../traitement/connexion-tr">
     <label>
         <input type="text" name="login" placeholder="Login" required autofocus>
     </label>

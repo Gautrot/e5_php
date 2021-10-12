@@ -2,6 +2,9 @@
 
 // utilisation du fichier BDD.php
 require_once '../model/BDD.php';
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
 // création de la classe manager
 class Manager
@@ -9,7 +12,6 @@ class Manager
     // Méthode de connexion
     public function connexion(Utilisateur $user)
     {
-        session_start();
         // on appelle la base de données
         $bdd = (new BDD)->getBase();
 
@@ -25,22 +27,22 @@ class Manager
         }*/
 
         // préparation de la requête pour la connexion d'un utilisateur
-        $req = $bdd->prepare("SELECT login, mdp FROM utilisateur WHERE login = :login");
+        $req = $bdd->prepare("SELECT login, mdp FROM utilisateur WHERE login = :login AND mdp = :mdp");
         $req->execute([
             'login' => $user->getLogin(),
             'mdp' => $user->getMdp()
         ]);
         $res = $req->fetch();
 
-        //vérification du mot de passe entré par l'utilisateur :
+        // vérification du mot de passe entré par l'utilisateur :
         // si le mot de passe est correct alors la connexion est réussi et on entre dans le compte
         if (password_verify($user->getMdp(), $res['mdp']) || $res['mdp']) {
-            $_SESSION['login'] = $res["login"];
             // Dirige vers la page 'table-util' (temporaire) - Alex
             header("Location: ../view/admin/table-util");
+            return $_SESSION['user'] = $res;
         } else {
             // sinon affiche un message d'erreur
-            header('Location: ../template/themes/template/index.php');
+            //header('Location: ../template/themes/template/index.php');
             throw new Exception("Erreur pendant la connexion.", 1);
         }
     }
@@ -48,8 +50,7 @@ class Manager
     // Méthode de déconnexion
     public function deconnexion()
     {
-        session_start();
-        $_SESSION['id'] = 0;
+        session_destroy();
         // redirection vers la page index.php
         header("Location: ../index.php");
     }
@@ -57,7 +58,6 @@ class Manager
     // Méthode d'inscription pour un utilisateur
     public function inscription(Utilisateur $user)
     {
-        session_start();
         $bdd = (new BDD)->getBase();
         $req = $bdd->prepare('SELECT * FROM utilisateur WHERE login = :login ');
         $req->execute([
@@ -68,7 +68,6 @@ class Manager
         // si $res est égale à quelque chose alors un message d'erreur s'affiche
         if ($res) {
             throw new Exception("L'utilisateur deja existant.");
-
         }
 
         //si les getters sont différents de rien alors :
@@ -106,10 +105,10 @@ class Manager
         }
     }
 
+    // Méthode de création d'un utilisateur
     public function creerUtil(Utilisateur $user)
     {
         #Instancie la classe BDD
-        session_start();
         $bdd = (new BDD)->getBase();
         $req = $bdd->prepare('SELECT mail FROM utilisateur WHERE mail = :mail');
         $req->execute([
@@ -150,7 +149,6 @@ class Manager
     public function activerUtil(Utilisateur $user)
     {
         #Instancie la classe BDD
-        session_start();
         $bdd = (new BDD)->getBase();
         $req = $bdd->prepare('SELECT idUtilisateur FROM utilisateur WHERE idUtilisateur = :idUtilisateur');
         $req->execute([
@@ -181,7 +179,6 @@ class Manager
     public function desactiverUtil(Utilisateur $user)
     {
         #Instancie la classe BDD
-        session_start();
         $bdd = (new BDD)->getBase();
         $req = $bdd->prepare('SELECT idUtilisateur FROM utilisateur WHERE idUtilisateur = :idUtilisateur');
         $req->execute([
@@ -211,7 +208,6 @@ class Manager
     // Méthode de recherche d'un utilisateur
     public function chercheUtil(Utilisateur $user)
     {
-        session_start();
         // on appelle la base de données
         $bdd = (new BDD)->getBase();
         $req = $bdd->prepare("SELECT * FROM utilisateur WHERE idUtilisateur = :idUtilisateur");
@@ -220,11 +216,40 @@ class Manager
         ]);
         $res = $req->fetch();
         if ($res) {
-            header("Location: ../view/utilisateur?idUtilisateur=" . $res['idUtilisateur']);
+            switch ($res['statut']) {
+                case '1':
+                    $req = $bdd->prepare("SELECT * FROM utilisateur INNER JOIN eleve ON eleve.statut = utilisateur.statut WHERE idUtilisateur = :idUtilisateur ");
+                    break;
+                case '2':
+                    $req = $bdd->prepare("SELECT * FROM utilisateur INNER JOIN parent ON parent.statut = utilisateur.statut WHERE idUtilisateur = :idUtilisateur ");
+                    break;
+                case '3':
+                    $req = $bdd->prepare("SELECT * FROM utilisateur INNER JOIN professeur ON professeur.statut = utilisateur.statut WHERE idUtilisateur = :idUtilisateur ");
+                    break;
+                case '4':
+                    $req = $bdd->prepare("SELECT * FROM utilisateur INNER JOIN administrateur ON administrateur.statut = utilisateur.statut WHERE idUtilisateur = :idUtilisateur ");
+                    break;
+                default:
+                    $req = $bdd->prepare("SELECT * FROM utilisateur WHERE idUtilisateur = :idUtilisateur ");
+                    break;
+            }
+            $req->execute([
+                'idUtilisateur' => $user->getIdUtilisateur(),
+            ]);
+            $res2 = $req->fetch();
+            header("Location: ../view/utilisateur?idUtilisateur=" . $res2['idUtilisateur']);
+            return $_SESSION['show'] = $res2;
         } else {
             // sinon affiche un message d'erreur
             header('Location: ../view/admin/table-util');
             throw new Exception("Erreur pendant la recherche de l'utilisateur.", 1);
         }
+    }
+
+    // Méthode de recherche d'un utilisateur
+    public function retourUtil(Utilisateur $user)
+    {
+        unset($_SESSION['show']);
+        return header('Location: ../view/admin/table-util');
     }
 }
