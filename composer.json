@@ -4,6 +4,7 @@
     "ext-pdo": "*",
     "datatables/datatables": "^1.10",
     "components/jquery": "^3.6",
-    "ext-json": "*"
+    "ext-json": "*",
+    "phpoffice/phpspreadsheet": "^1.18"
   }
 }

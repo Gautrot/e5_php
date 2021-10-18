@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Hôte : 127.0.0.1:3306
--- Généré le :  mar. 05 oct. 2021 à 09:39
--- Version du serveur :  5.7.26
--- Version de PHP :  7.2.18
+-- Host: 127.0.0.1:3306
+-- Generation Time: Oct 14, 2021 at 05:18 PM
+-- Server version: 8.0.21
+-- PHP Version: 7.4.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -19,26 +18,25 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données :  `projet_lprs_sgs`
+-- Database: `projet_lprs_sgs`
 --
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `administrateur`
+-- Table structure for table `administrateur`
 --
 
 DROP TABLE IF EXISTS `administrateur`;
 CREATE TABLE IF NOT EXISTS `administrateur` (
-  `idAdmin` int(2) NOT NULL,
-  `statut` int(1) NOT NULL DEFAULT '4',
-  `validation` int(1) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`idAdmin`),
-  UNIQUE KEY `statut` (`statut`)
+  `idAdmin` int NOT NULL,
+  `statut` int NOT NULL DEFAULT '4',
+  `validation` int NOT NULL DEFAULT '1',
+  PRIMARY KEY (`idAdmin`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `administrateur`
+-- Dumping data for table `administrateur`
 --
 
 INSERT INTO `administrateur` (`idAdmin`, `statut`, `validation`) VALUES
@@ -47,37 +45,35 @@ INSERT INTO `administrateur` (`idAdmin`, `statut`, `validation`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `discussion`
+-- Table structure for table `discussion`
 --
 
 DROP TABLE IF EXISTS `discussion`;
 CREATE TABLE IF NOT EXISTS `discussion` (
-  `idDiscussion` int(11) NOT NULL AUTO_INCREMENT,
-  `idCreateur` int(11) NOT NULL,
-  `idInvite` int(11) NOT NULL,
+  `idDiscussion` int NOT NULL AUTO_INCREMENT,
+  `idCreateur` int NOT NULL,
+  `idInvite` int NOT NULL,
   `dateCreation` datetime NOT NULL,
   `archive` text NOT NULL,
-  PRIMARY KEY (`idDiscussion`),
-  UNIQUE KEY `idCreateur` (`idCreateur`)
+  PRIMARY KEY (`idDiscussion`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `eleve`
+-- Table structure for table `eleve`
 --
 
 DROP TABLE IF EXISTS `eleve`;
 CREATE TABLE IF NOT EXISTS `eleve` (
-  `idEleve` int(2) NOT NULL,
-  `statut` int(1) NOT NULL DEFAULT '1',
+  `idEleve` int NOT NULL,
+  `statut` int NOT NULL DEFAULT '1',
   `classe` varchar(10) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
-  PRIMARY KEY (`idEleve`),
-  UNIQUE KEY `statut` (`statut`)
+  PRIMARY KEY (`idEleve`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `eleve`
+-- Dumping data for table `eleve`
 --
 
 INSERT INTO `eleve` (`idEleve`, `statut`, `classe`) VALUES
@@ -86,42 +82,39 @@ INSERT INTO `eleve` (`idEleve`, `statut`, `classe`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `evenement`
+-- Table structure for table `evenement`
 --
 
 DROP TABLE IF EXISTS `evenement`;
 CREATE TABLE IF NOT EXISTS `evenement` (
-  `idEvent` int(11) NOT NULL AUTO_INCREMENT,
-  `idCreateur` int(11) NOT NULL,
+  `idEvent` int NOT NULL AUTO_INCREMENT,
+  `idCreateur` int NOT NULL,
   `date` date NOT NULL,
   `horaire` time NOT NULL,
   `dateCreation` datetime NOT NULL,
   `description` varchar(40) NOT NULL,
   `organisateur` varchar(40) NOT NULL,
-  `validEvenement` int(11) NOT NULL,
-  PRIMARY KEY (`idEvent`),
-  KEY `idCreateur` (`idCreateur`)
+  `validEvenement` int NOT NULL,
+  PRIMARY KEY (`idEvent`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `parent`
+-- Table structure for table `parent`
 --
 
 DROP TABLE IF EXISTS `parent`;
 CREATE TABLE IF NOT EXISTS `parent` (
-  `idParent` int(2) NOT NULL,
-  `statut` int(1) NOT NULL DEFAULT '2',
+  `idParent` int NOT NULL,
+  `statut` int NOT NULL DEFAULT '2',
   `metier` varchar(40) NOT NULL,
-  `idEleve` int(11) NOT NULL,
-  PRIMARY KEY (`idParent`),
-  UNIQUE KEY `idEleve` (`idEleve`),
-  UNIQUE KEY `statut` (`statut`)
+  `idEleve` int NOT NULL,
+  PRIMARY KEY (`idParent`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `parent`
+-- Dumping data for table `parent`
 --
 
 INSERT INTO `parent` (`idParent`, `statut`, `metier`, `idEleve`) VALUES
@@ -130,21 +123,20 @@ INSERT INTO `parent` (`idParent`, `statut`, `metier`, `idEleve`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `professeur`
+-- Table structure for table `professeur`
 --
 
 DROP TABLE IF EXISTS `professeur`;
 CREATE TABLE IF NOT EXISTS `professeur` (
-  `idProf` int(2) NOT NULL,
-  `statut` int(1) NOT NULL DEFAULT '3',
+  `idProf` int NOT NULL,
+  `statut` int NOT NULL DEFAULT '3',
   `matiere` varchar(40) NOT NULL,
-  `validation` int(1) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`idProf`),
-  UNIQUE KEY `statut` (`statut`)
+  `validation` int NOT NULL DEFAULT '1',
+  PRIMARY KEY (`idProf`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `professeur`
+-- Dumping data for table `professeur`
 --
 
 INSERT INTO `professeur` (`idProf`, `statut`, `matiere`, `validation`) VALUES
@@ -153,12 +145,12 @@ INSERT INTO `professeur` (`idProf`, `statut`, `matiere`, `validation`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `utilisateur`
+-- Table structure for table `utilisateur`
 --
 
 DROP TABLE IF EXISTS `utilisateur`;
 CREATE TABLE IF NOT EXISTS `utilisateur` (
-  `idUtilisateur` int(2) NOT NULL AUTO_INCREMENT,
+  `idUtilisateur` int NOT NULL AUTO_INCREMENT,
   `nom` varchar(40) NOT NULL,
   `prenom` varchar(40) NOT NULL,
   `dateNaissance` date NOT NULL,
@@ -167,14 +159,13 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
   `mail` text NOT NULL,
   `login` varchar(40) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `mdp` text NOT NULL,
-  `statut` int(1) NOT NULL DEFAULT '0',
-  `validUtilisateur` int(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`idUtilisateur`),
-  UNIQUE KEY `statut` (`statut`)
+  `statut` int NOT NULL DEFAULT '0',
+  `validUtilisateur` int NOT NULL DEFAULT '0',
+  PRIMARY KEY (`idUtilisateur`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `utilisateur`
+-- Dumping data for table `utilisateur`
 --
 
 INSERT INTO `utilisateur` (`idUtilisateur`, `nom`, `prenom`, `dateNaissance`, `adresse`, `telephone`, `mail`, `login`, `mdp`, `statut`, `validUtilisateur`) VALUES

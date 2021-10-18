@@ -1,13 +1,3 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <title>Index</title>
-</head>
+<?php
 
-<body>
-<a href="view/connexion">
-    <input type="submit" value="Se connecter"/>
-</a>
-</body>
-
-</html>
+header('Location: template/themes/template/index');

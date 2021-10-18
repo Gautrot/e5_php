@@ -1,60 +1,64 @@
 <?php
+$root = $_SERVER['DOCUMENT_ROOT'] . '/e5_php/';
 
-ini_set('display_errors',1); error_reporting(E_ALL | E_STRICT);
+// utilisation du fichier BDD
+require_once $root . 'model/BDD.php';
+// Créée une nouvelle session s'il n'existe aucune session
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
-//on appelle la classe manager et toolsManager
-require $_SERVER['DOCUMENT_ROOT'].'/e5_php/vendor/autoload.php';
-require_once($_SERVER['DOCUMENT_ROOT']."/e5_php/manager/Manager.php");
+ini_set('display_errors', 1);
+error_reporting(E_ALL | E_STRICT);
 
-
+//On appelle la classe PhpOffice
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
 //On appelle la classe PHPMailer
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-require $_SERVER['DOCUMENT_ROOT'].'/e5_php/vendor/phpmailer/phpmailer/src/Exception.php';
-require $_SERVER['DOCUMENT_ROOT'].'/e5_php/vendor/phpmailer/phpmailer/src/PHPMailer.php';
-require $_SERVER['DOCUMENT_ROOT'].'/e5_php/vendor/phpmailer/phpmailer/src/SMTP.php';
-
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
-use PHPMailer\PHPMailer\Exception;
-
+//on appelle la classe manager et toolsManager
+require_once($root . "manager/Manager.php");
+require $root . 'vendor/autoload.php';
+require $root . 'vendor/phpmailer/phpmailer/src/Exception.php';
+require $root . 'vendor/phpmailer/phpmailer/src/PHPMailer.php';
+require $root . 'vendor/phpmailer/phpmailer/src/SMTP.php';
 //Load Composer's autoloader
-require 'vendor/autoload.php';
+require $root . 'vendor/autoload.php';
 
 //Create an instance; passing `true` enables exceptions
 $mail = new PHPMailer(true);
 
 try {
     //Server settings
-    $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
-    $mail->isSMTP();                                            //Send using SMTP
-    $mail->Host       = 'smtp.example.com';                     //Set the SMTP server to send through
-    $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-    $mail->Username   = 'n.sedjai@lprs.fr';                     //SMTP username
-    $mail->Password   = 'BTSNO=2020';                               //SMTP password
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
-    $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+    $mail->SMTPDebug = SMTP::DEBUG_SERVER;                               //Enable verbose debug output
+    $mail->isSMTP();                                                     //Send using SMTP
+    $mail->Host = 'smtp.example.com';                                    //Set the SMTP server to send through
+    $mail->SMTPAuth = true;                                              //Enable SMTP authentication
+    $mail->Username = 'n.sedjai@lprs.fr';                                //SMTP username
+    $mail->Password = 'BTSNO=2020';                                      //SMTP password
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;                     //Enable implicit TLS encryption
+    $mail->Port = 465;                                                   //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
     //Recipients
     $mail->setFrom('from@example.com', 'Mailer');
-    $mail->addAddress('joe@example.net', 'Joe User');     //Add a recipient
-    $mail->addAddress('ellen@example.com');               //Name is optional
+    $mail->addAddress('joe@example.net', 'Joe User');       //Add a recipient
+    $mail->addAddress('ellen@example.com');                       //Name is optional
     $mail->addReplyTo('info@example.com', 'Information');
     $mail->addCC('cc@example.com');
     $mail->addBCC('bcc@example.com');
 
     //Attachments
-    $mail->addAttachment('/var/tmp/file.tar.gz');         //Add attachments
-    $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    //Optional name
+    $mail->addAttachment('/var/tmp/file.tar.gz');                   //Add attachments
+    $mail->addAttachment('/tmp/image.jpg', 'new.jpg');        //Optional name
 
     //Content
-    $mail->isHTML(true);                                  //Set email format to HTML
+    $mail->isHTML(true);                                           //Set email format to HTML
     $mail->Subject = 'Here is the subject';
-    $mail->Body    = 'This is the HTML message body <b>in bold!</b>';
+    $mail->Body = 'This is the HTML message body <b>in bold!</b>';
     $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
     $mail->send();
@@ -63,16 +67,13 @@ try {
     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 }
 
-// utilisation du fichier BDD
-require_once '../model/BDD.php';
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
-
 // création de la classe manager
 class Manager
 {
     // Méthode de connexion
+    /**
+     * @throws Exception
+     */
     public function connexion(Utilisateur $user)
     {
         // on appelle la base de données
@@ -100,8 +101,7 @@ class Manager
         // vérification du mot de passe entré par l'utilisateur :
         // si le mot de passe est correct alors la connexion est réussi et on entre dans le compte
         if (password_verify($user->getMdp(), $res['mdp']) || $res['mdp']) {
-            // Dirige vers la page 'table-util' (temporaire) - Alex
-            //header("Location: ../template/themes/template/table-util");
+            header("Location: ../template/themes/template/index");
             return $_SESSION['user'] = $res;
         } else {
             // sinon affiche un message d'erreur
@@ -115,10 +115,14 @@ class Manager
     {
         session_destroy();
         // redirection vers la page index
-        header("Location: ../index");
+        header("Location: ../template/themes/template/index");
     }
 
     // Méthode d'inscription pour un utilisateur
+
+    /**
+     * @throws Exception
+     */
     public function inscription(Utilisateur $user)
     {
         $bdd = (new BDD)->getBase();
@@ -143,7 +147,7 @@ class Manager
             VALUES (:nom, :prenom, :dateNaissance, :adresse, :telephone, :mail, :login, :mdp, :statut, :validUtilisateur)
             ');
             // execution de la requête
-            $res2 = $req->execute([
+            $req->execute([
                 'nom' => $user->getNom(),
                 'prenom' => $user->getPrenom(),
                 'dateNaissance' => $user->getDateNaissance(),
@@ -153,24 +157,30 @@ class Manager
                 'login' => $user->getLogin(),
                 'mdp' => $user->getMdp(),
                 'statut' => $user->getStatut(),
-                'validUtilisateur' => $user->setValidUtilisateur(0)
+                'validUtilisateur' => $user->getValidUtilisateur()
             ]);
 
-            $res = $req->fetch();
+            $res2 = $req->fetch();
 
-            if ($res) {
-                $_SESSION['mdp'] = $res['mdp'];
-                header('Location: ../index');
+            if ($res2) {
+                $_SESSION['mdp'] = $res2['mdp'];
+                header('Location: ../template/themes/template/index');
             } // sinon redirection vers la page inscription
             else {
-                header('Location: ../index');
+                header('Location: ../template/themes/template/inscription');
             }
         }
     }
 
     // Méthode de création d'un utilisateur
+
+    /**
+     * @throws Exception
+     */
     public function creerUtil(Utilisateur $user)
     {
+        var_dump($user);
+
         #Instancie la classe BDD
         $bdd = (new BDD)->getBase();
         $req = $bdd->prepare('SELECT mail FROM utilisateur WHERE mail = :mail');
@@ -198,17 +208,19 @@ class Manager
                 'validUtilisateur' => $user->getValidUtilisateur()
             ]);
 
-            if ($res2) {
-                header("Location: ../template/themes/template/table-util");
-            } else {
+            header("Location: ../template/themes/template/table-util");
+            if (!$res2) {
                 # Si un ou plusieurs champs sont vides.
-                header("Location: ../template/themes/template/table-util");
                 throw new Exception("Ajout échouée !");
             }
         }
     }
 
     // Méthode d'activation d'un utilisateur
+
+    /**
+     * @throws Exception
+     */
     public function activerUtil(Utilisateur $user)
     {
         #Instancie la classe BDD
@@ -225,12 +237,7 @@ class Manager
                 'idUtilisateur' => $user->getIdUtilisateur()
             ]);
 
-            if ($req) {
-                header("Location: ../../template/themes/template/table-util");
-            } else {
-                header("Location: ../../template/themes/template/table-util");
-                throw new Exception("Activation échouée !");
-            }
+            header("Location: ../../template/themes/template/table-util");
         } else {
             # Si le compte existe dans la BDD.
             header("Location: ../../template/themes/template/table-util");
@@ -239,6 +246,10 @@ class Manager
     }
 
     // Méthode de désactivation d'un utilisateur
+
+    /**
+     * @throws Exception
+     */
     public function desactiverUtil(Utilisateur $user)
     {
         #Instancie la classe BDD
@@ -255,10 +266,8 @@ class Manager
                 'idUtilisateur' => $user->getIdUtilisateur()
             ]);
 
-            if ($res2) {
-                header("Location: ../../template/themes/template/table-util");
-            } else {
-                header("Location: ../../template/themes/template/table-util");
+            header("Location: ../../template/themes/template/table-util");
+            if (!$res2) {
                 throw new Exception("Désactivation échouée !");
             }
         } else {
@@ -268,7 +277,11 @@ class Manager
         }
     }
 
-    // Méthode de recherche d'un utilisateur
+    // Méthode d'affichage d'un utilisateur dans la session 'show'
+
+    /**
+     * @throws Exception
+     */
     public function chercheUtil(Utilisateur $user)
     {
         // on appelle la base de données
@@ -297,10 +310,10 @@ class Manager
                     break;
             }
             $req->execute([
-                'idUtilisateur' => $user->getIdUtilisateur(),
+                'idUtilisateur' => $user->getIdUtilisateur()
             ]);
             $res2 = $req->fetch();
-            header("Location: ../view/utilisateur?idUtilisateur=" . $res2['idUtilisateur']);
+            header("Location: ../template/themes/template/utilisateur?idUtilisateur=" . $res2['idUtilisateur']);
             return $_SESSION['show'] = $res2;
         } else {
             // sinon affiche un message d'erreur
@@ -308,8 +321,17 @@ class Manager
             throw new Exception("Erreur pendant la recherche de l'utilisateur.", 1);
         }
     }
-    //Methode pour envoyer un mail et changer son mdp
-    function MDPoublie($mail_user){
+
+    // Méthode de suppression de la session 'show'
+    public function retourUtil()
+    {
+        unset($_SESSION['show']);
+        return header('Location: ../template/themes/template/table-util');
+    }
+
+    // Méthode pour envoyer un mail et changer son mdp
+    function MDPoublie($mail_user)
+    {
         $bdd = (new BDD)->getBase();
 
         // on récupère l'utilisateur ayant perdu son mot de passe
@@ -320,18 +342,14 @@ class Manager
         var_dump($profil);
 
         //Si l'adresse email correspont à aucun mail et donc aucun utilisateur
-        if(!$profil){
-            header("Location:../../e5_php/template/themes/template/index.html?err=mail&mail=".$mail_user);
-
-        }
-        else{
-
-
+        if (!$profil) {
+            header("Location: ../template/themes/template/index?err=mail&mail=" . $mail_user);
+        } else {
             $select_idUtilisateur = '';
             var_dump($select_idUtilisateur);
 
             $body = '<!doctype html>
-<html>
+<html lang="fr">
   <head>
     <meta name="viewport" content="width=device-width">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -459,7 +477,7 @@ Pas de probl&#232;me, cliquez sur le bouton pour acceder &#224; un changement de
                                 <table role="presentation" border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; min-width: auto; width: auto;">
                                   <tbody>
                                     <tr>
-                                      <td style="font-family: sans-serif; font-size: 14px; vertical-align: top; border-radius: 5px; text-align: center; background-color: #ec0867;" valign="top" align="center" bgcolor="#ec0867"> <a href="https://snacklprs.fr/Projet_snack/view/Mdp&MessageEtudiant/formulaire_update_password.php?mail='.$mail_user.'" target="_blank" style="border: solid 1px #ec0867; border-radius: 5px; box-sizing: border-box; cursor: pointer; display: inline-block; font-size: 14px; font-weight: bold; margin: 0; padding: 12px 25px; text-decoration: none; text-transform: capitalize; background-color: #ec0867; border-color: #ec0867; color: #ffffff;">Changer son mot de passe</a> </td>
+                                      <td style="font-family: sans-serif; font-size: 14px; vertical-align: top; border-radius: 5px; text-align: center; background-color: #ec0867;" valign="top" align="center" bgcolor="#ec0867"> <a href="https://snacklprs.fr/Projet_snack/view/Mdp&MessageEtudiant/formulaire_update_password.php?mail=' . $mail_user . '" target="_blank" style="border: solid 1px #ec0867; border-radius: 5px; box-sizing: border-box; cursor: pointer; display: inline-block; font-size: 14px; font-weight: bold; margin: 0; padding: 12px 25px; text-decoration: none; text-transform: capitalize; background-color: #ec0867; border-color: #ec0867; color: #ffffff;">Changer son mot de passe</a> </td>
                                     </tr>
                                   </tbody>
                                 </table>
@@ -502,19 +520,9 @@ Pas de probl&#232;me, cliquez sur le bouton pour acceder &#224; un changement de
     </table>
   </body>
 </html>
-
 ';
-
-            $this->mail("Mot de passe oublie",$body,$select_idUser,$mail_user);
-            header("Location:../../index.html?key=4xfq26NPP");
-
+            $this->mail("Mot de passe oublié", $body, $select_idUser, $mail_user);
+            header("Location: ../template/themes/template/index?key=4xfq26NPP");
         }
-    }
-
-    // Méthode de recherche d'un utilisateur
-    public function retourUtil(Utilisateur $user)
-    {
-        unset($_SESSION['show']);
-        return header('Location: ../template/themes/template/table-util');
     }
 }

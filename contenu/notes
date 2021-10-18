@@ -1,0 +1,14 @@
+Mises à jour complexe :
+Des Màj existent pour ces extensions, or il faudra modifier la majeure partie du template
+
+Bootstrap 4.1.1 -> 5.1
+"twbs/bootstrap": "^5",
+
+slick -> 1.6
+"kenwheeler/slick": "^1.6",
+
+venobox -> 1.9
+"nicolafranchini/venobox": "^1.9"
+
+Laravel :
+A la fin du projet si possible

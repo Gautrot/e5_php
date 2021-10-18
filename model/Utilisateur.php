@@ -92,7 +92,7 @@ class Utilisateur
         $id = (int)$idUtilisateur;
 
         // On vérifie ensuite si ce nombre est bien strictement positif.
-        if ($idUtilisateur > 0) {
+        if ($id > 0) {
             // Si c'est le cas, c'est tout bon, on assigne la valeur à l'attribut correspondant.
             $this->idUtilisateur = $idUtilisateur;
         }
@@ -188,7 +188,5 @@ class Utilisateur
             // Si c'est le cas, c'est tout bon, on assigne la valeur à l'attribut correspondant.
             $this->validUtilisateur = $validUtilisateur;
         }
-
-        return $this->validUtilisateur;
     }
 }
