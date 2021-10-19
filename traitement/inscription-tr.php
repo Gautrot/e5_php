@@ -13,7 +13,8 @@ try {
     'telephone' => $_POST['telephone'],
     'mail' => $_POST['mail'],
     'login' => $_POST['login'],
-    'mdp' => $_POST['mdp']
+    'mdp' => $_POST['mdp'],
+    'statut' => $_POST['statut']
   ));
 
 //instanciation du manager

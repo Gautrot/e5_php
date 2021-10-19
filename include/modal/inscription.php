@@ -42,6 +42,17 @@
                             <input type="password" class="form-control mb-3" id="mdp" name="mdp"
                                    placeholder="Password">
                         </div>
+                        
+                        <div class="col-12">
+                        <select name="statut" required>
+                            <option name="util" value="0">Utilisateur</option>
+                            <option name="eleve" value="1">Elève</option>
+                            <option name="parent" value="2">Parent</option>
+                            <option name="prof" value="3">Professeur</option>
+                            <option name="admin" value="4">Administrateur</option>
+                        </select>
+                        </div>
+
                         <div class="col-12">
                             <button type="submit" class="btn btn-primary">SIGN UP</button>
                         </div>

@@ -61,8 +61,9 @@
                                 Profil
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="teacher">Prise de RDV</a>
-                                <a class="dropdown-item" href="teacher-single">Evènementsnav</a>
+                                <a class="dropdown-item" href="modif-util.php">Modification</a>
+                                <a class="dropdown-item" href="#">Prise de RDV</a>
+                                <a class="dropdown-item" href="teacher">Evènements</a>
                                 <a class="dropdown-item" href="notice">Discussion</a>
                                 <a class="dropdown-item" href="deconnexion">Deconnexion</a>
                             </div>
