@@ -15,3 +15,5 @@
 <script src="plugins/google-map/gmap.js"></script>
 <!-- Main Script -->
 <script src="js/script.js"></script>
+<!-- Projet Script -->
+<script src="../../../style/js/script.js"></script>

@@ -179,8 +179,6 @@ class Manager
      */
     public function creerUtil(Utilisateur $user)
     {
-        var_dump($user);
-
         #Instancie la classe BDD
         $bdd = (new BDD)->getBase();
         $req = $bdd->prepare('SELECT mail FROM utilisateur WHERE mail = :mail');
@@ -191,7 +189,7 @@ class Manager
 
         if ($res) {
             # Si le compte existe dans la BDD.
-            header("Location: ../template/themes/template/table-util");
+            //header("Location: ../template/themes/template/table-util");
             throw new Exception("Ce compte existe.");
         } else {
             $req = $bdd->prepare('INSERT INTO utilisateur (nom, prenom, dateNaissance, adresse, telephone, mail, login, mdp, statut, validUtilisateur) VALUES (:nom, :prenom, :dateNaissance, :adresse, :telephone, :mail, :login, :mdp, :statut, :validUtilisateur)');
@@ -207,8 +205,41 @@ class Manager
                 'statut' => $user->getStatut(),
                 'validUtilisateur' => $user->getValidUtilisateur()
             ]);
-
-            header("Location: ../template/themes/template/table-util");
+            switch ($user['statut']) {
+                case '1':
+                    $req = $bdd->prepare("INSERT INTO eleve (idEleve, classe) VALUES (:idEleve, :classe)");
+                    $res2 = $req->execute([
+                        'idEleve' => $user->getIdUtilisateur(),
+                        'classe' => $user->getClasse()
+                    ]);
+                    break;
+                case '2':
+                    $req = $bdd->prepare("INSERT INTO parent (idParent, metier, idEleve) VALUES (:idParent, :metier, :idEleve)");
+                    $res2 = $req->execute([
+                        'idParent' => $user->getIdUtilisateur(),
+                        'metier' => $user->getMetier(),
+                        'idEleve' => $user->getIdEleve()
+                    ]);
+                    break;
+                case '3':
+                    $req = $bdd->prepare("INSERT INTO professeur (idProf, matiere, validation) VALUES (:idProf, :matiere, :validation)");
+                    $res2 = $req->execute([
+                        'idProf' => $user->getIdUtilisateur(),
+                        'matiere' => $user->getMatiere(),
+                        'validation' => $user->getValidation()
+                    ]);
+                    break;
+                case '4':
+                    $req = $bdd->prepare("INSERT INTO administrateur (idAdmin, validation) VALUES (:idAdmin, :validation)");
+                    $res2 = $req->execute([
+                        'idAdmin' => $user->getIdUtilisateur(),
+                        'validation' => $user->getValidation()
+                    ]);
+                    break;
+                default:
+                    break;
+            }
+            //header("Location: ../template/themes/template/table-util");
             if (!$res2) {
                 # Si un ou plusieurs champs sont vides.
                 throw new Exception("Ajout échouée !");

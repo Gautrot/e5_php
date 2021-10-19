@@ -94,10 +94,10 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <div class="text-center">
+                <div class="table-responsive-sm">
                     <h2 class="text-white">Ajouter un utilisateur</h2>
-                    <form method="post" action="../../../traitement/creer-util-tr">
-                        <table>
+                    <form class="text-center" method="post" action="../../../traitement/creer-util-tr" id="ajoutUtil">
+                        <table class="table table-borderless table-sm">
                             <thead></thead>
                             <tbody>
                             <tr>
@@ -161,7 +161,7 @@
                             <tr>
                                 <td>
                                     <label>
-                                        <select name="statut" required>
+                                        <select name="statut" id="listeStatut" required>
                                             <option name="util" value="0">Utilisateur</option>
                                             <option name="eleve" value="1">Elève</option>
                                             <option name="parent" value="2">Parent</option>
@@ -174,8 +174,35 @@
                             </tbody>
                             <tfoot></tfoot>
                         </table>
+                        <table class="table table-borderless table-sm" id="statutUtil">
+                            <thead></thead>
+                            <tbody>
+                            <tr id="1">
+                                <td>
+                                    <label>
+                                        <input type="text" name="classe" placeholder="Classe">
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr id="2">
+                                <td>
+                                    <label>
+                                        <input type="text" name="metier" placeholder="Métier">
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr id="3">
+                                <td>
+                                    <label>
+                                        <input type="text" name="matiere" placeholder="Matière">
+                                    </label>
+                                </td>
+                            </tr>
+                            </tbody>
+                            <tfoot></tfoot>
+                        </table>
                         <div>
-                            <input type="submit" value="Ajouter"/>
+                            <input type="submit" value="Ajouter" onclick="$('#ajoutUtil').submit()"/>
                         </div>
                     </form>
                 </div>
