@@ -1,21 +1,29 @@
+<?php session_start(); ?>
 <header class="fixed-top header">
     <!-- top header -->
+    <?php if (empty($_SESSION["user"])) { ?>
     <div class="top-header py-2 bg-white">
         <div class="container">
             <div class="row no-gutters">
                 <div class="col-lg-8 text-center text-lg-right">
                     <ul class="list-inline">
-                        <li class="list-inline-item"><a
-                                    class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block" href="#"
-                                    data-toggle="modal" data-target="#loginModal">Connexion</a></li>
-                        <li class="list-inline-item"><a
-                                    class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block" href="#"
-                                    data-toggle="modal" data-target="#signupModal">Inscription</a></li>
+
+                            <li class="list-inline-item">
+                                <a class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block" href="#"
+                                   data-toggle="modal" data-target="#loginModal">Connexion
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block" href="#"
+                                   data-toggle="modal" data-target="#signupModal">Inscription
+                                </a>
+                            </li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
+    <?php } ?>
     <!-- navbar -->
     <div class="navigation w-100">
         <div class="container">
@@ -26,10 +34,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <!-- navbar sans connexion -->
-                <?php
-                session_start();
-                if (empty($_SESSION["user"])) {
-                    ?>
+                <?php if (empty($_SESSION["user"])) { ?>
                     <div class="collapse navbar-collapse" id="navigation">
                         <ul class="navbar-nav ml-auto text-center">
                             <li class="nav-item active">
@@ -59,8 +64,7 @@
                         </ul>
                     </div>
                     <!-- navbar avec connexion -->
-                <?php }
-                if (isset($_SESSION["user"])){
+                <?php } else if (isset($_SESSION["user"])) {
                 ?>
                 <div class="collapse navbar-collapse" id="navigation">
                     <ul class="navbar-nav ml-auto text-center">

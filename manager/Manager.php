@@ -2,7 +2,7 @@
 $root = $_SERVER['DOCUMENT_ROOT'] . '/e5_php/';
 
 // utilisation du fichier BDD
-require_once $root . 'model/BDD.php';
+require_once '../model/BDD.php';
 // Créée une nouvelle session s'il n'existe aucune session
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
@@ -21,13 +21,13 @@ use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 //on appelle la classe manager et toolsManager
-require_once($root . "manager/Manager.php");
-require $root . 'vendor/autoload.php';
-require $root . 'vendor/phpmailer/phpmailer/src/Exception.php';
-require $root . 'vendor/phpmailer/phpmailer/src/PHPMailer.php';
-require $root . 'vendor/phpmailer/phpmailer/src/SMTP.php';
+require_once('../manager/Manager.php');
+require '../vendor/autoload.php';
+require '../vendor/phpmailer/phpmailer/src/Exception.php';
+require '../vendor/phpmailer/phpmailer/src/PHPMailer.php';
+require '../vendor/phpmailer/phpmailer/src/SMTP.php';
 //Load Composer's autoloader
-require $root . 'vendor/autoload.php';
+require '../vendor/autoload.php';
 
 //Create an instance; passing `true` enables exceptions
 $mail = new PHPMailer(true);

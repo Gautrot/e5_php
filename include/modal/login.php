@@ -13,7 +13,7 @@
                         <input type="text" class="form-control mb-3" id="login" name="login" placeholder="Login">
                     </div>
                     <div class="col-12">
-                        <input type="password" class="form-control mb-3" id="loginMdp" name="loginMdp"
+                        <input type="password" class="form-control mb-3" id="loginMdp" name="mdp"
                                placeholder="Mot de passe">
 
                         <div class="text-center">
