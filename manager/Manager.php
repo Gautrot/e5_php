@@ -160,15 +160,15 @@ class Manager
                 'validUtilisateur' => $user->getValidUtilisateur()
             ]);
 
-            $res2 = $req->fetch();
+            header('Location: ../template/themes/template/index.php');
 
             if ($res2) {
-                $_SESSION['mdp'] = $res2['mdp'];
-                header('Location: ../template/themes/template/index');
+                $_SESSION['user'] = $res2['user'];
+                header('Location: ../template/themes/template/index.php');
             } // sinon redirection vers la page inscription
-            else {
-                header('Location: ../template/themes/template/inscription');
-            }
+            //else {
+                //header('Location: ../template/themes/template/inscription.php');
+            //}
         }
     }
 
@@ -500,7 +500,7 @@ Pas de probl&#232;me, cliquez sur le bouton pour acceder &#224; un changement de
                 <tr>
                   <td class="content-block" style="font-family: sans-serif; vertical-align: top; padding-bottom: 10px; padding-top: 10px; color: #9a9ea6; font-size: 12px; text-align: center;" valign="top" align="center">
                     <span class="apple-link" style="color: #9a9ea6; font-size: 12px; text-align: center;">Snack LPRS, Lyc&#233;e et UFA Robert Schuman</span>
-                
+
                   </td>
                 </tr>
                 <tr>

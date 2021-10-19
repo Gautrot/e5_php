@@ -9,33 +9,37 @@
             </div>
             <div class="modal-body">
                 <div class="login">
-                    <form action="#" class="row">
+                    <form method="POST" action="../../../traitement/inscription-tr.php" class="row">
                         <div class="col-12">
-                            <input type="text" class="form-control mb-3" id="signupNom" name="signupNom"
-                                   placeholder="Nom">
+                            <input type="text" class="form-control mb-3" id="nom" name="nom"
+                                   placeholder="nom">
                         </div>
                         <div class="col-12">
-                            <input type="text" class="form-control mb-3" id="signupPrenom" name="signupPrenom"
-                                   placeholder="Prénom">
+                            <input type="text" class="form-control mb-3" id="prenom" name="prenom"
+                                   placeholder="prénom">
                         </div>
                         <div class="col-12">
-                            <input type="date" class="form-control mb-3" id="signupDatenaissance"
-                                   name="signupDatenaissance" placeholder="Date de naissance">
+                            <input type="date" class="form-control mb-3" id="dateNaissance"
+                                   name="dateNaissance" placeholder="Date de naissance">
                         </div>
                         <div class="col-12">
-                            <input type="text" class="form-control mb-3" id="signupAdresse" name="signupAdresse"
+                            <input type="text" class="form-control mb-3" id="adresse" name="adresse"
                                    placeholder="Adresse">
                         </div>
                         <div class="col-12">
-                            <input type="number" class="form-control mb-3" id="signupTelephone" name="signupTelephone"
+                            <input type="number" class="form-control mb-3" id="telephone" name="telephone"
                                    placeholder="Téléphone">
                         </div>
                         <div class="col-12">
-                            <input type="email" class="form-control mb-3" id="signupEmail" name="signupEmail"
-                                   placeholder="Email">
+                            <input type="email" class="form-control mb-3" id="mail" name="mail"
+                                   placeholder="Mail">
                         </div>
                         <div class="col-12">
-                            <input type="password" class="form-control mb-3" id="signupPassword" name="signupPassword"
+                            <input type="text" class="form-control mb-3" id="login" name="login"
+                                   placeholder="Login">
+                        </div>
+                        <div class="col-12">
+                            <input type="password" class="form-control mb-3" id="mdp" name="mdp"
                                    placeholder="Password">
                         </div>
                         <div class="col-12">
