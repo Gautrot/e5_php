@@ -2,31 +2,26 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content rounded-0 border-0 p-4">
             <div class="modal-header border-0">
-                <h3>Login</h3>
+                <h3>Connexion</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form action="../../../traitement/connexion-tr" method="POST" class="row">
-                    <div class="col-12">
-                        <input type="text" class="form-control mb-3" id="login" name="login" placeholder="Login">
+                <form action="/e5_php/traitement/connexion-tr" method="POST" style="width: 100%;">
+                    <div class="form-group">
+                        <label for="login">Login</label>
+                        <input type="text" class="form-control mb-3" id="login" name="login" required>
                     </div>
-                    <div class="col-12">
-                        <input type="password" class="form-control mb-3" id="loginMdp" name="mdp"
-                               placeholder="Mot de passe">
-
-                        <div class="text-center">
-                            <div class="text-danger text-center"><?php echo $error_password; ?></div>
-                            <div class="text-danger text-center"><?php echo $error_captcha; ?></div>
-                            <button type="button" class="btn btn-primary" data-dismiss="modal" href="#"
-                                    data-toggle="modal" data-target="#MDPModal" aria-label="Close">Mots de passe oublié
-                            </button>
-                        </div>
-
+                    <div class="form-group">
+                        <label for="loginMdp">Mot de passe</label>
+                        <input type="password" class="form-control mb-3" id="loginMdp" name="mdp" required>
                     </div>
-                    <div class="col-12">
-                        <button type="submit" class="btn btn-primary">LOGIN</button>
+                    <div class="text-center">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" href="#"
+                                data-toggle="modal" data-target="#MDPModal" aria-label="Close">Mot de passe oublié ?
+                        </button>
+                        <button type="submit" class="btn btn-primary">Se connecter</button>
                     </div>
                 </form>
             </div>

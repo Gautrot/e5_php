@@ -1,5 +1,5 @@
 <!-- jQuery -->
-<script src="../../../vendor/components/jquery/jquery.min.js"></script>
+<script src="/e5_php/vendor/components/jquery/jquery.min.js"></script>
 <!-- Bootstrap JS -->
 <script src="plugins/bootstrap/bootstrap.min.js"></script>
 <!-- slick slider -->
@@ -16,4 +16,4 @@
 <!-- Main Script -->
 <script src="js/script.js"></script>
 <!-- Projet Script -->
-<script src="../../../style/js/script.js"></script>
+<script src="/e5_php/style/js/script.js"></script>

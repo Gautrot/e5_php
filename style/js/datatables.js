@@ -10,7 +10,7 @@ $(document).ready(function () {
         'processing': true,
         'serverSide': true,
         'ajax': {
-            'url': '../../../manager/datatables/datatables-util.php',
+            'url': '/e5_php/manager/datatables/datatables-util.php',
             'type': 'POST',
             "datatype": "json",
         },
@@ -28,7 +28,7 @@ $(document).ready(function () {
                     var id = row.idUtilisateur;
                     var nom = data;
                     var prenom = row.prenom;
-                    return '<a href="../../../traitement/cherche-util-tr?idUtilisateur=' + id + '"/>' +
+                    return '<a href="/e5_php/traitement/cherche-util-admin-tr?idUtilisateur=' + id + '"/>' +
                         nom + ' ' + prenom +
                         '</a>';
                 }
@@ -82,10 +82,10 @@ $(document).ready(function () {
                     }
                     // Affiche le bouton "Activer" pour chaque ligne si valid = 0
                     if (statut === '4') {
-                        return '<button type="submit" disabled> ' + value + ' </button>';
+                        return '<button class="btn btn-xs btn-secondary" disabled> ' + value + ' </button>';
                     } else {
-                        return '<form method="post" action="../../../traitement/' + traitement + '-util-tr/' + id + '">' +
-                            '<button type="submit" value="' + id + '" name="idUtilisateur"> ' + value + ' </button>' +
+                        return '<form method="post" action="/e5_php/traitement/' + traitement + '-util-tr/' + id + '">' +
+                            '<button class="btn btn-xs btn-primary" type="submit" value="' + id + '" name="idUtilisateur"> ' + value + ' </button>' +
                             '</form>';
                     }
                 }

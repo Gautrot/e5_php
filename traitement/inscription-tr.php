@@ -14,7 +14,7 @@ try {
     'mail' => $_POST['mail'],
     'login' => $_POST['login'],
     'mdp' => $_POST['mdp'],
-    'statut' => $_POST['statut']
+    'statut' => 0
   ));
 
 //instanciation du manager
