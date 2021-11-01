@@ -17,11 +17,11 @@
                         <label for="loginMdp">Mot de passe</label>
                         <input type="password" class="form-control mb-3" id="loginMdp" name="mdp" required>
                     </div>
-                    <div class="text-center">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" href="#"
+                    <div class="row justify-content-center">
+                        <button type="button" class="btn btn-primary m-1" data-dismiss="modal" href="#"
                                 data-toggle="modal" data-target="#MDPModal" aria-label="Close">Mot de passe oublié ?
                         </button>
-                        <button type="submit" class="btn btn-primary">Se connecter</button>
+                        <button type="submit" id="loginButton" class="btn btn-primary m-1">Se connecter</button>
                     </div>
                 </form>
             </div>

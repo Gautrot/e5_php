@@ -36,11 +36,26 @@ session_start();
                                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#signupModal">Inscription</a>
                                 <?php } else if (isset($_SESSION["user"])) { ?>
                                     <!-- navbar avec connexion -->
-                                    <a class="dropdown-item" href="/e5_php/traitement/cherche-util-modif-tr">Modification</a>
-                                    <a class="dropdown-item" href="rdv">Prise de RDV</a>
-                                    <a class="dropdown-item" href="evenements">Evènements</a>
-                                    <a class="dropdown-item" href="discussion">Discussion</a>
-                                    <a class="dropdown-item" href="deconnexion">Deconnexion</a>
+                                    <?php switch ($_SESSION['user']['statut']) {
+                                        case '1':
+                                            ?>
+                                            <a class="dropdown-item" href="discussion">Discussion</a>
+                                            <?php break;
+                                        case '2':
+                                        case '3':
+                                            ?>
+                                            <a class="dropdown-item" href="rdv">Rendez-vous</a>
+                                            <?php break;
+                                        case '4':
+                                            ?>
+                                            <a class="dropdown-item" href="discussion">Discussion</a>
+                                            <a class="dropdown-item" href="rdv">Rendez-vous</a>
+                                            <?php break;
+                                    } ?>
+                                    <a class="dropdown-item" href="evenements">Évènements</a>
+                                    <a class="dropdown-item" href="/e5_php/traitement/cherche-util-modif-tr">Modifier
+                                        votre compte</a>
+                                    <a class="dropdown-item" href="deconnexion">Déconnexion</a>
                                 <?php } ?>
                             </div>
                         </li>

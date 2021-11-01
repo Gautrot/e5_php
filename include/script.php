@@ -1,7 +1,7 @@
 <!-- jQuery -->
 <script src="/e5_php/vendor/components/jquery/jquery.min.js"></script>
 <!-- Bootstrap JS -->
-<script src="plugins/bootstrap/bootstrap.min.js"></script>
+<script src="/e5_php/vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- slick slider -->
 <script src="plugins/slick/slick.min.js"></script>
 <!-- aos -->

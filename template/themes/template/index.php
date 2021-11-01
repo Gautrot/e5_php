@@ -560,6 +560,9 @@
 </section>
 <!-- /blog -->
 
+<!-- Modal Notification-->
+<?php include'../../../include/modal/notification.php' ?>
+
 <!-- footer -->
 <?php include_once '../../../include/footer.php' ?>
 <!-- /footer -->

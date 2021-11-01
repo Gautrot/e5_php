@@ -6,7 +6,7 @@
 
 <head>
     <?php include_once '../../../include/head.php' ?>
-    <title>Détail de l'utilisateur</title>
+    <title>Prendre un rendez-vous</title>
 </head>
 
 <body>

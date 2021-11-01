@@ -147,7 +147,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="text-center">
-                    <form method="POST" action="/e5_php/traitement/retour-session-admin-tr.php">
+                    <form method="POST" action="/e5_php/traitement/admin/retour-session-tr.php">
                         <button type="submit" class="btn btn-primary">
                             Retour
                         </button>

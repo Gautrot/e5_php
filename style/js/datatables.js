@@ -28,7 +28,7 @@ $(document).ready(function () {
                     var id = row.idUtilisateur;
                     var nom = data;
                     var prenom = row.prenom;
-                    return '<a href="/e5_php/traitement/cherche-util-admin-tr?idUtilisateur=' + id + '"/>' +
+                    return '<a href="/e5_php/traitement/admin/cherche-util-tr?idUtilisateur=' + id + '"/>' +
                         nom + ' ' + prenom +
                         '</a>';
                 }
@@ -84,7 +84,7 @@ $(document).ready(function () {
                     if (statut === '4') {
                         return '<button class="btn btn-xs btn-secondary" disabled> ' + value + ' </button>';
                     } else {
-                        return '<form method="post" action="/e5_php/traitement/' + traitement + '-util-tr/' + id + '">' +
+                        return '<form method="post" action="/e5_php/traitement/admin/' + traitement + '-util-tr">' +
                             '<button class="btn btn-xs btn-primary" type="submit" value="' + id + '" name="idUtilisateur"> ' + value + ' </button>' +
                             '</form>';
                     }

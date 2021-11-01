@@ -1,11 +1,10 @@
 <?php
-$root = $_SERVER['DOCUMENT_ROOT'] . '/e5_php/';
-require_once '../model/Utilisateur.php';
-require_once '../model/Eleve.php';
-require_once '../model/Administrateur.php';
-require_once '../model/Professeur.php';
-require_once '../model/Parents.php';
-require_once '../manager/Manager.php';
+require_once '../../model/Utilisateur.php';
+require_once '../../model/Eleve.php';
+require_once '../../model/Administrateur.php';
+require_once '../../model/Professeur.php';
+require_once '../../model/Parents.php';
+require_once '../../manager/Manager.php';
 
 try {
 # Instancie la classe Manager
@@ -104,5 +103,4 @@ try {
 } catch (Exception $e) {
 # Affiche un message d'erreur
     $_SESSION['erreur'] = 'Erreur : ' . $e->getMessage();
-    header("Location: ../template/themes/template/table-util");
 }

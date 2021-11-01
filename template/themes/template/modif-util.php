@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <?php include_once '../../../include/head.php' ?>
-    <title>Lycée privé et UFA Robert Schuman</title>
+    <title>Modifier</title>
 </head>
 
 <body>

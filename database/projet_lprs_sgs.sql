@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Oct 14, 2021 at 05:18 PM
+-- Generation Time: Nov 01, 2021 at 09:26 PM
 -- Server version: 8.0.21
 -- PHP Version: 7.4.9
 
@@ -77,7 +77,7 @@ CREATE TABLE IF NOT EXISTS `eleve` (
 --
 
 INSERT INTO `eleve` (`idEleve`, `statut`, `classe`) VALUES
-(2, 1, '2nde');
+(2, 1, 'SLAM2');
 
 -- --------------------------------------------------------
 
@@ -89,12 +89,14 @@ DROP TABLE IF EXISTS `evenement`;
 CREATE TABLE IF NOT EXISTS `evenement` (
   `idEvent` int NOT NULL AUTO_INCREMENT,
   `idCreateur` int NOT NULL,
+  `nom` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `description` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `organisateur` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `type` char(7) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'Interne',
   `date` date NOT NULL,
   `horaire` time NOT NULL,
   `dateCreation` datetime NOT NULL,
-  `description` varchar(40) NOT NULL,
-  `organisateur` varchar(40) NOT NULL,
-  `validEvenement` int NOT NULL,
+  `validEvent` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`idEvent`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -162,14 +164,14 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
   `statut` int NOT NULL DEFAULT '0',
   `validUtilisateur` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`idUtilisateur`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `utilisateur`
 --
 
 INSERT INTO `utilisateur` (`idUtilisateur`, `nom`, `prenom`, `dateNaissance`, `adresse`, `telephone`, `mail`, `login`, `mdp`, `statut`, `validUtilisateur`) VALUES
-(1, 'root', 'root', '2021-09-28', 'root', '0999999999', 'root@gmail.com', 'root', 'root', 4, 1),
+(1, 'root', 'root', '2021-10-26', 'root', '0999999999', 'root@root.root', 'root', 'root', 4, 1),
 (2, 'eleve', 'eleve', '2021-09-28', 'eleve', '0999999999', 'eleve@gmail.com', 'eleve', 'eleve', 1, 0),
 (3, 'parent', 'parent', '2021-09-28', 'parent', '0999999999', 'parent@gmail.com', 'parent', 'parent', 2, 0),
 (4, 'prof', 'prof', '2021-09-28', 'prof', '0999999999', 'prof@gmail.com', 'prof', 'prof', 3, 1);

@@ -9,6 +9,21 @@
             </div>
             <div class="modal-body">
                 <div class="login">
+                    <div class="text-center pb-5">
+                        Inscrivez-vous en tant que :
+                    </div>
+                    <div class="row justify-content-center">
+                        <form action="/e5_php/template/themes/template/inscr-eleve" method="post">
+                            <button type="submit" class="btn btn-dark m-1">Etudiant</button>
+                        </form>
+                        <form action="/e5_php/template/themes/template/inscr-parent" method="post">
+                            <button type="submit" class="btn btn-info m-1">Parent</button>
+                        </form>
+                        <form action="/e5_php/template/themes/template/inscr-prof" method="post">
+                            <button type="submit" class="btn btn-warning m-1">Professeur</button>
+                        </form>
+                    </div>
+<!--
                     <form method="POST" action="/e5_php/traitement/inscription-tr.php" style="width:100%">
                         <div class="form-group">
                             <label for="nom">Nom</label>
@@ -50,23 +65,11 @@
                             <input type="password" class="form-control form-control-sm mb-3" id="mdp" name="mdp"
                                    required>
                         </div>
-                        <!--
-                        <div class="col-12">
-                            <label>
-                                <select name="statut" required>
-                                    <option name="util" value="0">Utilisateur</option>
-                                    <option name="eleve" value="1">Elève</option>
-                                    <option name="parent" value="2">Parent</option>
-                                    <option name="prof" value="3">Professeur</option>
-                                    <option name="admin" value="4">Administrateur</option>
-                                </select>
-                            </label>
-                        </div>
-                        -->
                         <button type="submit" class="btn btn-primary">
                             S'inscrire
                         </button>
                     </form>
+-->
                 </div>
             </div>
         </div>

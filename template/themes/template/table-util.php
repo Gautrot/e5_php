@@ -96,7 +96,7 @@
             <div class="col-12">
                 <div class="table-responsive-sm">
                     <h2 class="text-white">Ajouter un utilisateur</h2>
-                    <form method="post" action="/e5_php/traitement/creer-util-tr" id="ajoutUtil">
+                    <form method="post" action="/e5_php/traitement/admin/creer-util-tr" id="ajoutUtil">
                         <div class="form-group">
                             <label for="nom">Nom</label>
                             <input type="text" class="form-control form-control-sm mb-3" id="nom" name="nom" required

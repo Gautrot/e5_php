@@ -1,8 +1,6 @@
 <?php
-//$root = $_SERVER['DOCUMENT_ROOT'] . '/e5_php/';
-
 // utilisation du fichier BDD
-require_once '../model/BDD.php';
+require_once __DIR__ . '/../model/BDD.php';
 // Créée une nouvelle session s'il n'existe aucune session
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
@@ -21,13 +19,13 @@ use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 //on appelle la classe manager et toolsManager
-require_once('../manager/Manager.php');
-require '../vendor/autoload.php';
-require '../vendor/phpmailer/phpmailer/src/Exception.php';
-require '../vendor/phpmailer/phpmailer/src/PHPMailer.php';
-require '../vendor/phpmailer/phpmailer/src/SMTP.php';
+//require_once '../manager/Manager.php';
+require __DIR__ . '/../vendor/autoload.php';
+require __DIR__ . '/../vendor/phpmailer/phpmailer/src/Exception.php';
+require __DIR__ . '/../vendor/phpmailer/phpmailer/src/PHPMailer.php';
+require __DIR__ . '/../vendor/phpmailer/phpmailer/src/SMTP.php';
 //Load Composer's autoloader
-require '../vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
 //Create an instance; passing `true` enables exceptions
 $mail = new PHPMailer(true);
@@ -144,8 +142,8 @@ class Manager
             $bdd = (new BDD)->getBase();
             // preparation de la requête
             $req = $bdd->prepare('INSERT INTO
-            utilisateur (nom, prenom, dateNaissance, adresse, telephone, mail, login, mdp, statut, validUtilisateur)
-            VALUES (:nom, :prenom, :dateNaissance, :adresse, :telephone, :mail, :login, :mdp, :statut, :validUtilisateur)
+            utilisateur (nom, prenom, dateNaissance, adresse, telephone, mail, login, mdp)
+            VALUES (:nom, :prenom, :dateNaissance, :adresse, :telephone, :mail, :login, :mdp)
             ');
             // execution de la requête
             $res2 = $req->execute([
@@ -156,9 +154,7 @@ class Manager
                 'telephone' => $user->getTelephone(),
                 'mail' => $user->getMail(),
                 'login' => $user->getLogin(),
-                'mdp' => $user->getMdp(),
-                'statut' => $user->getStatut(),
-                'validUtilisateur' => $user->getValidUtilisateur()
+                'mdp' => $user->getMdp()
             ]);
             if ($res2) {
                 $req = $bdd->prepare('SELECT idUtilisateur, login, mdp, statut FROM utilisateur WHERE login = :login AND mdp = :mdp');
@@ -177,6 +173,65 @@ class Manager
         }
         throw new Exception('Erreur.');
     }
+
+    // Méthode d'inscription pour un étudiant
+
+    /**
+     * @throws Exception
+     */
+    public function inscriptionEleve(Eleve $eleve)
+    {
+        $bdd = (new BDD)->getBase();
+        $req = $bdd->prepare('SELECT * FROM utilisateur WHERE mail = :mail ');
+        $req->execute([
+            'login' => $eleve->getMail()
+        ]);
+        $res = $req->fetch();
+        // si $res est égale à quelque chose alors un message d'erreur s'affiche
+        if ($res) {
+            throw new Exception('L\'étudiant existe déjà.');
+        }
+        // si les getters sont différents de rien alors :
+        if ($eleve->getNom() !== '' && $eleve->getPrenom() !== '' && $eleve->getMail() !== '' && $eleve->getLogin() !== '' && $eleve->getMdp() !== ''
+            || $eleve->getNom() !== null && $eleve->getPrenom() !== null && $eleve->getMail() !== null && $eleve->getLogin() !== null && $eleve->getMdp() !== null) {
+            // création de l'objet bdd pour s'y connecter
+            $bdd = (new BDD)->getBase();
+            // preparation de la requête
+            $req = $bdd->prepare('
+                INSERT INTO utilisateur (nom, prenom, dateNaissance, adresse, telephone, mail, login, mdp, statut) VALUES (:nom, :prenom, :dateNaissance, :adresse, :telephone, :mail, :login, :mdp, :statut);
+                INSERT INTO eleve (idEleve, classe) VALUES (LAST_INSERT_ID(), :classe);
+            ');
+            // execution de la requête
+            $res2 = $req->execute([
+                'nom' => $eleve->getNom(),
+                'prenom' => $eleve->getPrenom(),
+                'dateNaissance' => $eleve->getDateNaissance(),
+                'adresse' => $eleve->getAdresse(),
+                'telephone' => $eleve->getTelephone(),
+                'mail' => $eleve->getMail(),
+                'login' => $eleve->getLogin(),
+                'mdp' => $eleve->getMdp(),
+                'statut' => $eleve->getStatut(),
+                'classe' => $eleve->getClasse()
+            ]);
+            if ($res2) {
+                $req = $bdd->prepare('SELECT idUtilisateur, login, mdp, statut FROM utilisateur WHERE login = :login AND mdp = :mdp');
+                $req->execute([
+                    'login' => $eleve->getLogin(),
+                    'mdp' => $eleve->getMdp()
+                ]);
+                $res3 = $req->fetch();
+                unset($_SESSION['erreur']);
+                header('Location: /e5_php/template/themes/template/index');
+                return $_SESSION['user'] = $res3;
+            } else {
+                // sinon redirection vers la page inscription
+                throw new Exception('Inscription échouée.');
+            }
+        }
+        throw new Exception('Erreur.');
+    }
+
 
     // Méthode de modification d'un utilisateur
 
@@ -265,7 +320,6 @@ class Manager
             }
             return;
         }
-
         throw new Exception('Ajout échouée !');
     }
 
@@ -821,6 +875,87 @@ Pas de probl&#232;me, cliquez sur le bouton pour acceder &#224; un changement de
 ';
             $this->mail('Mot de passe oublié', $body, $select_idUser, $mail_user);
             header('Location: /e5_php/template/themes/template/index?key=4xfq26NPP');
+        }
+    }
+
+    // Méthode de création d'un évènement
+
+    /**
+     * @throws Exception
+     */
+    public function creerEvenement(Evenement $event)
+    {
+        #Instancie la classe BDD
+        $bdd = (new BDD)->getBase();
+        $req = $bdd->prepare('SELECT nom FROM evenement WHERE nom = :nom');
+        $req->execute([
+            'nom' => $event->getNom()
+        ]);
+        $res = $req->fetch();
+
+        if ($res) {
+            # Si l'évènement existe dans la BDD.
+            header('Location: /e5_php/template/themes/template/creer-evenement');
+            throw new Exception('Cet évènement existe.');
+        } else {
+            $req = $bdd->prepare('INSERT INTO evenement (idCreateur, nom, description, organisateur, type, date, horaire, dateCreation, validEvent) VALUES (:idCreateur, :nom, :description, :organisateur, :type, :date, :horaire, NOW(), :validEvent)');
+            $res2 = $req->execute([
+                'idCreateur' => $event->getIdCreateur(),
+                'nom' => $event->getNom(),
+                'description' => $event->getDescription(),
+                'organisateur' => $event->getOrganisateur(),
+                'type' => $event->getType(),
+                'date' => $event->getDate(),
+                'horaire' => $event->getHoraire(),
+                'validEvent' => $event->getValidEvent()
+            ]);
+            unset($_SESSION['erreur']);
+            header('Location: /e5_php/template/themes/template/evenements');
+            if (!$res2) {
+                # Si un ou plusieurs champs sont vides.
+                throw new Exception('Ajout échouée !');
+            }
+            return;
+        }
+        throw new Exception('Ajout échouée !');
+    }
+
+    // Méthode de liste d'évènements
+
+    /**
+     * @throws Exception
+     */
+    public function listeEvenement()
+    {
+        #Instancie la classe BDD
+        $bdd = (new BDD)->getBase();
+        $req = $bdd->prepare('SELECT * FROM evenement');
+        $req->execute();
+        return $req->fetchall();
+    }
+
+    // Méthode d'affichage d'un utilisateur dans la session 'show'
+
+    /**
+     * @throws Exception
+     */
+    public function chercheEvenement(Evenement $event)
+    {
+        // on appelle la base de données
+        $bdd = (new BDD)->getBase();
+        $req = $bdd->prepare('SELECT * FROM evenement WHERE idEvent = :idEvent');
+        $req->execute([
+            'idEvent' => $event->getIdEvent()
+        ]);
+        $res = $req->fetch();
+        if ($res) {
+            unset($_SESSION['erreur']);
+            header('Location: /e5_php/template/themes/template/evenement-no?idEvent=' . $res['idEvent']);
+            return $_SESSION['event'] = $res;
+        } else {
+            // sinon affiche un message d'erreur
+            header('Location: /e5_php/template/themes/template/evenements');
+            throw new Exception('Erreur pendant la recherche de l\'évènement.', 1);
         }
     }
 }

@@ -1,5 +1,5 @@
 <?php
-$root = $_SERVER['DOCUMENT_ROOT'] . '/e5_php/';
+
 require_once '../model/Utilisateur.php';
 require_once '../manager/Manager.php';
 
