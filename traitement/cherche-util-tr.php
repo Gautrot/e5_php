@@ -1,6 +1,6 @@
 <?php
-require_once '../../model/Utilisateur.php';
-require_once '../../manager/Manager.php';
+require_once '../model/Utilisateur.php';
+require_once '../manager/Manager.php';
 
 try {
 # Instancie la classe Utilisateur
@@ -9,6 +9,7 @@ try {
     ]);
 # Instancie la classe Manager
     $man = new Manager();
+    var_dump($user);
 # Lance la méthode chercheUtilModif
     $edit = $man->chercheUtilModif($user);
 } catch (Exception $e) {

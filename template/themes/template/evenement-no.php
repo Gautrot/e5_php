@@ -1,9 +1,3 @@
-<?php
-require_once '../../../manager/Manager.php';
-
-$liste = new Manager();
-$res = $liste->listeEvenement();
-?>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -18,7 +12,10 @@ $res = $liste->listeEvenement();
 <!-- preloader end -->
 
 <!-- header -->
-<?php include_once '../../../include/header.php' ?>
+<?php include_once '../../../include/header.php';
+$liste = new Manager();
+$res = $liste->listeEvenement();
+?>
 <!-- /header -->
 
 <!-- Modal Inscription-->
@@ -37,7 +34,7 @@ $res = $liste->listeEvenement();
             <div class="col-md-8">
                 <ul class="list-inline custom-breadcrumb">
                     <li class="list-inline-item"><a class="h2 text-primary font-secondary"
-                                                    href="evenement">Évènement</a></li>
+                                                    href="evenements">Évènement</a></li>
                     <li class="list-inline-item text-white h3 font-secondary nasted"><?php echo $_SESSION['event']['nom']; ?></li>
                 </ul>
                 <p class="text-lighten"></p>
@@ -132,33 +129,38 @@ $res = $liste->listeEvenement();
         </div>
         <div class="row justify-content-center">
             <!-- event -->
-            <?php for ($i = 0; $i < 3; $i++) {
-                if (isset($res[$i]['idEvent']) || $res[$i]['idEvent'] !== $_SESSION['event']['idEvent']) { ?>
-                    <div class="col-lg-4 col-sm-6 mb-5">
-                        <div class="card border-0 rounded-0 hover-shadow">
-                            <div class="card-img position-relative">
-                                <img class="card-img-top rounded-0" src="images/events/event-1.jpg" alt="event thumb">
-                                <div class="card-date">
-                                    <span><?php echo substr($res[$i]['date'], 8, 2); ?></span><br>
-                                    <?php echo substr($res[$i]['date'], 5, 2) . '/' . substr($res[$i]['date'], 0, 4) ?>
+            <?php if (empty($res)) { ?>
+                <div class="col-lg-4 col-sm-6 mb-5">
+                    Il n'y a pas d'évènements pour le moment.
+                </div>
+            <?php } else {
+                for ($i = 0; $i < 3; $i++) {
+                    if (isset($res[$i]) && $res[$i]['idEvent'] !== $_SESSION['event']['idEvent']) { ?>
+                        <div class="col-lg-4 col-sm-6 mb-5">
+                            <div class="card border-0 rounded-0 hover-shadow">
+                                <div class="card-img position-relative">
+                                    <img class="card-img-top rounded-0" src="images/events/event-1.jpg"
+                                         alt="event thumb">
+                                    <div class="card-date">
+                                        <span><?php echo substr($res[$i]['date'], 8, 2); ?></span><br>
+                                        <?php echo substr($res[$i]['date'], 5, 2) . '/' . substr($res[$i]['date'], 0, 4) ?>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <a href="/e5_php/traitement/evenement/cherche-event-tr?idEvent=<?php echo $res[$i]['idEvent']; ?>">
+                                        <h4 class="card-title"><?php echo $res[$i]['nom']; ?></h4>
+                                    </a>
                                 </div>
                             </div>
-                            <div class="card-body">
-                                <a href="/e5_php/traitement/evenement/cherche-event-tr?idEvent=<?php echo $res[$i]['idEvent']; ?>">
-                                    <h4 class="card-title"><?php echo $res[$i]['nom']; ?></h4>
-                                </a>
-                            </div>
                         </div>
-                    </div>
-                    <?php
-                    if (sizeof($res) < 3) {
+                    <?php } else {
+                        if (sizeof($res) === 1) { ?>
+                            <div class="col-lg-4 col-sm-6 mb-5">
+                                Il n'y a pas de nouveaux évènements pour le moment.
+                            </div>
+                        <?php }
                         break;
                     }
-                } else { ?>
-                    <div class="col-lg-4 col-sm-6 mb-5">
-                        Il n'y a pas d'évènements pour le moment.
-                    </div>
-                    <?php break;
                 }
             } ?>
         </div>

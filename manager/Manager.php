@@ -65,7 +65,7 @@ try {
     echo "Message could not be sent. Mailer Error: $mail->ErrorInfo";
 }
 
-// création de la classe manager
+// création de la classe Manager
 class Manager
 {
     // Méthode de connexion
@@ -77,6 +77,7 @@ class Manager
     {
         // on appelle la base de données
         $bdd = (new BDD)->getBase();
+
         // gestion d'erreur : si l'utilisateur ne rentre rien pour le login ou le mot de passe alors le message "champ vide" apparaitra
         if ($user->getLogin() === '' && $user->getMdp() == '' || $user->getLogin() === null && $user->getMdp() === null) {
             header('Location: /e5_php/template/themes/template/index');
@@ -90,13 +91,15 @@ class Manager
             header('Location: /e5_php/template/themes/template/index');
             throw new Exception('Mot de passe vide', 1);
         }
+
         // préparation de la requête pour la connexion d'un utilisateur
-        $req = $bdd->prepare('SELECT idUtilisateur, login, mdp, statut FROM utilisateur WHERE login = :login AND mdp = :mdp');
+        $req = $bdd->prepare('SELECT idUtilisateur, login, mdp, statut, validUtilisateur FROM utilisateur WHERE login = :login AND mdp = :mdp');
         $req->execute([
             'login' => $user->getLogin(),
             'mdp' => $user->getMdp()
         ]);
         $res = $req->fetch();
+
         // vérification du mot de passe entré par l'utilisateur :
         // si le mot de passe est correct alors la connexion est réussi et on entre dans le compte
         header('Location: /e5_php/template/themes/template/index');
@@ -109,15 +112,6 @@ class Manager
         }
     }
 
-    // Méthode de déconnexion
-
-    public function deconnexion()
-    {
-        session_destroy();
-        // redirection vers la page index
-        header('Location: /e5_php/template/themes/template/index');
-    }
-
     // Méthode d'inscription pour un utilisateur
 
     /**
@@ -126,18 +120,21 @@ class Manager
     public function inscription(Utilisateur $user)
     {
         $bdd = (new BDD)->getBase();
-        $req = $bdd->prepare('SELECT * FROM utilisateur WHERE login = :login ');
+        $req = $bdd->prepare('SELECT idUtilisateur, login, mdp, statut, validUtilisateur FROM utilisateur WHERE login = :login ');
         $req->execute([
             'login' => $user->getLogin()
         ]);
         $res = $req->fetch();
+
         // si $res est égale à quelque chose alors un message d'erreur s'affiche
         if ($res) {
             throw new Exception('L\'utilisateur existe déjà.');
         }
+
         // si les getters sont différents de rien alors :
         if ($user->getNom() !== '' && $user->getPrenom() !== '' && $user->getMail() !== '' && $user->getLogin() !== '' && $user->getMdp() !== ''
             || $user->getNom() !== null && $user->getPrenom() !== null && $user->getMail() !== null && $user->getLogin() !== null && $user->getMdp() !== null) {
+
             // création de l'objet bdd pour s'y connecter
             $bdd = (new BDD)->getBase();
             // preparation de la requête
@@ -157,81 +154,20 @@ class Manager
                 'mdp' => $user->getMdp()
             ]);
             if ($res2) {
-                $req = $bdd->prepare('SELECT idUtilisateur, login, mdp, statut FROM utilisateur WHERE login = :login AND mdp = :mdp');
-                $req->execute([
-                    'login' => $user->getLogin(),
-                    'mdp' => $user->getMdp()
-                ]);
-                $res3 = $req->fetch();
+//                $req = $bdd->prepare('SELECT idUtilisateur, login, mdp, statut FROM utilisateur WHERE login = :login AND mdp = :mdp');
+//                $req->execute([
+//                    'login' => $user->getLogin(),
+//                    'mdp' => $user->getMdp()
+//                ]);
+//                $res3 = $req->fetch();
                 unset($_SESSION['erreur']);
-                header('Location: /e5_php/template/themes/template/index');
-                return $_SESSION['user'] = $res3;
-            } else {
-                // sinon redirection vers la page inscription
-                throw new Exception('Inscription échouée.');
+                return $_SESSION['user'] = $res;
             }
+            throw new Exception('Inscription échouée.');
         }
+        header('Location: /e5_php/template/themes/template/index');
         throw new Exception('Erreur.');
     }
-
-    // Méthode d'inscription pour un étudiant
-
-    /**
-     * @throws Exception
-     */
-    public function inscriptionEleve(Eleve $eleve)
-    {
-        $bdd = (new BDD)->getBase();
-        $req = $bdd->prepare('SELECT * FROM utilisateur WHERE mail = :mail ');
-        $req->execute([
-            'login' => $eleve->getMail()
-        ]);
-        $res = $req->fetch();
-        // si $res est égale à quelque chose alors un message d'erreur s'affiche
-        if ($res) {
-            throw new Exception('L\'étudiant existe déjà.');
-        }
-        // si les getters sont différents de rien alors :
-        if ($eleve->getNom() !== '' && $eleve->getPrenom() !== '' && $eleve->getMail() !== '' && $eleve->getLogin() !== '' && $eleve->getMdp() !== ''
-            || $eleve->getNom() !== null && $eleve->getPrenom() !== null && $eleve->getMail() !== null && $eleve->getLogin() !== null && $eleve->getMdp() !== null) {
-            // création de l'objet bdd pour s'y connecter
-            $bdd = (new BDD)->getBase();
-            // preparation de la requête
-            $req = $bdd->prepare('
-                INSERT INTO utilisateur (nom, prenom, dateNaissance, adresse, telephone, mail, login, mdp, statut) VALUES (:nom, :prenom, :dateNaissance, :adresse, :telephone, :mail, :login, :mdp, :statut);
-                INSERT INTO eleve (idEleve, classe) VALUES (LAST_INSERT_ID(), :classe);
-            ');
-            // execution de la requête
-            $res2 = $req->execute([
-                'nom' => $eleve->getNom(),
-                'prenom' => $eleve->getPrenom(),
-                'dateNaissance' => $eleve->getDateNaissance(),
-                'adresse' => $eleve->getAdresse(),
-                'telephone' => $eleve->getTelephone(),
-                'mail' => $eleve->getMail(),
-                'login' => $eleve->getLogin(),
-                'mdp' => $eleve->getMdp(),
-                'statut' => $eleve->getStatut(),
-                'classe' => $eleve->getClasse()
-            ]);
-            if ($res2) {
-                $req = $bdd->prepare('SELECT idUtilisateur, login, mdp, statut FROM utilisateur WHERE login = :login AND mdp = :mdp');
-                $req->execute([
-                    'login' => $eleve->getLogin(),
-                    'mdp' => $eleve->getMdp()
-                ]);
-                $res3 = $req->fetch();
-                unset($_SESSION['erreur']);
-                header('Location: /e5_php/template/themes/template/index');
-                return $_SESSION['user'] = $res3;
-            } else {
-                // sinon redirection vers la page inscription
-                throw new Exception('Inscription échouée.');
-            }
-        }
-        throw new Exception('Erreur.');
-    }
-
 
     // Méthode de modification d'un utilisateur
 
@@ -242,14 +178,13 @@ class Manager
     {
         #Instancie la classe BDD
         $bdd = (new BDD)->getBase();
-        $req = $bdd->prepare('SELECT idUtilisateur FROM utilisateur WHERE idUtilisateur = :idUtilisateur');
+        $req = $bdd->prepare('SELECT idUtilisateur, login, mdp, statut, validUtilisateur FROM utilisateur WHERE idUtilisateur = :idUtilisateur');
         $req->execute([
             'idUtilisateur' => $user->getIdUtilisateur()
         ]);
         $res = $req->fetch();
         if (!$res) {
             # Si le compte existe dans la BDD.
-            header('Location: /e5_php/template/themes/template/modif-util');
             throw new Exception('Ce compte n\'existe pas.');
         } else {
             $req = $bdd->prepare('UPDATE utilisateur SET nom = :nom, prenom = :prenom, dateNaissance = :dateNaissance, adresse = :adresse, telephone = :telephone, mail = :mail, login = :login, mdp = :mdp WHERE idUtilisateur = :idUtilisateur');
@@ -265,367 +200,29 @@ class Manager
                 'mdp' => $user->getMdp()
             ]);
             if ($res2) {
-                $req = $bdd->prepare('SELECT idUtilisateur, login, mdp, statut FROM utilisateur WHERE idUtilisateur = :idUtilisateur');
-                $req->execute([
-                    'idUtilisateur' => $user->getIdUtilisateur()
-                ]);
-                $res3 = $req->fetch();
-                unset($_SESSION['edit']);
+//                $req = $bdd->prepare('SELECT idUtilisateur, login, mdp, statut FROM utilisateur WHERE idUtilisateur = :idUtilisateur');
+//                $req->execute([
+//                    'idUtilisateur' => $user->getIdUtilisateur()
+//                ]);
+//                $res3 = $req->fetch();
+//                unset($_SESSION['edit']);
                 unset($_SESSION['erreur']);
                 header('Location: /e5_php/template/themes/template/index');
-                return $_SESSION['user'] = $res3;
-            } else {
-                # Si un ou plusieurs champs sont vides.
-                throw new Exception('Modification échouée !');
+                return $_SESSION['user'] = $res;
             }
+            # Si un ou plusieurs champs sont vides.
+            throw new Exception('Modification échouée !');
         }
+        header('Location: /e5_php/template/themes/template/modif-util');
     }
 
-    // Méthode de création d'un utilisateur
+// Méthode d'affichage d'un utilisateur dans la session 'edit'
 
     /**
      * @throws Exception
      */
-    public function creerUtil(Utilisateur $user)
-    {
-        #Instancie la classe BDD
-        $bdd = (new BDD)->getBase();
-        $req = $bdd->prepare('SELECT mail FROM utilisateur WHERE mail = :mail');
-        $req->execute([
-            'mail' => $user->getMail()
-        ]);
-        $res = $req->fetch();
-        if ($res) {
-            # Si le compte existe dans la BDD.
-            header('Location: /e5_php/template/themes/template/table-util');
-            throw new Exception('Ce compte existe.');
-        } else {
-            $req = $bdd->prepare('INSERT INTO utilisateur (nom, prenom, dateNaissance, adresse, telephone, mail, login, mdp, statut) VALUES (:nom, :prenom, :dateNaissance, :adresse, :telephone, :mail, :login, :mdp, :statut)');
-            $res2 = $req->execute([
-                'nom' => $user->getNom(),
-                'prenom' => $user->getPrenom(),
-                'dateNaissance' => $user->getDateNaissance(),
-                'adresse' => $user->getAdresse(),
-                'telephone' => $user->getTelephone(),
-                'mail' => $user->getMail(),
-                'login' => $user->getLogin(),
-                'mdp' => $user->getMdp(),
-                'statut' => $user->getStatut()
-            ]);
-            unset($_SESSION['erreur']);
-            header('Location: /e5_php/template/themes/template/table-util');
-            if (!$res2) {
-                # Si un ou plusieurs champs sont vides.
-                throw new Exception('Ajout échouée !');
-            }
-            return;
-        }
-        throw new Exception('Ajout échouée !');
-    }
-
-    // Méthode de création d'un compte élève
-
-    /**
-     * @throws Exception
-     */
-    public function creerEleve(Eleve $eleve)
-    {
-        #Instancie la classe BDD
-        $bdd = (new BDD)->getBase();
-        $req = $bdd->prepare('SELECT mail FROM utilisateur WHERE mail = :mail');
-        $req->execute([
-            'mail' => $eleve->getMail()
-        ]);
-        $res = $req->fetchall();
-        if ($res) {
-            # Si le compte existe dans la BDD.
-            header('Location: /e5_php/template/themes/template/table-util');
-            throw new Exception('Ce compte existe.');
-        } else {
-            $req = $bdd->prepare('
-                INSERT INTO utilisateur (nom, prenom, dateNaissance, adresse, telephone, mail, login, mdp, statut) VALUES (:nom, :prenom, :dateNaissance, :adresse, :telephone, :mail, :login, :mdp, :statut);
-                INSERT INTO eleve (idEleve, classe) VALUES (LAST_INSERT_ID(), :classe);
-            ');
-            $res2 = $req->execute([
-                'nom' => $eleve->getNom(),
-                'prenom' => $eleve->getPrenom(),
-                'dateNaissance' => $eleve->getDateNaissance(),
-                'adresse' => $eleve->getAdresse(),
-                'telephone' => $eleve->getTelephone(),
-                'mail' => $eleve->getMail(),
-                'login' => $eleve->getLogin(),
-                'mdp' => $eleve->getMdp(),
-                'statut' => $eleve->getStatut(),
-                'classe' => $eleve->getClasse()
-            ]);
-            unset($_SESSION['erreur']);
-            header('Location: /e5_php/template/themes/template/table-util');
-            if (!$res2) {
-                # Si un ou plusieurs champs sont vides.
-                throw new Exception('Ajout échouée !');
-            }
-            return;
-        }
-
-        throw new Exception('Ajout échouée !');
-    }
-
-    // Méthode de création d'un compte parent
-
-    /**
-     * @throws Exception
-     */
-    public function creerParent(Parents $parent)
-    {
-        #Instancie la classe BDD
-        $bdd = (new BDD)->getBase();
-        $req = $bdd->prepare('
-            SELECT mail FROM utilisateur WHERE mail = :mail;
-            SELECT nom, prenom FROM utilisateur INNER JOIN eleve ON idEleve = idUtilisateur WHERE idEleve = :idEleve;
-        ');
-        $req->execute([
-            'mail' => $parent->getMail(),
-            'idEleve' => $parent->getIdEleve()
-        ]);
-        $res = $req->fetchall();
-        if ($res) {
-            # Si le compte existe dans la BDD.
-            header('Location: /e5_php/template/themes/template/table-util');
-            throw new Exception('Ce compte existe.');
-        } else {
-            $req = $bdd->prepare('
-                INSERT INTO utilisateur (nom, prenom, dateNaissance, adresse, telephone, mail, login, mdp, statut) VALUES (:nom, :prenom, :dateNaissance, :adresse, :telephone, :mail, :login, :mdp, :statut);
-                INSERT INTO parent (idParent, metier, idEleve) VALUES (LAST_INSERT_ID(), :metier, :idEleve);
-            ');
-            $res2 = $req->execute([
-                'nom' => $parent->getNom(),
-                'prenom' => $parent->getPrenom(),
-                'dateNaissance' => $parent->getDateNaissance(),
-                'adresse' => $parent->getAdresse(),
-                'telephone' => $parent->getTelephone(),
-                'mail' => $parent->getMail(),
-                'login' => $parent->getLogin(),
-                'mdp' => $parent->getMdp(),
-                'statut' => $parent->getStatut(),
-                'metier' => $parent->getMetier(),
-                'idEleve' => $parent->getIdEleve()
-            ]);
-            unset($_SESSION['erreur']);
-            header('Location: /e5_php/template/themes/template/table-util');
-            if (!$res2) {
-                # Si un ou plusieurs champs sont vides.
-                throw new Exception('Ajout échouée !');
-            }
-            return;
-        }
-
-        throw new Exception('Ajout échouée !');
-    }
-
-    // Méthode de création d'un compte professeur
-
-    /**
-     * @throws Exception
-     */
-    public function creerProf(Professeur $prof)
-    {
-        #Instancie la classe BDD
-        $bdd = (new BDD)->getBase();
-        $req = $bdd->prepare('SELECT mail FROM utilisateur WHERE mail = :mail');
-        $req->execute([
-            'mail' => $prof->getMail()
-        ]);
-        $res = $req->fetchall();
-        if ($res) {
-            # Si le compte existe dans la BDD.
-            header('Location: /e5_php/template/themes/template/table-util');
-            throw new Exception('Ce compte existe.');
-        } else {
-            $req = $bdd->prepare('
-                INSERT INTO utilisateur (nom, prenom, dateNaissance, adresse, telephone, mail, login, mdp, statut) VALUES (:nom, :prenom, :dateNaissance, :adresse, :telephone, :mail, :login, :mdp, :statut);
-                INSERT INTO professeur (idProf, matiere) VALUES (LAST_INSERT_ID(), :matiere);
-            ');
-            $res2 = $req->execute([
-                'nom' => $prof->getNom(),
-                'prenom' => $prof->getPrenom(),
-                'dateNaissance' => $prof->getDateNaissance(),
-                'adresse' => $prof->getAdresse(),
-                'telephone' => $prof->getTelephone(),
-                'mail' => $prof->getMail(),
-                'login' => $prof->getLogin(),
-                'mdp' => $prof->getMdp(),
-                'statut' => $prof->getStatut(),
-                'matiere' => $prof->getMatiere()
-            ]);
-            unset($_SESSION['erreur']);
-            header('Location: /e5_php/template/themes/template/table-util');
-            if (!$res2) {
-                # Si un ou plusieurs champs sont vides.
-                throw new Exception('Ajout échouée !');
-            }
-            return;
-        }
-
-        throw new Exception('Ajout échouée !');
-    }
-
-    // Méthode de création d'un compte administrateur
-
-    /**
-     * @throws Exception
-     */
-    public function creerAdmin(Administrateur $admin)
-    {
-        #Instancie la classe BDD
-        $bdd = (new BDD)->getBase();
-        $req = $bdd->prepare('SELECT mail FROM utilisateur WHERE mail = :mail');
-        $req->execute([
-            'mail' => $admin->getMail()
-        ]);
-        $res = $req->fetchall();
-        if ($res) {
-            # Si le compte existe dans la BDD.
-            header('Location: /e5_php/template/themes/template/table-util');
-            throw new Exception('Ce compte existe.');
-        } else {
-            $req = $bdd->prepare('
-                INSERT INTO utilisateur (nom, prenom, dateNaissance, adresse, telephone, mail, login, mdp, statut, validUtilisateur) VALUES (:nom, :prenom, :dateNaissance, :adresse, :telephone, :mail, :login, :mdp, :statut, :validUtilisateur);
-                INSERT INTO administrateur (idAdmin) VALUES (LAST_INSERT_ID());
-            ');
-            $res2 = $req->execute([
-                'nom' => $admin->getNom(),
-                'prenom' => $admin->getPrenom(),
-                'dateNaissance' => $admin->getDateNaissance(),
-                'adresse' => $admin->getAdresse(),
-                'telephone' => $admin->getTelephone(),
-                'mail' => $admin->getMail(),
-                'login' => $admin->getLogin(),
-                'mdp' => $admin->getMdp(),
-                'statut' => $admin->getStatut(),
-                'validUtilisateur' => $admin->getValidUtilisateur()
-            ]);
-            unset($_SESSION['erreur']);
-            header('Location: /e5_php/template/themes/template/table-util');
-            if (!$res2) {
-                # Si un ou plusieurs champs sont vides.
-                throw new Exception('Ajout échouée !');
-            }
-            return;
-        }
-
-        throw new Exception('Ajout échouée !');
-    }
-
-    // Méthode d'activation d'un utilisateur
-
-    /**
-     * @throws Exception
-     */
-    public function activerUtil(Utilisateur $user)
-    {
-        #Instancie la classe BDD
-        $bdd = (new BDD)->getBase();
-        $req = $bdd->prepare('SELECT idUtilisateur FROM utilisateur WHERE idUtilisateur = :idUtilisateur');
-        $req->execute([
-            'idUtilisateur' => $user->getIdUtilisateur()
-        ]);
-        $res = $req->fetch();
-        if ($res) {
-            $req = $bdd->prepare('UPDATE utilisateur SET validUtilisateur = 1 WHERE idUtilisateur = :idUtilisateur');
-            $req->execute([
-                'idUtilisateur' => $user->getIdUtilisateur()
-            ]);
-            unset($_SESSION['erreur']);
-            header('Location: /e5_php/template/themes/template/table-util');
-        } else {
-            # Si le compte existe dans la BDD.
-            header('Location: /e5_php/template/themes/template/table-util');
-            throw new Exception('Ce compte n\'existe pas.');
-        }
-    }
-
-    // Méthode de désactivation d'un utilisateur
-
-    /**
-     * @throws Exception
-     */
-    public function desactiverUtil(Utilisateur $user)
-    {
-        #Instancie la classe BDD
-        $bdd = (new BDD)->getBase();
-        $req = $bdd->prepare('SELECT idUtilisateur FROM utilisateur WHERE idUtilisateur = :idUtilisateur');
-        $req->execute([
-            'idUtilisateur' => $user->getIdUtilisateur()
-        ]);
-        $res = $req->fetch();
-        if ($res) {
-            $req = $bdd->prepare('UPDATE utilisateur SET validUtilisateur = 0 WHERE idUtilisateur = :idUtilisateur');
-            $res2 = $req->execute([
-                'idUtilisateur' => $user->getIdUtilisateur()
-            ]);
-            unset($_SESSION['erreur']);
-            header('Location: /e5_php/template/themes/template/table-util');
-            if (!$res2) {
-                throw new Exception('Désactivation échouée !');
-            }
-        } else {
-            # Si le compte existe dans la BDD.
-            header('Location: /e5_php/template/themes/template/table-util');
-            throw new Exception('Ce compte n\'existe pas.');
-        }
-    }
-
-    // Méthode d'affichage d'un utilisateur dans la session 'show'
-
-    /**
-     * @throws Exception
-     */
-    public function chercheUtilAdmin(Utilisateur $user)
-    {
-        // on appelle la base de données
-        $bdd = (new BDD)->getBase();
-        $req = $bdd->prepare('SELECT * FROM utilisateur WHERE idUtilisateur = :idUtilisateur');
-        $req->execute([
-            'idUtilisateur' => $user->getIdUtilisateur()
-        ]);
-        $res = $req->fetch();
-        if ($res) {
-            switch ($res['statut']) {
-                case '1':
-                    $req = $bdd->prepare('SELECT * FROM utilisateur INNER JOIN eleve ON eleve.idEleve = utilisateur.idUtilisateur WHERE idUtilisateur = :idUtilisateur');
-                    break;
-                case '2':
-                    $req = $bdd->prepare('SELECT * FROM utilisateur INNER JOIN parent ON parent.idParent = utilisateur.idUtilisateur WHERE idUtilisateur = :idUtilisateur');
-                    break;
-                case '3':
-                    $req = $bdd->prepare('SELECT * FROM utilisateur INNER JOIN professeur ON professeur.idProf = utilisateur.idUtilisateur WHERE idUtilisateur = :idUtilisateur');
-                    break;
-                case '4':
-                    $req = $bdd->prepare('SELECT * FROM utilisateur INNER JOIN administrateur ON administrateur.idAdmin = utilisateur.idUtilisateur WHERE idUtilisateur = :idUtilisateur');
-                    break;
-                default:
-                    break;
-            }
-            $req->execute([
-                'idUtilisateur' => $user->getIdUtilisateur()
-            ]);
-            $res2 = $req->fetch();
-            header('Location: /e5_php/template/themes/template/utilisateur?idUtilisateur=' . $res2['idUtilisateur']);
-            unset($_SESSION['erreur']);
-            return $_SESSION['show'] = $res2;
-        } else {
-            // sinon affiche un message d'erreur
-            header('Location: /e5_php/template/themes/template/table-util');
-            throw new Exception('Erreur pendant la recherche de l\'utilisateur.', 1);
-        }
-    }
-
-    // Méthode d'affichage d'un utilisateur dans la session 'edit'
-
-    /**
-     * @throws Exception
-     */
-    public function chercheUtilModif(Utilisateur $user)
+    public
+    function chercheUtilModif(Utilisateur $user)
     {
         // on appelle la base de données
         $bdd = (new BDD)->getBase();
@@ -659,30 +256,21 @@ class Manager
             header('Location: /e5_php/template/themes/template/modif-util?idUtilisateur=' . $res2['idUtilisateur']);
             unset($_SESSION['erreur']);
             return $_SESSION['edit'] = $res2;
-        } else {
-            // sinon affiche un message d'erreur
-            header('Location: /e5_php/template/themes/template/index');
-            throw new Exception('Erreur pendant la recherche de l\'utilisateur.', 1);
         }
-    }
-
-    // Méthode de suppression de la session 'show'
-
-    public function retourUtilAdmin()
-    {
-        unset($_SESSION['show']);
-        header('Location: /e5_php/template/themes/template/table-util');
-    }
-
-    // Méthode de suppression de la session 'edit'
-
-    public function retourUtilEdit()
-    {
-        unset($_SESSION['edit']);
+        // sinon affiche un message d'erreur
         header('Location: /e5_php/template/themes/template/index');
+        throw new Exception('Erreur pendant la recherche de l\'utilisateur.', 1);
     }
 
-    // Méthode pour envoyer un mail et changer son mdp
+// Méthode de suppression de la session 'edit'
+
+//    public function retourUtilEdit()
+//    {
+//        unset($_SESSION['edit']);
+//        header('Location: /e5_php/template/themes/template/index');
+//    }
+
+// Méthode pour envoyer un mail et changer son mdp
 
     function MDPoublie($mail_user)
     {
@@ -875,87 +463,6 @@ Pas de probl&#232;me, cliquez sur le bouton pour acceder &#224; un changement de
 ';
             $this->mail('Mot de passe oublié', $body, $select_idUser, $mail_user);
             header('Location: /e5_php/template/themes/template/index?key=4xfq26NPP');
-        }
-    }
-
-    // Méthode de création d'un évènement
-
-    /**
-     * @throws Exception
-     */
-    public function creerEvenement(Evenement $event)
-    {
-        #Instancie la classe BDD
-        $bdd = (new BDD)->getBase();
-        $req = $bdd->prepare('SELECT nom FROM evenement WHERE nom = :nom');
-        $req->execute([
-            'nom' => $event->getNom()
-        ]);
-        $res = $req->fetch();
-
-        if ($res) {
-            # Si l'évènement existe dans la BDD.
-            header('Location: /e5_php/template/themes/template/creer-evenement');
-            throw new Exception('Cet évènement existe.');
-        } else {
-            $req = $bdd->prepare('INSERT INTO evenement (idCreateur, nom, description, organisateur, type, date, horaire, dateCreation, validEvent) VALUES (:idCreateur, :nom, :description, :organisateur, :type, :date, :horaire, NOW(), :validEvent)');
-            $res2 = $req->execute([
-                'idCreateur' => $event->getIdCreateur(),
-                'nom' => $event->getNom(),
-                'description' => $event->getDescription(),
-                'organisateur' => $event->getOrganisateur(),
-                'type' => $event->getType(),
-                'date' => $event->getDate(),
-                'horaire' => $event->getHoraire(),
-                'validEvent' => $event->getValidEvent()
-            ]);
-            unset($_SESSION['erreur']);
-            header('Location: /e5_php/template/themes/template/evenements');
-            if (!$res2) {
-                # Si un ou plusieurs champs sont vides.
-                throw new Exception('Ajout échouée !');
-            }
-            return;
-        }
-        throw new Exception('Ajout échouée !');
-    }
-
-    // Méthode de liste d'évènements
-
-    /**
-     * @throws Exception
-     */
-    public function listeEvenement()
-    {
-        #Instancie la classe BDD
-        $bdd = (new BDD)->getBase();
-        $req = $bdd->prepare('SELECT * FROM evenement');
-        $req->execute();
-        return $req->fetchall();
-    }
-
-    // Méthode d'affichage d'un utilisateur dans la session 'show'
-
-    /**
-     * @throws Exception
-     */
-    public function chercheEvenement(Evenement $event)
-    {
-        // on appelle la base de données
-        $bdd = (new BDD)->getBase();
-        $req = $bdd->prepare('SELECT * FROM evenement WHERE idEvent = :idEvent');
-        $req->execute([
-            'idEvent' => $event->getIdEvent()
-        ]);
-        $res = $req->fetch();
-        if ($res) {
-            unset($_SESSION['erreur']);
-            header('Location: /e5_php/template/themes/template/evenement-no?idEvent=' . $res['idEvent']);
-            return $_SESSION['event'] = $res;
-        } else {
-            // sinon affiche un message d'erreur
-            header('Location: /e5_php/template/themes/template/evenements');
-            throw new Exception('Erreur pendant la recherche de l\'évènement.', 1);
         }
     }
 }

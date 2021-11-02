@@ -1,5 +1,4 @@
 <?php
-require_once '../../model/Utilisateur.php';
 require_once '../../model/Evenement.php';
 require_once '../../manager/Manager.php';
 

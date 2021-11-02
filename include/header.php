@@ -1,6 +1,6 @@
 <?php
-session_start();
-//var_dump($_SESSION);
+include_once '../../../manager/Manager.php';
+var_dump($_SESSION);
 ?>
 <header class="fixed-top header">
     <!-- navbar -->
@@ -53,7 +53,7 @@ session_start();
                                             <?php break;
                                     } ?>
                                     <a class="dropdown-item" href="evenements">Évènements</a>
-                                    <a class="dropdown-item" href="/e5_php/traitement/cherche-util-modif-tr">Modifier
+                                    <a class="dropdown-item" href="/e5_php/traitement/cherche-util-tr">Modifier
                                         votre compte</a>
                                     <a class="dropdown-item" href="deconnexion">Déconnexion</a>
                                 <?php } ?>

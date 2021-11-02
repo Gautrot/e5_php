@@ -1,6 +1,3 @@
-<?php
-//session_start();
-?>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -54,19 +51,17 @@
             <div class="col-12">
                 <div class="modal-body">
                     <div class="login">
-                        <form method="POST" action="/e5_php/traitement/inscription-eleve-tr.php" style="width:100%">
+                        <form method="POST" action="/e5_php/traitement/eleve/inscription-tr.php" style="width:100%">
                             <div class="form-row">
                                 <div class="col">
                                     <label for="nom">Nom</label>
                                     <input type="text" class="form-control form-control-sm mb-3" id="nom" name="nom"
-                                           required
-                                           maxlength="40" placeholder="ex : Robert">
+                                           required maxlength="40" placeholder="ex : Schuman">
                                 </div>
                                 <div class="col">
                                     <label for="prenom">Prénom</label>
                                     <input type="text" class="form-control form-control-sm mb-3" id="prenom"
-                                           name="prenom"
-                                           required maxlength="40" placeholder="ex : Schuman">
+                                           name="prenom" required maxlength="40" placeholder="ex : Robert">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -106,9 +101,8 @@
                             </div>
                             <div class="form-group">
                                 <label for="classe">Classe</label>
-                                <input type="password" class="form-control form-control-sm mb-3" id="classe"
-                                       name="classe"
-                                       required maxlength="10" placeholder="ex : SLAM1">
+                                <input type="text" class="form-control form-control-sm mb-3" id="classe"
+                                       name="classe" required maxlength="10" placeholder="ex : SLAM1">
                             </div>
                             <button type="submit" class="btn btn-primary">
                                 S'inscrire

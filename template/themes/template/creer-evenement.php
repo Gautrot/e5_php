@@ -70,21 +70,21 @@
                                 <input type="text" class="form-control form-control-sm mb-3" id="organisateur"
                                        maxlength="100" name="organisateur" required>
                             </div>
-                            <div class="form-group">
-                                <div class="mb-3">Type d'évènement</div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" name="type" type="radio" id="interne"
-                                           value="Interne" checked>
-                                    <label class="form-check-label" for="interne">Interne</label>
-                                </div>
-                                <?php if ($_SESSION['user']['statut'] === '3' || $_SESSION['user']['statut'] === '4') { ?>
+                            <?php if ($_SESSION['user']['statut'] === '3' || $_SESSION['user']['statut'] === '4') { ?>
+                                <div class="form-group">
+                                    <div class="mb-3">Type d'évènement</div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" name="type" type="radio" id="interne"
+                                               value="Interne" checked>
+                                        <label class="form-check-label" for="interne">Interne</label>
+                                    </div>
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" name="type" type="radio" id="externe"
                                                value="Externe">
                                         <label class="form-check-label" for="externe">Externe</label>
                                     </div>
-                                <?php } ?>
-                            </div>
+                                </div>
+                            <?php } ?>
                             <div class="form-group">
                                 <label for="date">Date de l'évènement</label>
                                 <input type="date" class="form-control form-control-sm mb-3" id="date" name="date"
