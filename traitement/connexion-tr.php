@@ -12,6 +12,8 @@ try {
     $manager = new Manager();
 # Lance la méthode connexion
     $manager->connexion($user);
+    header('Location: /e5_php/template/themes/template/index');
 } catch (Exception $e) {
     $_SESSION["erreur"] = $e->getMessage();
+    header('Location: /e5_php/template/themes/template/index');
 }

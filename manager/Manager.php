@@ -75,24 +75,25 @@ class Manager
      */
     public function connexion(Utilisateur $user)
     {
-        // on appelle la base de données
+        // On appelle la base de données
         $bdd = (new BDD)->getBase();
 
-        // gestion d'erreur : si l'utilisateur ne rentre rien pour le login ou le mot de passe alors le message "champ vide" apparaitra
-        if ($user->getLogin() === '' && $user->getMdp() == '' || $user->getLogin() === null && $user->getMdp() === null) {
-            header('Location: /e5_php/template/themes/template/index');
-            throw new Exception('Champs vide', 1);
-        }
-        if ($user->getLogin() === '' || $user->getLogin() === null) {
-            header('Location: /e5_php/template/themes/template/index');
-            throw new Exception('Login vide', 1);
-        }
-        if ($user->getMdp() === '' || $user->getMdp() === null) {
-            header('Location: /e5_php/template/themes/template/index');
-            throw new Exception('Mot de passe vide', 1);
+        $req = $bdd->query('SELECT * FROM utilisateur');
+        $res = $req->fetchAll();
+        foreach ($res as $user) {
+            // Vérifie les conditions lors de la connection.
+            // S'il y a une erreur, la fonction s'arrête.
+            switch ($user) {
+                case ($user['mdp'] == '' || $user['mdp'] == null):
+                    throw new Exception('Mot de passe vide.', 1);
+                case ($user['login'] == '' || $user['login'] == null):
+                    throw new Exception('Login vide.', 1);
+                case ($user['login'] == '' && $user['mdp'] == '' || $user['login'] == null && $user['mdp'] == null):
+                    throw new Exception('Champs vide.', 1);
+            }
         }
 
-        // préparation de la requête pour la connexion d'un utilisateur
+        // Préparation de la requête pour la connexion d'un utilisateur
         $req = $bdd->prepare('SELECT idUtilisateur, login, mdp, statut, validUtilisateur FROM utilisateur WHERE login = :login AND mdp = :mdp');
         $req->execute([
             'login' => $user->getLogin(),
@@ -100,73 +101,14 @@ class Manager
         ]);
         $res = $req->fetch();
 
-        // vérification du mot de passe entré par l'utilisateur :
-        // si le mot de passe est correct alors la connexion est réussi et on entre dans le compte
-        header('Location: /e5_php/template/themes/template/index');
+        // Vérification du mot de passe entré par l'utilisateur.
+        // Si le mot de passe est correct alors la connexion est réussi et on entre dans le compte
         if (password_verify($user->getMdp(), $res['mdp']) || $res['mdp']) {
             unset($_SESSION['erreur']);
             return $_SESSION['user'] = $res;
-        } else {
-            // sinon affiche un message d'erreur
-            throw new Exception('Erreur pendant la connexion.', 1);
         }
-    }
-
-    // Méthode d'inscription pour un utilisateur
-
-    /**
-     * @throws Exception
-     */
-    public function inscription(Utilisateur $user)
-    {
-        $bdd = (new BDD)->getBase();
-        $req = $bdd->prepare('SELECT idUtilisateur, login, mdp, statut, validUtilisateur FROM utilisateur WHERE login = :login ');
-        $req->execute([
-            'login' => $user->getLogin()
-        ]);
-        $res = $req->fetch();
-
-        // si $res est égale à quelque chose alors un message d'erreur s'affiche
-        if ($res) {
-            throw new Exception('L\'utilisateur existe déjà.');
-        }
-
-        // si les getters sont différents de rien alors :
-        if ($user->getNom() !== '' && $user->getPrenom() !== '' && $user->getMail() !== '' && $user->getLogin() !== '' && $user->getMdp() !== ''
-            || $user->getNom() !== null && $user->getPrenom() !== null && $user->getMail() !== null && $user->getLogin() !== null && $user->getMdp() !== null) {
-
-            // création de l'objet bdd pour s'y connecter
-            $bdd = (new BDD)->getBase();
-            // preparation de la requête
-            $req = $bdd->prepare('INSERT INTO
-            utilisateur (nom, prenom, dateNaissance, adresse, telephone, mail, login, mdp)
-            VALUES (:nom, :prenom, :dateNaissance, :adresse, :telephone, :mail, :login, :mdp)
-            ');
-            // execution de la requête
-            $res2 = $req->execute([
-                'nom' => $user->getNom(),
-                'prenom' => $user->getPrenom(),
-                'dateNaissance' => $user->getDateNaissance(),
-                'adresse' => $user->getAdresse(),
-                'telephone' => $user->getTelephone(),
-                'mail' => $user->getMail(),
-                'login' => $user->getLogin(),
-                'mdp' => $user->getMdp()
-            ]);
-            if ($res2) {
-//                $req = $bdd->prepare('SELECT idUtilisateur, login, mdp, statut FROM utilisateur WHERE login = :login AND mdp = :mdp');
-//                $req->execute([
-//                    'login' => $user->getLogin(),
-//                    'mdp' => $user->getMdp()
-//                ]);
-//                $res3 = $req->fetch();
-                unset($_SESSION['erreur']);
-                return $_SESSION['user'] = $res;
-            }
-            throw new Exception('Inscription échouée.');
-        }
-        header('Location: /e5_php/template/themes/template/index');
-        throw new Exception('Erreur.');
+        // sinon affiche un message d'erreur
+        throw new Exception('Erreur pendant la connexion.', 1);
     }
 
     // Méthode de modification d'un utilisateur
@@ -174,47 +116,47 @@ class Manager
     /**
      * @throws Exception
      */
-    public function modifUtil(Utilisateur $user)
-    {
-        #Instancie la classe BDD
-        $bdd = (new BDD)->getBase();
-        $req = $bdd->prepare('SELECT idUtilisateur, login, mdp, statut, validUtilisateur FROM utilisateur WHERE idUtilisateur = :idUtilisateur');
-        $req->execute([
-            'idUtilisateur' => $user->getIdUtilisateur()
-        ]);
-        $res = $req->fetch();
-        if (!$res) {
-            # Si le compte existe dans la BDD.
-            throw new Exception('Ce compte n\'existe pas.');
-        } else {
-            $req = $bdd->prepare('UPDATE utilisateur SET nom = :nom, prenom = :prenom, dateNaissance = :dateNaissance, adresse = :adresse, telephone = :telephone, mail = :mail, login = :login, mdp = :mdp WHERE idUtilisateur = :idUtilisateur');
-            $res2 = $req->execute([
-                'idUtilisateur' => $user->getIdUtilisateur(),
-                'nom' => $user->getNom(),
-                'prenom' => $user->getPrenom(),
-                'dateNaissance' => $user->getDateNaissance(),
-                'adresse' => $user->getAdresse(),
-                'telephone' => $user->getTelephone(),
-                'mail' => $user->getMail(),
-                'login' => $user->getLogin(),
-                'mdp' => $user->getMdp()
-            ]);
-            if ($res2) {
-//                $req = $bdd->prepare('SELECT idUtilisateur, login, mdp, statut FROM utilisateur WHERE idUtilisateur = :idUtilisateur');
-//                $req->execute([
-//                    'idUtilisateur' => $user->getIdUtilisateur()
-//                ]);
-//                $res3 = $req->fetch();
-//                unset($_SESSION['edit']);
-                unset($_SESSION['erreur']);
-                header('Location: /e5_php/template/themes/template/index');
-                return $_SESSION['user'] = $res;
-            }
-            # Si un ou plusieurs champs sont vides.
-            throw new Exception('Modification échouée !');
-        }
-        header('Location: /e5_php/template/themes/template/modif-util');
-    }
+//    public function modifUtil(Utilisateur $user)
+//    {
+//        #Instancie la classe BDD
+//        $bdd = (new BDD)->getBase();
+//        $req = $bdd->prepare('SELECT idUtilisateur, login, mdp, statut, validUtilisateur FROM utilisateur WHERE idUtilisateur = :idUtilisateur');
+//        $req->execute([
+//            'idUtilisateur' => $user->getIdUtilisateur()
+//        ]);
+//        $res = $req->fetch();
+//        if (!$res) {
+//            # Si le compte existe dans la BDD.
+//            throw new Exception('Ce compte n\'existe pas.');
+//        } else {
+//            $req = $bdd->prepare('UPDATE utilisateur SET nom = :nom, prenom = :prenom, dateNaissance = :dateNaissance, adresse = :adresse, telephone = :telephone, mail = :mail, login = :login, mdp = :mdp WHERE idUtilisateur = :idUtilisateur');
+//            $res2 = $req->execute([
+//                'idUtilisateur' => $user->getIdUtilisateur(),
+//                'nom' => $user->getNom(),
+//                'prenom' => $user->getPrenom(),
+//                'dateNaissance' => $user->getDateNaissance(),
+//                'adresse' => $user->getAdresse(),
+//                'telephone' => $user->getTelephone(),
+//                'mail' => $user->getMail(),
+//                'login' => $user->getLogin(),
+//                'mdp' => $user->getMdp()
+//            ]);
+//            if ($res2) {
+////                $req = $bdd->prepare('SELECT idUtilisateur, login, mdp, statut FROM utilisateur WHERE idUtilisateur = :idUtilisateur');
+////                $req->execute([
+////                    'idUtilisateur' => $user->getIdUtilisateur()
+////                ]);
+////                $res3 = $req->fetch();
+////                unset($_SESSION['edit']);
+//                unset($_SESSION['erreur']);
+//                header('Location: /e5_php/template/themes/template/index');
+//                return $_SESSION['user'] = $res;
+//            }
+//            # Si un ou plusieurs champs sont vides.
+//            throw new Exception('Modification échouée !');
+//        }
+//        header('Location: /e5_php/template/themes/template/modif-util');
+//    }
 
 // Méthode d'affichage d'un utilisateur dans la session 'edit'
 
@@ -230,7 +172,6 @@ class Manager
             'idUtilisateur' => $user->getIdUtilisateur()
         ]);
         $res = $req->fetch();
-        //var_dump($res);
         if ($res) {
             switch ($res['statut']) {
                 case '1':
