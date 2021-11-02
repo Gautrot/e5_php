@@ -13,18 +13,17 @@
                 </a>
                 <div class="text-center mt-3">
                     <p class="maintTitle mt-4 ">Recevez un mail pour votre mot de passe oublié.</p>
-                  
                 </div>
                 <!-- Formulaire mot de passe oublié  -->
                 <form action="/e5_php/traitement/MDPoublie.php" method="POST">
                     <div class="text-center mb-4 mt-5">
-                        <p class="se_connecter">Je n'arrive pas à me connecter à mon compte LPRS.</p>
                         <p class="asterix">
                             <?= ((array_key_exists("err", $_GET) && $_GET["err"] == "mail") ? "Une erreur est survenue, l'email saisi n'a pas été reconnu" : "") ?>
                         </p>
                         <label>
-                            <input type="email" class="inputform" placeholder="Entrez un mail" name="mail"
-                                   required <?= ((array_key_exists("mail", $_GET)) ? 'value="' . $_GET["mail"] . '"' : "") ?> />
+                            <input type="email" class="inputform" placeholder="Entrer votre mail ICI" name="mail"
+                                   required
+
                         </label>
                         <br>
                         <button type="submit" name="submit" class="btn btn-primary">Recevoir un mail</button>

@@ -25,7 +25,7 @@
 <?php include_once '../../../include/modal/login.php' ?>
 
 <!-- hero slider -->
-<section class="hero-section overlay bg-cover" data-background="images/banner/banner-1.jpg">
+<section class="hero-section overlay bg-cover" data-background="images/backgrounds/page-title.jpg">
     <div class="container">
         <div class="hero-slider">
             <!-- slider item -->
@@ -560,8 +560,6 @@
 </section>
 <!-- /blog -->
 
-<!-- Modal Notification-->
-<?php include'../../../include/modal/notification.php' ?>
 
 <!-- footer -->
 <?php include_once '../../../include/footer.php' ?>
