@@ -5,6 +5,7 @@
     "datatables/datatables": "^1.10",
     "components/jquery": "^3.6",
     "ext-json": "*",
-    "phpoffice/phpspreadsheet": "^1.18"
+    "phpoffice/phpspreadsheet": "^1.18",
+    "twbs/bootstrap": "v4.6.1"
   }
 }

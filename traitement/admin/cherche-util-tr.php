@@ -5,12 +5,12 @@ require_once '../../manager/Manager.php';
 try {
 # Instancie la classe Utilisateur
     $user = new Utilisateur([
-        'idUtilisateur' => $_SESSION['user']['idUtilisateur']
+        'idUtilisateur' => $_GET['idUtilisateur']
     ]);
 # Instancie la classe Manager
     $man = new Manager();
-# Lance la méthode chercheUtilModif
-    $edit = $man->chercheUtilModif($user);
+# Lance la méthode chercheUtilAdmin
+    $edit = $man->chercheUtilAdmin($user);
 } catch (Exception $e) {
     $_SESSION["erreur"] = $e->getMessage();
 }

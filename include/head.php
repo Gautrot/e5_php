@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <!-- ** Plugins Needed for the Project ** -->
 <!-- Bootstrap -->
-<link rel="stylesheet" href="plugins/bootstrap/bootstrap.min.css">
+<link rel="stylesheet" href="/e5_php/vendor/twbs/bootstrap/dist/css/bootstrap.min.css">
 <!-- slick slider -->
 <link rel="stylesheet" href="plugins/slick/slick.css">
 <!-- themefy-icon -->
