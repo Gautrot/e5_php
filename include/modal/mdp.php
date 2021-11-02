@@ -19,9 +19,6 @@
                     <meta name="description" content=""/>
                     <link rel="icon" sizes="16x16" href="../../images/logoLPRS1.jpg">
                     <meta name="author" content=""/>
-                    <!-- Bootstrap css -->
-                    <?php include $_SERVER['DOCUMENT_ROOT'] . "/Projet_snack/include/link_css.php";
-                    include $_SERVER['DOCUMENT_ROOT'] . "/Projet_snack/include/link_js.php"; ?>
                 </head>
 
                 <body style="background-image: url('../../Design/image/backgroundImage.png');">
@@ -40,7 +37,7 @@
                         <p class="se_connecter">Je n'arrive pas à me connecter à mon compte LPRS </p>
                         <p class="asterix"><?= ((array_key_exists("err", $_GET) && $_GET["err"] == "mail") ? "Une erreur est survenue, l'email saisi n'a pas été reconnu" : "") ?></p>
                         <input type="email" class="inputform" placeholder="Entrez un mail" name="mail"
-                               required <?= ((array_key_exists("mail", $_GET)) ? 'value="' . $_GET["mail"] . '"' : "") ?>
+                               required <?= ((array_key_exists("mail", $_GET)) ? 'value="' . $_GET["mail"] . '"' : "") ?> />
                         <button type="submit" name="submit" class="btn btn-primary">Recevoir un mail</button>
 
                         <br>
