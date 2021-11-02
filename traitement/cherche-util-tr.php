@@ -9,8 +9,8 @@ try {
     ]);
 # Instancie la classe Manager
     $man = new Manager();
-    var_dump($user);
 # Lance la méthode chercheUtilModif
+//var_dump($user);
     $edit = $man->chercheUtilModif($user);
 } catch (Exception $e) {
     $_SESSION["erreur"] = $e->getMessage();

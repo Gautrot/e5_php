@@ -13,7 +13,7 @@
                 </a>
                 <div class="text-center mt-3">
                     <p class="maintTitle mt-4 ">Recevez un mail pour votre mot de passe oublié.</p>
-                    <a>Chaque <a class="asterix">*</a> est obligatoire !</a>
+                  
                 </div>
                 <!-- Formulaire mot de passe oublié  -->
                 <form action="/e5_php/traitement/MDPoublie.php" method="POST">

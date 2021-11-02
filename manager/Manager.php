@@ -221,8 +221,7 @@ class Manager
     /**
      * @throws Exception
      */
-    public
-    function chercheUtilModif(Utilisateur $user)
+    public function chercheUtilModif(Utilisateur $user)
     {
         // on appelle la base de données
         $bdd = (new BDD)->getBase();
@@ -231,7 +230,7 @@ class Manager
             'idUtilisateur' => $user->getIdUtilisateur()
         ]);
         $res = $req->fetch();
-        var_dump($res);
+        //var_dump($res);
         if ($res) {
             switch ($res['statut']) {
                 case '1':
