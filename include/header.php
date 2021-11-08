@@ -1,6 +1,6 @@
 <?php
 include_once '../../../manager/Manager.php';
-var_dump($_SESSION);
+//var_dump($_SESSION);
 ?>
 <header class="fixed-top header">
     <!-- navbar -->
@@ -25,9 +25,7 @@ var_dump($_SESSION);
                         </li>
                         <li class="nav-item dropdown view">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                               data-toggle="dropdown"
-                               aria-haspopup="true" aria-expanded="false">
-                                Profil
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Profil
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <?php if (empty($_SESSION["user"])) { ?>
@@ -36,6 +34,9 @@ var_dump($_SESSION);
                                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#signupModal">Inscription</a>
                                 <?php } else if (isset($_SESSION["user"])) { ?>
                                     <!-- navbar avec connexion -->
+                                    <a class="dropdown-item" href="profil">Voir votre profil</a>
+                                    <a class="dropdown-item" href="modif-util">Modifier
+                                        votre compte</a>
                                     <?php switch ($_SESSION['user']['statut']) {
                                         case '1':
                                             ?>
@@ -53,8 +54,6 @@ var_dump($_SESSION);
                                             <?php break;
                                     } ?>
                                     <a class="dropdown-item" href="evenements">Évènements</a>
-                                    <a class="dropdown-item" href="/e5_php/traitement/cherche-util-tr">Modifier
-                                        votre compte</a>
                                     <a class="dropdown-item" href="deconnexion">Déconnexion</a>
                                 <?php } ?>
                             </div>

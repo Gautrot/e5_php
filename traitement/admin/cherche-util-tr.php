@@ -1,17 +1,15 @@
 <?php
-require_once '../model/Utilisateur.php';
-require_once '../manager/Manager.php';
+require_once '../../../model/Utilisateur.php';
 
 try {
 # Instancie la classe Utilisateur
     $user = new Utilisateur([
-        'idUtilisateur' => $_SESSION['user']['idUtilisateur']
+        'idUtilisateur' => $_POST['idUtilisateur']
     ]);
 # Instancie la classe Manager
     $man = new Manager();
-    var_dump($user);
-# Lance la méthode chercheUtilModif
-    $edit = $man->chercheUtilModif($user);
+# Lance la méthode chercheUtil
+    $show = $man->chercheUtil($user);
 } catch (Exception $e) {
     $_SESSION["erreur"] = $e->getMessage();
 }

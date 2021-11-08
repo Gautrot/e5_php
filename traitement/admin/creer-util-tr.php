@@ -5,10 +5,11 @@ require_once '../../model/Administrateur.php';
 require_once '../../model/Professeur.php';
 require_once '../../model/Parents.php';
 require_once '../../manager/Manager.php';
+require_once '../../manager/admin/ManaAdmin.php';
 
 try {
 # Instancie la classe Manager
-    $manager = new Manager();
+    $manager = new ManaAdmin();
 
     $statut = $_POST['statut'];
     switch ($statut) {
@@ -100,7 +101,9 @@ try {
             $manager->creerUtil($user);
             break;
     }
+    header('Location: /e5_php/template/themes/template/table-util');
 } catch (Exception $e) {
 # Affiche un message d'erreur
     $_SESSION['erreur'] = 'Erreur : ' . $e->getMessage();
+    header('Location: /e5_php/template/themes/template/table-util');
 }

@@ -37,8 +37,8 @@
         <div class="row">
             <div class="col-md-8">
                 <ul class="list-inline custom-breadcrumb">
-                    <li class="list-inline-item"><a class="h2 text-primary font-secondary" href="@@page-link">Liste des
-                            utilisateurs</a></li>
+                    <li class="list-inline-item">
+                        <a class="h2 text-primary font-secondary"">Liste des utilisateurs</a></li>
                     <li class="list-inline-item text-white h3 font-secondary @@nasted"></li>
                 </ul>
                 <p class="text-lighten">La liste des utilisateurs inscrit sur le site.</p>
@@ -56,28 +56,34 @@
                 <table id="utilisateur" class="display" style="width:100%">
                     <thead>
                     <tr>
-                        <th>ID</th>
+                        <th></th>
                         <th>Nom</th>
+<!--
+                        <th>ID</th>
                         <th>Né.e le</th>
                         <th>Adresse</th>
                         <th>Tél.</th>
                         <th>E-mail</th>
                         <th>Login</th>
                         <th>Mot de passe</th>
+-->
                         <th>Statut</th>
                         <th>Activation</th>
                     </tr>
                     </thead>
                     <tfoot>
                     <tr>
-                        <th>ID</th>
+                        <th></th>
                         <th>Nom</th>
+<!--
+                        <th>ID</th>
                         <th>Né.e le</th>
                         <th>Adresse</th>
                         <th>Tél.</th>
                         <th>E-mail</th>
                         <th>Login</th>
                         <th>Mot de passe</th>
+-->
                         <th>Statut</th>
                         <th>Activation</th>
                     </tr>

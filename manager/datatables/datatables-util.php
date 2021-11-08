@@ -35,6 +35,7 @@ $columns = [
     ['db' => 'idUtilisateur', 'dt' => 'idUtilisateur'],
     ['db' => 'nom', 'dt' => 'nom'],
     ['db' => 'prenom', 'dt' => 'prenom'],
+/*
     [
         'db' => 'dateNaissance',
         'dt' => 'dateNaissance',
@@ -50,6 +51,7 @@ $columns = [
     ['db' => 'mail', 'dt' => 'mail'],
     ['db' => 'login', 'dt' => 'login'],
     ['db' => 'mdp', 'dt' => 'mdp'],
+*/
     ['db' => 'statut', 'dt' => 'statut'],
     ['db' => 'validUtilisateur', 'dt' => 'validUtilisateur']
 ];

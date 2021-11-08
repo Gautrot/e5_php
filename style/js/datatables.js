@@ -16,6 +16,26 @@ $(document).ready(function () {
         },
         'columns': [
             {
+                // Donne un bouton pour afficher les détails de l'utilisateur dans une nouvelle page
+                data: 'idUtilisateur',
+                render: function (data) {
+                    var id = data;
+                    return '<form method="post" action="/e5_php/template/themes/template/utilisateur.php">' +
+                        '<button class="btn btn-xs btn-primary" type="submit" value="' + id + '" name="idUtilisateur">Voir</button>' +
+                        '</form>';
+                }
+            },
+            {
+                // Montre le nom et prénom de l'utilisateur
+                data: 'nom',
+                render: function (data, type, row) {
+                    var nom = data;
+                    var prenom = row.prenom;
+                    return nom + ' ' + prenom;
+                }
+            },
+            /*
+            {
                 // Cache la colonne 'idUtilisateur'.
                 data: 'idUtilisateur',
                 'visible': false,
@@ -28,10 +48,13 @@ $(document).ready(function () {
                     var id = row.idUtilisateur;
                     var nom = data;
                     var prenom = row.prenom;
-                    return '<a href="/e5_php/traitement/admin/cherche-util-tr?idUtilisateur=' + id + '"/>' +
-                        nom + ' ' + prenom +
-                        '</a>';
+                    return '<form action="/e5_php/traitement/admin/cherche-util-tr" method="POST">' +
+                        '<a href="/e5_php/traitement/admin/cherche-util-tr"/>' + nom + ' ' + prenom + '' +
+                        '<input hidden value="' + id + '" >' +
+                        '</a>' +
+                        '</form>';
                 }
+
             },
             {data: 'dateNaissance'},
             {data: 'adresse'},
@@ -50,6 +73,7 @@ $(document).ready(function () {
             {data: 'mail'},
             {data: 'login'},
             {data: 'mdp'},
+            */
             {
                 data: 'statut',
                 render: function (data) {
@@ -74,7 +98,6 @@ $(document).ready(function () {
                     var statut = row.statut;
                     var value = 'Activer';
                     var traitement = 'activer';
-
                     // Affiche le bouton "Désactiver" pour chaque ligne si valid = 1
                     if (data === '1') {
                         value = 'Désactiver';
@@ -82,6 +105,7 @@ $(document).ready(function () {
                     }
                     // Affiche le bouton "Activer" pour chaque ligne si valid = 0
                     if (statut === '4') {
+                        // Le bouton est désactivé s'il l'utilisateur est un admin
                         return '<button class="btn btn-xs btn-secondary" disabled> ' + value + ' </button>';
                     } else {
                         return '<form method="post" action="/e5_php/traitement/admin/' + traitement + '-util-tr">' +

@@ -30,6 +30,7 @@ require __DIR__ . '/../vendor/autoload.php';
 //Create an instance; passing `true` enables exceptions
 $mail = new PHPMailer(true);
 
+/*
 try {
     //Server settings
     $mail->SMTPDebug = SMTP::DEBUG_SERVER;                               //Enable verbose debug output
@@ -64,35 +65,31 @@ try {
 } catch (Exception $e) {
     echo "Message could not be sent. Mailer Error: $mail->ErrorInfo";
 }
+*/
 
 // création de la classe Manager
 class Manager
 {
-    // Méthode de connexion
+// Méthode de connexion
 
     /**
      * @throws Exception
      */
     public function connexion(Utilisateur $user)
     {
-        // On appelle la base de données
-        $bdd = (new BDD)->getBase();
-
-        $req = $bdd->query('SELECT * FROM utilisateur');
-        $res = $req->fetchAll();
-        foreach ($res as $user) {
-            // Vérifie les conditions lors de la connection.
-            // S'il y a une erreur, la fonction s'arrête.
-            switch ($user) {
-                case ($user['mdp'] == '' || $user['mdp'] == null):
-                    throw new Exception('Mot de passe vide.', 1);
-                case ($user['login'] == '' || $user['login'] == null):
-                    throw new Exception('Login vide.', 1);
-                case ($user['login'] == '' && $user['mdp'] == '' || $user['login'] == null && $user['mdp'] == null):
-                    throw new Exception('Champs vide.', 1);
-            }
+        // Vérifie les conditions lors de la connection.
+        // S'il y a une erreur, la fonction s'arrête.
+        switch ($_POST) {
+            case ($_POST['mdp'] == '' || $_POST['mdp'] == null):
+                throw new Exception('Mot de passe vide.', 1);
+            case ($_POST['login'] == '' || $_POST['login'] == null):
+                throw new Exception('Login vide.', 1);
+            case ($_POST['login'] == '' && $_POST['mdp'] == '' || $_POST['login'] == null && $_POST['mdp'] == null):
+                throw new Exception('Champs vide.', 1);
         }
 
+        // On appelle la base de données
+        $bdd = (new BDD)->getBase();
         // Préparation de la requête pour la connexion d'un utilisateur
         $req = $bdd->prepare('SELECT idUtilisateur, login, mdp, statut, validUtilisateur FROM utilisateur WHERE login = :login AND mdp = :mdp');
         $req->execute([
@@ -102,76 +99,31 @@ class Manager
         $res = $req->fetch();
 
         // Vérification du mot de passe entré par l'utilisateur.
-        // Si le mot de passe est correct alors la connexion est réussi et on entre dans le compte
+        // Si le mot de passe est correct, alors la connexion est réussi et on entre dans le compte
         if (password_verify($user->getMdp(), $res['mdp']) || $res['mdp']) {
             unset($_SESSION['erreur']);
             return $_SESSION['user'] = $res;
         }
-        // sinon affiche un message d'erreur
+        // Sinon, on affiche un message d'erreur
         throw new Exception('Erreur pendant la connexion.', 1);
     }
 
-    // Méthode de modification d'un utilisateur
+
+// Méthode d'affichage d'un utilisateur
 
     /**
      * @throws Exception
      */
-//    public function modifUtil(Utilisateur $user)
-//    {
-//        #Instancie la classe BDD
-//        $bdd = (new BDD)->getBase();
-//        $req = $bdd->prepare('SELECT idUtilisateur, login, mdp, statut, validUtilisateur FROM utilisateur WHERE idUtilisateur = :idUtilisateur');
-//        $req->execute([
-//            'idUtilisateur' => $user->getIdUtilisateur()
-//        ]);
-//        $res = $req->fetch();
-//        if (!$res) {
-//            # Si le compte existe dans la BDD.
-//            throw new Exception('Ce compte n\'existe pas.');
-//        } else {
-//            $req = $bdd->prepare('UPDATE utilisateur SET nom = :nom, prenom = :prenom, dateNaissance = :dateNaissance, adresse = :adresse, telephone = :telephone, mail = :mail, login = :login, mdp = :mdp WHERE idUtilisateur = :idUtilisateur');
-//            $res2 = $req->execute([
-//                'idUtilisateur' => $user->getIdUtilisateur(),
-//                'nom' => $user->getNom(),
-//                'prenom' => $user->getPrenom(),
-//                'dateNaissance' => $user->getDateNaissance(),
-//                'adresse' => $user->getAdresse(),
-//                'telephone' => $user->getTelephone(),
-//                'mail' => $user->getMail(),
-//                'login' => $user->getLogin(),
-//                'mdp' => $user->getMdp()
-//            ]);
-//            if ($res2) {
-////                $req = $bdd->prepare('SELECT idUtilisateur, login, mdp, statut FROM utilisateur WHERE idUtilisateur = :idUtilisateur');
-////                $req->execute([
-////                    'idUtilisateur' => $user->getIdUtilisateur()
-////                ]);
-////                $res3 = $req->fetch();
-////                unset($_SESSION['edit']);
-//                unset($_SESSION['erreur']);
-//                header('Location: /e5_php/template/themes/template/index');
-//                return $_SESSION['user'] = $res;
-//            }
-//            # Si un ou plusieurs champs sont vides.
-//            throw new Exception('Modification échouée !');
-//        }
-//        header('Location: /e5_php/template/themes/template/modif-util');
-//    }
-
-// Méthode d'affichage d'un utilisateur dans la session 'edit'
-
-    /**
-     * @throws Exception
-     */
-    public function chercheUtilModif(Utilisateur $user)
+    public function chercheUtil(Utilisateur $user)
     {
         // on appelle la base de données
         $bdd = (new BDD)->getBase();
-        $req = $bdd->prepare('SELECT * FROM utilisateur WHERE idUtilisateur = :idUtilisateur');
+        $req = $bdd->prepare('SELECT idUtilisateur, statut FROM utilisateur WHERE idUtilisateur = :idUtilisateur');
         $req->execute([
             'idUtilisateur' => $user->getIdUtilisateur()
         ]);
         $res = $req->fetch();
+        // Si l'utilisateur existe, il cherche le statut de l'utilisateur
         if ($res) {
             switch ($res['statut']) {
                 case '1':
@@ -186,29 +138,17 @@ class Manager
                 case '4':
                     $req = $bdd->prepare('SELECT * FROM utilisateur INNER JOIN administrateur ON administrateur.idAdmin = utilisateur.idUtilisateur WHERE idUtilisateur = :idUtilisateur');
                     break;
-                default:
-                    break;
             }
             $req->execute([
                 'idUtilisateur' => $user->getIdUtilisateur()
             ]);
             $res2 = $req->fetch();
-            header('Location: /e5_php/template/themes/template/modif-util?idUtilisateur=' . $res2['idUtilisateur']);
             unset($_SESSION['erreur']);
-            return $_SESSION['edit'] = $res2;
+            return $res2;
         }
         // sinon affiche un message d'erreur
-        header('Location: /e5_php/template/themes/template/index');
         throw new Exception('Erreur pendant la recherche de l\'utilisateur.', 1);
     }
-
-// Méthode de suppression de la session 'edit'
-
-//    public function retourUtilEdit()
-//    {
-//        unset($_SESSION['edit']);
-//        header('Location: /e5_php/template/themes/template/index');
-//    }
 
 // Méthode pour envoyer un mail et changer son mdp
 
@@ -222,15 +162,11 @@ class Manager
         $profil = $request->fetch();
         var_dump($profil);
         //Si l'adresse email correspond à aucun mail et donc aucun utilisateur
-        if (!$profil) {
-            header('Location: /e5_php/template/themes/template/index.php');
-        } else {
+        if ($profil) {
             $select_idUtilisateur = '';
             var_dump($select_idUtilisateur);
-
-
             $this->mail('Mot de passe oublié', $body, $select_idUser, $mail_user);
-            header('Location: /e5_php/template/themes/template/index.php');
         }
+        header('Location: /e5_php/template/themes/template/index.php');
     }
 }
