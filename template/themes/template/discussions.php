@@ -3,7 +3,7 @@
 
 <head>
     <?php include_once '../../../include/head.php' ?>
-    <title>Évènements</title>
+    <title>Discussion</title>
 </head>
 
 <body>
@@ -14,9 +14,9 @@
 <!-- header -->
 <?php
 include_once '../../../include/header.php';
-include_once '../../../manager/evenement/ManaEvent.php';
-$liste = new ManaEvent();
-$res = $liste->listeEvenement();
+include_once '../../../manager/discussion/ManaDiscus.php';
+$liste = new ManaDiscus();
+$res = $liste->listeDiscussion();
 ?>
 <!-- /header -->
 
@@ -37,12 +37,12 @@ $res = $liste->listeEvenement();
                 <ul class="list-inline custom-breadcrumb">
                     <li class="list-inline-item">
                         <a class="h2 text-primary font-secondary" href="@@page-link">
-                            Evènements
+                            Discussions
                         </a>
                     </li>
                     <li class="list-inline-item text-white h3 font-secondary @@nasted"></li>
                 </ul>
-                <p class="text-lighten">Les évènements sur le site.</p>
+                <p class="text-lighten">Discutez sur le site.</p>
             </div>
         </div>
     </div>
@@ -57,8 +57,8 @@ $res = $liste->listeEvenement();
                 <div class="row">
                     <div class="col-12">
                         <div class="text-center">
-                            <form method="POST" action="creer-evenement">
-                                <button type="submit" class="btn btn-primary">Créer un évènement</button>
+                            <form method="POST" action="creer-discussion">
+                                <button type="submit" class="btn btn-primary">Discutez avec une personne</button>
                             </form>
                         </div>
                     </div>
@@ -75,24 +75,24 @@ $res = $liste->listeEvenement();
             <!-- event -->
             <?php if (empty($res)) { ?>
                 <div class="col-lg-4 col-sm-6 mb-5">
-                    Il n'y a aucun évènement pour le moment.
+                    Il n'y a aucune discussion pour le moment.
                 </div>
             <?php } else {
-                foreach ($res as $event) { ?>
+                foreach ($res as $discus) { ?>
                     <div class="col-lg-4 col-sm-6 mb-5">
                         <div class="card border-0 rounded-0 hover-shadow">
                             <div class="card-img position-relative">
                                 <img class="card-img-top rounded-0" src="images/events/event-1.jpg" alt="event thumb">
                                 <div class="card-date">
-                                    <span><?php echo substr($event['date'], 8, 2); ?></span><br>
-                                    <?php echo substr($event['date'], 5, 2) . '/' . substr($event['date'], 0, 4) ?>
+                                    <span><?php echo substr($discus['dateCreation'], 8, 2); ?></span><br>
+                                    <?php echo substr($discus['dateCreation'], 5, 2) . '/' . substr($discus['dateCreation'], 0, 4) ?>
                                 </div>
                             </div>
                             <div class="card-body">
-                                <form method="post" action="evenement-no">
+                                <form method="post" action="discussion-no">
                                     <button class="btn btn-lg btn-white" type="submit"
-                                            value="<?php echo $event['idEvent']; ?>"
-                                            name="idEvent"><?php echo $event['nom']; ?></button>
+                                            value="<?php echo $discus['idDiscussion']; ?>"
+                                            name="idEvent"><?php echo $discus['titre']; ?></button>
                                 </form>
                             </div>
                         </div>

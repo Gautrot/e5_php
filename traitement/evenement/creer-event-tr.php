@@ -1,6 +1,7 @@
 <?php
 require_once '../../model/Evenement.php';
 require_once '../../manager/Manager.php';
+require_once '../../manager/evenement/ManaEvent.php';
 
 try {
     if ($_SESSION['user']['statut'] === '1') {
@@ -28,11 +29,13 @@ try {
             'validEvent' => 1
         ]);
     }
-    # Instancie la classe Manager
-    $manager = new Manager();
+    # Instancie la classe ManaEvent
+    $manager = new ManaEvent();
     # Lance la méthode creerEvenement
     $manager->creerEvenement($event);
+    header('Location: /e5_php/template/themes/template/evenements');
 } catch (Exception $e) {
 # Affiche un message d'erreur
     $_SESSION['erreur'] = 'Erreur : ' . $e->getMessage();
+    header('Location: /e5_php/template/themes/template/creer-evenement');
 }

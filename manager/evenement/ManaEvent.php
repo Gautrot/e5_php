@@ -1,51 +1,49 @@
 <?php
-include '../Manager.php';
+require_once __DIR__ . '/../Manager.php';
 
 // création de la classe ManaEvent
-class ManaEvent
+class ManaEvent extends Manager
 {
-    // Méthode de création d'un évènement
+// Méthode de création d'un évènement
 
     /**
      * @throws Exception
      */
     public function creerEvenement(Evenement $event)
     {
-        #Instancie la classe BDD
+        // On appelle la base de données
         $bdd = (new BDD)->getBase();
-        $req = $bdd->prepare('SELECT nom FROM evenement WHERE nom = :nom');
-        $req->execute([
-            'nom' => $event->getNom()
-        ]);
-        $res = $req->fetch();
-        if ($res) {
-            # Si l'évènement existe dans la BDD.
-            header('Location: /e5_php/template/themes/template/creer-evenement');
-            throw new Exception('Cet évènement existe.');
-        } else {
-            $req = $bdd->prepare('INSERT INTO evenement (idCreateur, nom, description, organisateur, type, date, horaire, dateCreation, validEvent) VALUES (:idCreateur, :nom, :description, :organisateur, :type, :date, :horaire, NOW(), :validEvent)');
-            $res2 = $req->execute([
-                'idCreateur' => $event->getIdCreateur(),
-                'nom' => $event->getNom(),
-                'description' => $event->getDescription(),
-                'organisateur' => $event->getOrganisateur(),
-                'type' => $event->getType(),
-                'date' => $event->getDate(),
-                'horaire' => $event->getHoraire(),
-                'validEvent' => $event->getValidEvent()
-            ]);
-            unset($_SESSION['erreur']);
-            header('Location: /e5_php/template/themes/template/evenements');
-            if (!$res2) {
-                # Si un ou plusieurs champs sont vides.
-                throw new Exception('Ajout échouée !');
+        $req = $bdd->query('SELECT * FROM evenement');
+        $res = $req->fetchAll();
+        foreach ($res as $error) {
+            // Vérifie les conditions lors de l'ajout d'un évènement.
+            // S'il y a une erreur, la fonction s'arrête.
+            switch ($error) {
+                case ($error['nom'] == $_POST['nom']):
+                    throw new Exception('Le nom est déja pris dans un autre évènement.');
             }
+        }
+        $req = $bdd->prepare('INSERT INTO evenement (idCreateur, nom, description, organisateur, type, date, horaire, dateCreation, validEvent) VALUES (:idCreateur, :nom, :description, :organisateur, :type, :date, :horaire, NOW(), :validEvent)');
+        $res2 = $req->execute([
+            'idCreateur' => $event->getIdCreateur(),
+            'nom' => $event->getNom(),
+            'description' => $event->getDescription(),
+            'organisateur' => $event->getOrganisateur(),
+            'type' => $event->getType(),
+            'date' => $event->getDate(),
+            'horaire' => $event->getHoraire(),
+            'validEvent' => $event->getValidEvent()
+        ]);
+        // S'il créé avec succès l'évènement, alors il retourne un succès.
+        if ($res2) {
+            unset($_SESSION['erreur']);
             return;
         }
+        // Sinon, on affiche un message d'erreur
         throw new Exception('Ajout échouée !');
     }
 
-    // Méthode de liste d'évènements
+// Méthode de liste d'évènements
 
     /**
      * @throws Exception
@@ -54,12 +52,11 @@ class ManaEvent
     {
         #Instancie la classe BDD
         $bdd = (new BDD)->getBase();
-        $req = $bdd->prepare('SELECT * FROM evenement ORDER BY dateCreation DESC');
-        $req->execute();
-        return $req->fetchall();
+        $req = $bdd->query('SELECT * FROM evenement ORDER BY dateCreation DESC');
+        return $req->fetchAll();
     }
 
-    // Méthode d'affichage d'un utilisateur dans la session 'show'
+// Méthode d'affichage d'un évènement
 
     /**
      * @throws Exception
@@ -75,12 +72,9 @@ class ManaEvent
         $res = $req->fetch();
         if ($res) {
             unset($_SESSION['erreur']);
-            header('Location: /e5_php/template/themes/template/evenement-no?idEvent=' . $res['idEvent']);
-            return $_SESSION['event'] = $res;
-        } else {
-            // sinon affiche un message d'erreur
-            header('Location: /e5_php/template/themes/template/evenements');
-            throw new Exception('Erreur pendant la recherche de l\'évènement.', 1);
+            return $res;
         }
+        // sinon affiche un message d'erreur
+        throw new Exception('Erreur pendant la recherche de l\'évènement.', 1);
     }
 }

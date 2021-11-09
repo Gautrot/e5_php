@@ -8,7 +8,7 @@ require_once '../../manager/Manager.php';
 require_once '../../manager/admin/ManaAdmin.php';
 
 try {
-# Instancie la classe Manager
+# Instancie la classe ManaAdmin
     $manager = new ManaAdmin();
 
     $statut = $_POST['statut'];

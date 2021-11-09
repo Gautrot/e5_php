@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3306
--- Generation Time: Nov 01, 2021 at 09:26 PM
--- Server version: 8.0.21
--- PHP Version: 7.4.9
+-- Hôte : 127.0.0.1:3306
+-- Généré le :  mar. 09 nov. 2021 à 10:33
+-- Version du serveur :  5.7.26
+-- Version de PHP :  7.3.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -18,25 +19,25 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `projet_lprs_sgs`
+-- Base de données :  `projet_lprs_sgs`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `administrateur`
+-- Structure de la table `administrateur`
 --
 
 DROP TABLE IF EXISTS `administrateur`;
 CREATE TABLE IF NOT EXISTS `administrateur` (
-  `idAdmin` int NOT NULL,
-  `statut` int NOT NULL DEFAULT '4',
-  `validation` int NOT NULL DEFAULT '1',
+  `idAdmin` int(11) NOT NULL,
+  `statut` int(11) NOT NULL DEFAULT '4',
+  `validation` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`idAdmin`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `administrateur`
+-- Déchargement des données de la table `administrateur`
 --
 
 INSERT INTO `administrateur` (`idAdmin`, `statut`, `validation`) VALUES
@@ -45,14 +46,16 @@ INSERT INTO `administrateur` (`idAdmin`, `statut`, `validation`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `discussion`
+-- Structure de la table `discussion`
 --
 
 DROP TABLE IF EXISTS `discussion`;
 CREATE TABLE IF NOT EXISTS `discussion` (
-  `idDiscussion` int NOT NULL AUTO_INCREMENT,
-  `idCreateur` int NOT NULL,
-  `idInvite` int NOT NULL,
+  `idDiscussion` int(11) NOT NULL AUTO_INCREMENT,
+  `idCreateur` int(11) NOT NULL,
+  `idInvite` int(11) NOT NULL,
+  `titre` varchar(100) NOT NULL,
+  `description` text NOT NULL,
   `dateCreation` datetime NOT NULL,
   `archive` text NOT NULL,
   PRIMARY KEY (`idDiscussion`)
@@ -61,62 +64,93 @@ CREATE TABLE IF NOT EXISTS `discussion` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `eleve`
+-- Structure de la table `eleve`
 --
 
 DROP TABLE IF EXISTS `eleve`;
 CREATE TABLE IF NOT EXISTS `eleve` (
-  `idEleve` int NOT NULL,
-  `statut` int NOT NULL DEFAULT '1',
+  `idEleve` int(11) NOT NULL,
+  `statut` int(11) NOT NULL DEFAULT '1',
   `classe` varchar(10) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`idEleve`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `eleve`
+-- Déchargement des données de la table `eleve`
 --
 
 INSERT INTO `eleve` (`idEleve`, `statut`, `classe`) VALUES
-(2, 1, 'SLAM2');
+(2, 1, 'SLAM2'),
+(5, 1, 'SLaM2'),
+(6, 1, 'SLAM2'),
+(7, 1, 'SLAM2'),
+(8, 1, 'SLAM2'),
+(9, 1, 'A'),
+(10, 1, 'A'),
+(11, 1, 'A'),
+(12, 1, 'A'),
+(13, 1, 'A'),
+(14, 1, 'A'),
+(15, 1, 'A'),
+(16, 1, 'A'),
+(17, 1, 'A'),
+(18, 1, 'A'),
+(19, 1, 'A'),
+(20, 1, 'A'),
+(21, 1, 'A'),
+(22, 1, 'A'),
+(23, 1, 'T'),
+(24, 1, 'T'),
+(25, 1, 'T'),
+(26, 1, 'T'),
+(27, 1, 'T'),
+(28, 1, 'T');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `evenement`
+-- Structure de la table `evenement`
 --
 
 DROP TABLE IF EXISTS `evenement`;
 CREATE TABLE IF NOT EXISTS `evenement` (
-  `idEvent` int NOT NULL AUTO_INCREMENT,
-  `idCreateur` int NOT NULL,
-  `nom` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `description` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `organisateur` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `type` char(7) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'Interne',
+  `idEvent` int(11) NOT NULL AUTO_INCREMENT,
+  `idCreateur` int(11) NOT NULL,
+  `nom` varchar(100) NOT NULL,
+  `description` text NOT NULL,
+  `organisateur` varchar(40) NOT NULL,
+  `type` char(7) NOT NULL DEFAULT 'Interne',
   `date` date NOT NULL,
   `horaire` time NOT NULL,
   `dateCreation` datetime NOT NULL,
-  `validEvent` int NOT NULL DEFAULT '0',
+  `validEvent` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`idEvent`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `evenement`
+--
+
+INSERT INTO `evenement` (`idEvent`, `idCreateur`, `nom`, `description`, `organisateur`, `type`, `date`, `horaire`, `dateCreation`, `validEvent`) VALUES
+(1, 1, 'T', 'T', 'T', 'Interne', '2021-11-02', '22:00:00', '2021-11-02 10:21:27', 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `parent`
+-- Structure de la table `parent`
 --
 
 DROP TABLE IF EXISTS `parent`;
 CREATE TABLE IF NOT EXISTS `parent` (
-  `idParent` int NOT NULL,
-  `statut` int NOT NULL DEFAULT '2',
+  `idParent` int(11) NOT NULL,
+  `statut` int(11) NOT NULL DEFAULT '2',
   `metier` varchar(40) NOT NULL,
-  `idEleve` int NOT NULL,
+  `idEleve` int(11) NOT NULL,
   PRIMARY KEY (`idParent`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `parent`
+-- Déchargement des données de la table `parent`
 --
 
 INSERT INTO `parent` (`idParent`, `statut`, `metier`, `idEleve`) VALUES
@@ -125,34 +159,35 @@ INSERT INTO `parent` (`idParent`, `statut`, `metier`, `idEleve`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `professeur`
+-- Structure de la table `professeur`
 --
 
 DROP TABLE IF EXISTS `professeur`;
 CREATE TABLE IF NOT EXISTS `professeur` (
-  `idProf` int NOT NULL,
-  `statut` int NOT NULL DEFAULT '3',
+  `idProf` int(11) NOT NULL,
+  `statut` int(11) NOT NULL DEFAULT '3',
   `matiere` varchar(40) NOT NULL,
-  `validation` int NOT NULL DEFAULT '1',
+  `validation` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`idProf`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `professeur`
+-- Déchargement des données de la table `professeur`
 --
 
 INSERT INTO `professeur` (`idProf`, `statut`, `matiere`, `validation`) VALUES
-(4, 3, 'Math', 1);
+(4, 3, 'Math', 1),
+(7, 3, 'Math', 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `utilisateur`
+-- Structure de la table `utilisateur`
 --
 
 DROP TABLE IF EXISTS `utilisateur`;
 CREATE TABLE IF NOT EXISTS `utilisateur` (
-  `idUtilisateur` int NOT NULL AUTO_INCREMENT,
+  `idUtilisateur` int(11) NOT NULL AUTO_INCREMENT,
   `nom` varchar(40) NOT NULL,
   `prenom` varchar(40) NOT NULL,
   `dateNaissance` date NOT NULL,
@@ -161,20 +196,20 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
   `mail` text NOT NULL,
   `login` varchar(40) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `mdp` text NOT NULL,
-  `statut` int NOT NULL DEFAULT '0',
-  `validUtilisateur` int NOT NULL DEFAULT '0',
+  `statut` int(11) NOT NULL DEFAULT '0',
+  `validUtilisateur` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`idUtilisateur`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `utilisateur`
+-- Déchargement des données de la table `utilisateur`
 --
 
 INSERT INTO `utilisateur` (`idUtilisateur`, `nom`, `prenom`, `dateNaissance`, `adresse`, `telephone`, `mail`, `login`, `mdp`, `statut`, `validUtilisateur`) VALUES
-(1, 'root', 'root', '2021-10-26', 'root', '0999999999', 'root@root.root', 'root', 'root', 4, 1),
-(2, 'eleve', 'eleve', '2021-09-28', 'eleve', '0999999999', 'eleve@gmail.com', 'eleve', 'eleve', 1, 0),
-(3, 'parent', 'parent', '2021-09-28', 'parent', '0999999999', 'parent@gmail.com', 'parent', 'parent', 2, 0),
-(4, 'prof', 'prof', '2021-09-28', 'prof', '0999999999', 'prof@gmail.com', 'prof', 'prof', 3, 1);
+(1, 'root', 'root', '2021-10-26', 'root', '1111111111', 'root@root.root', 'root', 'root', 4, 1),
+(2, 'eleve', 'eleve', '2021-09-28', 'eleve', '2222222222', 'eleve@gmail.com', 'eleve', 'eleve', 1, 1),
+(3, 'parent', 'parent', '2021-09-28', 'parent', '3333333333', 'parent@gmail.com', 'parent', 'parent', 2, 1),
+(4, 'prof', 'prof', '2021-09-28', 'prof', '4444444444', 'prof@gmail.com', 'prof', 'prof', 3, 1);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

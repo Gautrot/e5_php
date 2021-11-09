@@ -1,16 +1,15 @@
 <?php
-require_once '../../model/Evenement.php';
-require_once '../../manager/Manager.php';
+require_once '../../../model/Evenement.php';
 
 try {
-# Instancie la classe Utilisateur
+# Instancie la classe Evenement
     $event = new Evenement([
-        'idEvent' => $_GET['idEvent']
+        'idEvent' => $_POST['idEvent']
     ]);
-# Instancie la classe Manager
-    $man = new Manager();
-# Lance la méthode chercheUtil
-    $edit = $man->chercheEvenement($event);
+# Instancie la classe ManaEvent
+    $man = new ManaEvent();
+# Lance la méthode chercheEvenement
+    $show = $man->chercheEvenement($event);
 } catch (Exception $e) {
     $_SESSION["erreur"] = $e->getMessage();
 }

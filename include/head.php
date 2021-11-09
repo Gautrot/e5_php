@@ -5,6 +5,8 @@
 <!-- ** Plugins Needed for the Project ** -->
 <!-- Bootstrap -->
 <link rel="stylesheet" href="/e5_php/vendor/twbs/bootstrap/dist/css/bootstrap.min.css">
+<!-- select2 -->
+<link rel="stylesheet" href="/e5_php/vendor/select2/select2/dist/css/select2.min.css">
 <!-- slick slider -->
 <link rel="stylesheet" href="plugins/slick/slick.css">
 <!-- themefy-icon -->

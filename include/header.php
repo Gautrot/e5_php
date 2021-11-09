@@ -40,16 +40,15 @@ include_once '../../../manager/Manager.php';
                                     <?php switch ($_SESSION['user']['statut']) {
                                         case '1':
                                             ?>
-                                            <a class="dropdown-item" href="discussion">Discussion</a>
+                                            <a class="dropdown-item" href="discussions">Discussion</a>
                                             <?php break;
                                         case '2':
-                                        case '3':
-                                            ?>
+                                        case '3': ?>
                                             <a class="dropdown-item" href="rdv">Rendez-vous</a>
                                             <?php break;
                                         case '4':
                                             ?>
-                                            <a class="dropdown-item" href="discussion">Discussion</a>
+                                            <a class="dropdown-item" href="discussions">Discussion</a>
                                             <a class="dropdown-item" href="rdv">Rendez-vous</a>
                                             <?php break;
                                     } ?>

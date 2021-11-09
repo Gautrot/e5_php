@@ -130,7 +130,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="text-center">
-                    <form method="POST" action="/e5_php/traitement/retour-session-modif-tr">
+                    <form method="POST" action="index">
                         <button type="submit" class="btn btn-primary">
                             Retour
                         </button>

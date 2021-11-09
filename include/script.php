@@ -2,6 +2,8 @@
 <script src="/e5_php/vendor/components/jquery/jquery.min.js"></script>
 <!-- Bootstrap JS -->
 <script src="/e5_php/vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- select2 -->
+<script src="/e5_php/vendor/select2/select2/dist/js/select2.min.js"></script>
 <!-- slick slider -->
 <script src="plugins/slick/slick.min.js"></script>
 <!-- aos -->

@@ -19,7 +19,6 @@ use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 //on appelle la classe manager et toolsManager
-//require_once '../manager/Manager.php';
 require __DIR__ . '/../vendor/autoload.php';
 require __DIR__ . '/../vendor/phpmailer/phpmailer/src/Exception.php';
 require __DIR__ . '/../vendor/phpmailer/phpmailer/src/PHPMailer.php';
@@ -30,7 +29,6 @@ require __DIR__ . '/../vendor/autoload.php';
 //Create an instance; passing `true` enables exceptions
 $mail = new PHPMailer(true);
 
-/*
 try {
     //Server settings
     $mail->SMTPDebug = SMTP::DEBUG_SERVER;                               //Enable verbose debug output
@@ -65,7 +63,6 @@ try {
 } catch (Exception $e) {
     echo "Message could not be sent. Mailer Error: $mail->ErrorInfo";
 }
-*/
 
 // création de la classe Manager
 class Manager
@@ -148,6 +145,19 @@ class Manager
         }
         // sinon affiche un message d'erreur
         throw new Exception('Erreur pendant la recherche de l\'utilisateur.', 1);
+    }
+
+// Méthode de liste d'utilisateurs
+
+    /**
+     * @throws Exception
+     */
+    public function listeUtil()
+    {
+        #Instancie la classe BDD
+        $bdd = (new BDD)->getBase();
+        $req = $bdd->query('SELECT * FROM utilisateur ORDER BY idUtilisateur DESC');
+        return $req->fetchAll();
     }
 
 // Méthode pour envoyer un mail et changer son mdp
