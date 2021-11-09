@@ -16,7 +16,8 @@
 
 <!-- header -->
 <?php include_once '../../../include/header.php';
-include_once '../../../model/BDD.php'; ?>
+include_once '../../../model/BDD.php';
+//var_dump($_SESSION); ?>
 <!-- /header -->
 
 <!-- Modal Inscription-->
@@ -55,19 +56,19 @@ include_once '../../../model/BDD.php'; ?>
             <div class="col-12">
                 <div class="modal-body">
                     <div class="login">
-                        <form method="POST" action="/e5_php/traitement/inscription-parent-tr.php" style="width:100%">
+                        <form method="POST" action="/e5_php/traitement/parent/inscription-parent-tr.php" style="width:100%">
                             <div class="form-row">
                                 <div class="col">
                                     <label for="nom">Nom</label>
                                     <input type="text" class="form-control form-control-sm mb-3" id="nom" name="nom"
                                            required
-                                           maxlength="40" placeholder="ex : Robert">
+                                           maxlength="40" placeholder="ex : Schuman">
                                 </div>
                                 <div class="col">
                                     <label for="prenom">Prénom</label>
                                     <input type="text" class="form-control form-control-sm mb-3" id="prenom"
                                            name="prenom"
-                                           required maxlength="40" placeholder="ex : Schuman">
+                                           required maxlength="40" placeholder="ex : Robert">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -112,13 +113,13 @@ include_once '../../../model/BDD.php'; ?>
                             </div>
                             <div class="form-group">
                                 <label for="adresse">Parent de :</label>
-                                  <select>
+                                  <select name="idEleve">
+                                    <option value="">- SELECTIONNER -</option>
                                 <?php $bdd = (new BDD)->getBase();
-                                $req = $bdd->query("SELECT nom, prenom FROM utilisateur WHERE statut = '1'");
+                                $req = $bdd->query("SELECT nom, prenom, idUtilisateur FROM utilisateur WHERE statut = '1'");
                                 $res = $req->fetchall();
                                 foreach ($res as $value) { ?>
-                                  <option value="">- SELECTIONNER -</option>
-                                  <option value="<?php echo $value['nom'], $value['prenom']?>"><?php echo $value['nom'], $value['prenom']?></option>
+                                  <option value="<?php echo $value['idUtilisateur']?>"><?php echo $value['nom'] , $value['prenom']?></option>
                               <?php } ?>
                             </select>
                             </div>
@@ -140,7 +141,7 @@ include_once '../../../model/BDD.php'; ?>
         <div class="row">
             <div class="col-12">
                 <div class="text-center">
-                    <form method="POST" action="/e5_php/traitement/retour-session-admin-tr.php">
+                    <form method="POST" action="index.php">
                         <button type="submit" class="btn btn-primary">
                             Retour
                         </button>
