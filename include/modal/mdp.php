@@ -21,7 +21,7 @@
                             <?= ((array_key_exists("err", $_GET) && $_GET["err"] == "mail") ? "Une erreur est survenue, l'email saisi n'a pas été reconnu" : "") ?>
                         </p>
                         <label>
-                            <input type="email" class="inputform" placeholder="Entrer votre mail ICI" name="mail"
+                            <input type="mail" class="inputform" placeholder="Entrer votre mail ICI" name="mail"
                                    required
 
                         </label>

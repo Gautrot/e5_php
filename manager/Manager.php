@@ -35,8 +35,8 @@ try {
     $mail->isSMTP();                                                     //Send using SMTP
     $mail->Host = 'smtp.example.com';                                    //Set the SMTP server to send through
     $mail->SMTPAuth = true;                                              //Enable SMTP authentication
-    $mail->Username = 'n.sedjai@lprs.fr';                                //SMTP username
-    $mail->Password = 'BTSNO=2020';                                      //SMTP password
+    $mail->Username = 'lprs.sgs@gmail.com';                                //SMTP username
+    $mail->Password = 'sgs500?!';                                         //SMTP password
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;                     //Enable implicit TLS encryption
     $mail->Port = 465;                                                   //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
@@ -166,11 +166,12 @@ class Manager
     {
         $bdd = (new BDD)->getBase();
 
+        $bdd= new PDO('mysql:host=localhost;dbname=projet_lprs_sgs;charset=utf8','root','');
         // on récupère l'utilisateur ayant perdu son mot de passe
-        $request = $bdd->prepare('SELECT * FROM utilisateur WHERE mail = :mail');
-        $request->execute(array($mail_user));
-        $profil = $request->fetch();
-        var_dump($profil);
+        $reponse = $bdd->prepare('SELECT idUtilisateur ,mail,mdp FROM utilisateur WHERE mail = :mail') ;  //on prepare la requete de php pour accéder aux identifiants dans la base de données en sql
+        $reponse->execute(array('mail'=>$_POST["mail"]));var_dump($_POST["mail"]); //on insère sous forme de tableau les données que l'on veut récupérer de la base
+        $donne = $reponse->fetch(); //on execute finalement la requete
+        var_dump($donne);
         //Si l'adresse email correspond à aucun mail et donc aucun utilisateur
         if ($profil) {
             $select_idUtilisateur = '';

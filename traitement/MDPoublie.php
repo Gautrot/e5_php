@@ -6,37 +6,23 @@ require '../vendor/autoload.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-//fonction pour généré un mot de passe aléatoire
-function Genere_Password($size)
-{
-    $mdp ='';
-    // Initialisation des caractères utilisables
-    $characters = array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z");
-    for($i=0;$i<$size;$i++)
-    {
-        $mdp .= ($i%2) ? strtoupper($characters[array_rand($characters)]) : $characters[array_rand($characters)];
-    }
-    return $mdp;
-}
-
 //cette page sert au traitement php de la page d'oublie de mdp
 $email=$_POST['mail'];
 
 
 $bdd= new PDO('mysql:host=localhost;dbname=projet_lprs_sgs;charset=utf8','root',''); // on se connecte à la base de donnée "lprs", avec l'uttilisateur "root" avec l'encodage utf-8
 
-$reponse = $bdd->prepare('SELECT mail,mdp FROM utilisateur WHERE mail = :mail') ;  //on prepare la requete de php pour accéder aux identifiants dans la base de données en sql
+$reponse = $bdd->prepare('SELECT idUtilisateur ,mail,mdp FROM utilisateur WHERE mail = :mail') ;  //on prepare la requete de php pour accéder aux identifiants dans la base de données en sql
 $reponse->execute(array('mail'=>$_POST["mail"]));var_dump($_POST["mail"]); //on insère sous forme de tableau les données que l'on veut récupérer de la base
 $donne = $reponse->fetch(); //on execute finalement la requete
 var_dump($donne);
 if($donne) // si le mail existe, on applique la condition qui suit
 {
-    $mdp = Genere_Password(10);
 
     $mail = new PHPMailer(); // fondation d'un nouvel objet
     $mail->CharSet = 'UTF-8';
     $mail->IsSMTP(); // activer SMTP
-    $mail->SMTPDebug = 1; // debugging: 1 = errors and messages, 2 = messages only
+    $mail->SMTPDebug = 0; // debugging: 1 = errors and messages, 2 = messages only
     $mail->SMTPAuth = true; // authentication activée
     $mail->SMTPSecure = 'ssl'; // transfer sécurisé activé et néscéssaire notement pour gmail
     $mail->Host = "smtp.gmail.com";
@@ -44,7 +30,7 @@ if($donne) // si le mail existe, on applique la condition qui suit
     $mail->IsHTML(true);
     $mail->Username = "lprs.sgs@gmail.com";
     $mail->Password = "sgs500?!";
-    $mail->SetFrom($_POST["mail"]);
+    //$mail->SetFrom($_POST["mail"]);
     $mail->Subject = "[HSP] : Mot de passe oublié";
     $mail->Body = '<!doctype html>
 <html lang="fr">
@@ -175,7 +161,7 @@ Pas de probl&#232;me, cliquez sur le bouton pour acceder &#224; un changement de
                                 <table role="presentation" border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; min-width: auto; width: auto;">
                                   <tbody>
                                      <tr>
-                                      <a class="btn btn-primary" valign="top" align="center" bgcolor="#ec0867" href="localhost/e5_php/template/themes/template/modif-util.php" target="_blank">CHANGER SON MOTS DE PASSE</a> 
+                                      <a class="btn btn-primary" valign="top" align="center" bgcolor="#ec0867" href="localhost/e5_php/traitement/ModifMDP.php?mail='.$_POST["mail"].'" target="_blank">CHANGER SON MOTS DE PASSE</a> 
                                     </tr>
                                   </tbody>
                                 </table>
@@ -228,7 +214,7 @@ Pas de probl&#232;me, cliquez sur le bouton pour acceder &#224; un changement de
     {
         echo "Le message a été envoyé";
     }
-
+   header('location:../template/themes/template/index.php');
 
 }
 else //Gestion d'erreur, si le mail n'as pas été envoyé
@@ -238,3 +224,5 @@ else //Gestion d'erreur, si le mail n'as pas été envoyé
     header('location:../template/themes/template/index.php');
 }
 ?>
+
+
