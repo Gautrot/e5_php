@@ -92,7 +92,7 @@ $res = $liste->listeDiscussion();
                                 <form method="post" action="discussion-no">
                                     <button class="btn btn-lg btn-white" type="submit"
                                             value="<?php echo $discus['idDiscussion']; ?>"
-                                            name="idEvent"><?php echo $discus['titre']; ?></button>
+                                            name="idDiscussion"><?php echo $discus['titre']; ?></button>
                                 </form>
                             </div>
                         </div>

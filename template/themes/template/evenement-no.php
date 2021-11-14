@@ -1,9 +1,18 @@
+<?php
+include_once '../../../manager/evenement/ManaEvent.php';
+$liste = new ManaEvent();
+try {
+    $res = $liste->listeEvenement();
+} catch (Exception $e) {
+    $_SESSION["erreur"] = $e->getMessage();
+}
+?>
 <!DOCTYPE html>
 <html lang="fr">
 
 <head>
     <?php include_once '../../../include/head.php' ?>
-    <title>Évènements</title>
+    <title>Évènement - <?php echo $show['nom']; ?></title>
 </head>
 
 <body>
@@ -14,9 +23,6 @@
 <!-- header -->
 <?php
 include_once '../../../include/header.php';
-include_once '../../../manager/evenement/ManaEvent.php';
-$liste = new ManaEvent();
-$res = $liste->listeEvenement();
 ?>
 <!-- /header -->
 
@@ -70,7 +76,10 @@ $res = $liste->listeEvenement();
                             <i class="ti-calendar text-primary icon-md mr-2"></i>
                             <div class="text-left">
                                 <h6 class="mb-0">DATE</h6>
-                                <p class="mb-0"><?php echo $show['date']; ?></p>
+                                <p class="mb-0"><?php
+                                    setlocale(LC_TIME, 'fr_FR.UTF-8', 'fra');
+                                    echo strftime("%e %B %Y", strtotime($show['date']));
+                                    ?></p>
                             </div>
                         </div>
                     </li>
@@ -139,16 +148,16 @@ $res = $liste->listeEvenement();
                     Il n'y a pas d'évènements pour le moment.
                 </div>
             <?php } else {
-                for ($i = 0; $i < 3; $i++) {
-                    if (isset($res[$i]) && $res[$i]['idEvent'] !== $show['idEvent']) { ?>
+                foreach ($res as $event) {
+                    if (isset($event) && $event['idEvent'] !== $show['idEvent']) { ?>
                         <div class="col-lg-4 col-sm-6 mb-5">
                             <div class="card border-0 rounded-0 hover-shadow">
                                 <div class="card-img position-relative">
                                     <img class="card-img-top rounded-0" src="images/events/event-1.jpg"
                                          alt="event thumb">
                                     <div class="card-date">
-                                        <span><?php echo substr($res[$i]['date'], 8, 2); ?></span><br>
-                                        <?php echo substr($res[$i]['date'], 5, 2) . '/' . substr($res[$i]['date'], 0, 4) ?>
+                                        <span><?php echo substr($event['date'], 8, 2); ?></span><br>
+                                        <?php echo substr($event['date'], 5, 2) . '/' . substr($event['date'], 0, 4) ?>
                                     </div>
                                 </div>
                                 <div class="card-body">

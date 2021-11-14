@@ -42,10 +42,10 @@ include_once '../../../manager/Manager.php';
                                             ?>
                                             <a class="dropdown-item" href="discussions">Discussion</a>
                                             <?php break;
-                                        case '2':
-                                        case '3': ?>
+                                        case '2': ?>
                                             <a class="dropdown-item" href="rdv">Rendez-vous</a>
                                             <?php break;
+                                        case '3':
                                         case '4':
                                             ?>
                                             <a class="dropdown-item" href="discussions">Discussion</a>

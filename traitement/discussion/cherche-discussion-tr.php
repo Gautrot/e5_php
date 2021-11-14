@@ -10,8 +10,6 @@ try {
     $man = new ManaDiscus();
 # Lance la méthode chercheDiscussion
     $show = $man->chercheDiscussion($discus);
-    var_dump($discus);
-    die;
 } catch (Exception $e) {
     $_SESSION["erreur"] = $e->getMessage();
 }

@@ -23,53 +23,6 @@
                             <button type="submit" class="btn btn-warning m-1">Professeur</button>
                         </form>
                     </div>
-<!--
-                    <form method="POST" action="/e5_php/traitement/inscription-tr.php" style="width:100%">
-                        <div class="form-group">
-                            <label for="nom">Nom</label>
-                            <input type="text" class="form-control form-control-sm mb-3" id="nom" name="nom" required
-                                   maxlength="40">
-                        </div>
-                        <div class="form-group">
-                            <label for="prenom">Prénom</label>
-                            <input type="text" class="form-control form-control-sm mb-3" id="prenom" name="prenom"
-                                   required maxlength="40">
-                        </div>
-                        <div class="form-group">
-                            <label for="dateNaissance">Né.e le</label>
-                            <input type="date" class="form-control form-control-sm mb-3" id="dateNaissance"
-                                   name="dateNaissance" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="telephone">Numéro de Téléphone</label>
-                            <input type="text" class="form-control form-control-sm mb-3" id="telephone"
-                                   name="telephone" required maxlength="10">
-                        </div>
-                        <div class="form-group">
-                            <label for="adresse">Adresse</label>
-                            <input type="text" class="form-control form-control-sm mb-3" id="adresse" name="adresse"
-                                   required>
-                        </div>
-                        <div class="form-group">
-                            <label for="mail">Adresse Mél</label>
-                            <input type="email" class="form-control form-control-sm mb-3" id="mail" name="mail"
-                                   required>
-                        </div>
-                        <div class="form-group">
-                            <label for="login">Login</label>
-                            <input type="text" class="form-control form-control-sm mb-3" id="login" name="login"
-                                   required maxlength="40">
-                        </div>
-                        <div class="form-group">
-                            <label for="mdp">Mot de passe</label>
-                            <input type="password" class="form-control form-control-sm mb-3" id="mdp" name="mdp"
-                                   required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">
-                            S'inscrire
-                        </button>
-                    </form>
--->
                 </div>
             </div>
         </div>
