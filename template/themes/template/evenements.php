@@ -82,18 +82,21 @@ $res = $liste->listeEvenement();
                     <div class="col-lg-4 col-sm-6 mb-5">
                         <div class="card border-0 rounded-0 hover-shadow">
                             <div class="card-img position-relative">
-                                <img class="card-img-top rounded-0" src="images/events/event-1.jpg" alt="event thumb">
+                                <a href="evenement-no?idEvent=<?= $event['idEvent']; ?>">
+                                    <img class="card-img-top rounded-0" src="images/events/event-1.jpg"
+                                         alt="<?= $event['nom']; ?>">
+                                </a>
                                 <div class="card-date">
-                                    <span><?php echo substr($event['date'], 8, 2); ?></span><br>
-                                    <?php echo substr($event['date'], 5, 2) . '/' . substr($event['date'], 0, 4) ?>
+                                    <span><?= substr($event['date'], 8, 2); ?></span><br>
+                                    <?= substr($event['date'], 5, 2) . '/' . substr($event['date'], 0, 4) ?>
                                 </div>
                             </div>
                             <div class="card-body">
-                                <form method="post" action="evenement-no">
-                                    <button class="btn btn-lg btn-white" type="submit"
-                                            value="<?php echo $event['idEvent']; ?>"
-                                            name="idEvent"><?php echo $event['nom']; ?></button>
-                                </form>
+                                <div class="card-body">
+                                    <a href="evenement-no?idEvent=<?= $event['idEvent']; ?>">
+                                        <h4 class="card-title"><?= $event['nom']; ?></h4>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>

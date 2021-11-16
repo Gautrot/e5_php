@@ -77,4 +77,30 @@ class ManaEvent extends Manager
         // sinon affiche un message d'erreur
         throw new Exception('Erreur pendant la recherche de l\'évènement.', 1);
     }
+
+    // Méthode d'annulation d'un évènement
+
+    /**
+     * @throws Exception
+     */
+    public function annuleEvenement(Evenement $event)
+    {
+        // on appelle la base de données
+        $bdd = (new BDD)->getBase();
+        $req = $bdd->prepare('SELECT idEvent FROM evenement WHERE idEvent = :idEvent');
+        $req->execute([
+            'idEvent' => $event->getIdEvent()
+        ]);
+        $res = $req->fetch();
+        if ($res) {
+            $req = $bdd->prepare('UPDATE evenement SET validEvent = 0 WHERE idEvent = :idEvent');
+            $req->execute([
+                'idEvent' => $event->getIdEvent()
+            ]);
+            unset($_SESSION['erreur']);
+            return true;
+        }
+        // sinon affiche un message d'erreur
+        throw new Exception('Annulation échouée.', 1);
+    }
 }

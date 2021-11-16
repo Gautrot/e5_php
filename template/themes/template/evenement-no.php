@@ -1,18 +1,28 @@
 <?php
 include_once '../../../manager/evenement/ManaEvent.php';
+// Traitement "cherche-event-tr"
+require_once '../../../traitement/evenement/cherche-event-tr.php';
+// Traitement de liste d'évènement
 $liste = new ManaEvent();
 try {
     $res = $liste->listeEvenement();
 } catch (Exception $e) {
     $_SESSION["erreur"] = $e->getMessage();
 }
+setlocale(LC_TIME, 'fr_FR.UTF-8', 'fra');
+// Date d'annulation : retire 1 jour de la date de l'évènement
+$annul = date_create($show['date'] . $show['horaire']);
+date_sub($annul, date_interval_create_from_date_string('1 day'));
+$annul = date_format($annul, 'Y-m-d H:i:s');
+// Prends la date et l'heure actuelle
+$today = date('Y-m-d H:i:s');
 ?>
 <!DOCTYPE html>
 <html lang="fr">
 
 <head>
     <?php include_once '../../../include/head.php' ?>
-    <title>Évènement - <?php echo $show['nom']; ?></title>
+    <title>Évènement - <?= $show['nom']; ?></title>
 </head>
 
 <body>
@@ -21,9 +31,7 @@ try {
 <!-- preloader end -->
 
 <!-- header -->
-<?php
-include_once '../../../include/header.php';
-?>
+<?php include_once '../../../include/header.php' ?>
 <!-- /header -->
 
 <!-- Modal Inscription-->
@@ -35,9 +43,6 @@ include_once '../../../include/header.php';
 <!-- Modal Login-->
 <?php include_once '../../../include/modal/login.php' ?>
 
-<!-- Traitement "cherche-event-tr"-->
-<?php require_once '../../../traitement/evenement/cherche-event-tr.php' ?>
-
 <!-- about -->
 <section class="page-title-section overlay" data-background="images/backgrounds/page-title.jpg">
     <div class="container">
@@ -46,7 +51,7 @@ include_once '../../../include/header.php';
                 <ul class="list-inline custom-breadcrumb">
                     <li class="list-inline-item"><a class="h2 text-primary font-secondary"
                                                     href="evenements">Évènement</a></li>
-                    <li class="list-inline-item text-white h3 font-secondary nasted"><?php echo $show['nom']; ?></li>
+                    <li class="list-inline-item text-white h3 font-secondary nasted"><?= $show['nom']; ?></li>
                 </ul>
                 <p class="text-lighten"></p>
             </div>
@@ -60,7 +65,7 @@ include_once '../../../include/header.php';
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <h2 class="section-title"><?php echo $show['nom']; ?></h2>
+                <h2 class="section-title"><?= $show['nom']; ?></h2>
             </div>
             <!-- event image -->
             <div class="col-12 mb-4">
@@ -69,17 +74,16 @@ include_once '../../../include/header.php';
         </div>
         <!-- event info -->
         <div class="row align-items-center mb-5">
-            <div class="col-lg-9">
+            <div class="<?php if ($_SESSION['user']['statut'] === '1' || $_SESSION['user']['statut'] === '3') {
+                if ($annul > $today && $show['validEvent'] !== '0') { ?> col-lg-6 <?php }
+            } else { ?> col-lg-9 <?php } ?>">
                 <ul class="list-inline">
                     <li class="list-inline-item mr-xl-5 mr-4 mb-3 mb-lg-0">
                         <div class="d-flex align-items-center">
                             <i class="ti-calendar text-primary icon-md mr-2"></i>
                             <div class="text-left">
                                 <h6 class="mb-0">DATE</h6>
-                                <p class="mb-0"><?php
-                                    setlocale(LC_TIME, 'fr_FR.UTF-8', 'fra');
-                                    echo strftime("%e %B %Y", strtotime($show['date']));
-                                    ?></p>
+                                <p class="mb-0"><?= strftime("%e %B %Y", strtotime($show['date'])); ?></p>
                             </div>
                         </div>
                     </li>
@@ -88,15 +92,32 @@ include_once '../../../include/header.php';
                             <i class="ti-time text-primary icon-md mr-2"></i>
                             <div class="text-left">
                                 <h6 class="mb-0">HORAIRE</h6>
-                                <p class="mb-0"><?php echo $show['horaire']; ?></p>
+                                <p class="mb-0"><?= strftime("%H:%M", strtotime($show['horaire'])); ?></p>
                             </div>
                         </div>
                     </li>
                 </ul>
             </div>
-            <div class="col-lg-3 text-lg-right text-left">
-                <a href="#" class="btn btn-primary">S'inscrire</a>
-            </div>
+            <?php if ($show['validEvent'] !== '0' ||  $_SESSION['user']['statut'] !== '4') { ?>
+                <div class="col-lg-3 text-lg-right text-left">
+                    <button href="#" class="btn btn-primary">S'inscrire</button>
+                </div>
+            <?php } else { ?>
+                <div class="col-lg-3 text-lg-right text-left">
+                    <button class="btn btn-dark" disabled>Annulé</button>
+                </div>
+            <?php }
+            if ($_SESSION['user']['statut'] === '1' || $_SESSION['user']['statut'] === '3') {
+                if ($annul > $today && $show['validEvent'] !== '0') { ?>
+                    <div class="col-lg-3 text-lg-right text-left">
+                        <form method="post" action="/e5_php/traitement/evenement/annule-event-tr">
+                            <button type="submit" name="annulation" value="<?= $show['idEvent']; ?>"
+                                    class="btn btn-danger">Annuler l'évènement
+                            </button>
+                        </form>
+                    </div>
+                <?php }
+            } ?>
             <!-- border -->
             <div class="col-12 mt-4 order-4">
                 <div class="border-bottom border-primary"></div>
@@ -106,7 +127,7 @@ include_once '../../../include/header.php';
         <div class="row">
             <div class="col-12 mb-50">
                 <h3>A propos</h3>
-                <p><?php echo $show['description']; ?></p>
+                <p><?= $show['description']; ?></p>
             </div>
         </div>
         <!-- event speakers -->
@@ -119,7 +140,7 @@ include_once '../../../include/header.php';
                 <div class="media">
                     <img class="mr-3 img-fluid" src="images/event-speakers/speaker-1.jpg" alt="speaker">
                     <div class="media-body">
-                        <h4 class="mt-0"><?php echo $show['organisateur']; ?></h4>
+                        <h4 class="mt-0"><?= $show['organisateur']; ?></h4>
                         Organisateur
                     </div>
                 </div>
@@ -153,19 +174,19 @@ include_once '../../../include/header.php';
                         <div class="col-lg-4 col-sm-6 mb-5">
                             <div class="card border-0 rounded-0 hover-shadow">
                                 <div class="card-img position-relative">
-                                    <img class="card-img-top rounded-0" src="images/events/event-1.jpg"
-                                         alt="event thumb">
+                                    <a href="evenement-no?idEvent=<?= $event['idEvent']; ?>">
+                                        <img class="card-img-top rounded-0" src="images/events/event-1.jpg"
+                                             alt="<?= $event['nom']; ?>">
+                                    </a>
                                     <div class="card-date">
-                                        <span><?php echo substr($event['date'], 8, 2); ?></span><br>
-                                        <?php echo substr($event['date'], 5, 2) . '/' . substr($event['date'], 0, 4) ?>
+                                        <span><?= substr($event['date'], 8, 2); ?></span><br>
+                                        <?= substr($event['date'], 5, 2) . '/' . substr($event['date'], 0, 4) ?>
                                     </div>
                                 </div>
                                 <div class="card-body">
-                                    <form method="post" action="evenement-no">
-                                        <button class="btn btn-lg btn-white" type="submit"
-                                                value="<?php echo $res['idEvent']; ?>"
-                                                name="idEvent"><?php echo $res['nom']; ?></button>
-                                    </form>
+                                    <a href="evenement-no?idEvent=<?= $event['idEvent']; ?>">
+                                        <h4 class="card-title"><?= $event['nom']; ?></h4>
+                                    </a>
                                 </div>
                             </div>
                         </div>

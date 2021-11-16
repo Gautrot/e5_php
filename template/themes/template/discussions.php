@@ -82,18 +82,19 @@ $res = $liste->listeDiscussion();
                     <div class="col-lg-4 col-sm-6 mb-5">
                         <div class="card border-0 rounded-0 hover-shadow">
                             <div class="card-img position-relative">
-                                <img class="card-img-top rounded-0" src="images/events/event-1.jpg" alt="event thumb">
+                                <a href="discussion-no?idDiscussion=<?= $discus['idDiscussion']; ?>">
+                                    <img class="card-img-top rounded-0" src="images/events/event-1.jpg"
+                                         alt="<?= $discus['titre']; ?>">
+                                </a>
                                 <div class="card-date">
-                                    <span><?php echo substr($discus['dateCreation'], 8, 2); ?></span><br>
-                                    <?php echo substr($discus['dateCreation'], 5, 2) . '/' . substr($discus['dateCreation'], 0, 4) ?>
+                                    <span><?= substr($discus['dateCreation'], 8, 2); ?></span><br>
+                                    <?= substr($discus['dateCreation'], 5, 2) . '/' . substr($discus['dateCreation'], 0, 4) ?>
                                 </div>
                             </div>
                             <div class="card-body">
-                                <form method="post" action="discussion-no">
-                                    <button class="btn btn-lg btn-white" type="submit"
-                                            value="<?php echo $discus['idDiscussion']; ?>"
-                                            name="idDiscussion"><?php echo $discus['titre']; ?></button>
-                                </form>
+                                <a href="discussion-no?idDiscussion=<?= $discus['idDiscussion']; ?>">
+                                    <h4 class="card-title"><?= $discus['titre']; ?></h4>
+                                </a>
                             </div>
                         </div>
                     </div>

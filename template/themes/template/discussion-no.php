@@ -1,5 +1,8 @@
 <?php
 include_once '../../../manager/discussion/ManaDiscus.php';
+// Traitement "cherche-discussion-tr"
+require_once '../../../traitement/discussion/cherche-discussion-tr.php';
+// Traitement de liste de discussions et de réponses
 $liste = new ManaDiscus();
 try {
     $resDis = $liste->listeDiscussion();
@@ -7,8 +10,7 @@ try {
 } catch (Exception $e) {
     $_SESSION["erreur"] = $e->getMessage();
 }
-// Traitement "cherche-discussion-tr"
-require_once '../../../traitement/discussion/cherche-discussion-tr.php';
+setlocale(LC_TIME, 'fr_FR.UTF-8', 'fra');
 ?>
 
 <!DOCTYPE html>
@@ -16,7 +18,7 @@ require_once '../../../traitement/discussion/cherche-discussion-tr.php';
 
 <head>
     <?php include_once '../../../include/head.php' ?>
-    <title>Discussion - <?php echo $show['titre']; ?></title>
+    <title>Discussion - <?= $show['titre']; ?></title>
 </head>
 
 <body>
@@ -48,7 +50,7 @@ require_once '../../../traitement/discussion/cherche-discussion-tr.php';
                 <ul class="list-inline custom-breadcrumb">
                     <li class="list-inline-item"><a class="h2 text-primary font-secondary"
                                                     href="discussions">Discussion</a></li>
-                    <li class="list-inline-item text-white h3 font-secondary nasted"><?php echo $show['titre']; ?></li>
+                    <li class="list-inline-item text-white h3 font-secondary nasted"><?= $show['titre']; ?></li>
                 </ul>
                 <p class="text-lighten"></p>
             </div>
@@ -62,7 +64,7 @@ require_once '../../../traitement/discussion/cherche-discussion-tr.php';
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <h2 class="section-title"><?php echo $show['titre']; ?></h2>
+                <h2 class="section-title"><?= $show['titre']; ?></h2>
             </div>
         </div>
         <!-- event info -->
@@ -74,17 +76,15 @@ require_once '../../../traitement/discussion/cherche-discussion-tr.php';
                             <i class="ti-calendar text-primary icon-md mr-2"></i>
                             <div class="text-left">
                                 <h6 class="mb-0">DATE</h6>
-                                <p class="mb-0"><?php
-                                    setlocale(LC_TIME, 'fr_FR.UTF-8', 'fra');
-                                    echo strftime("%e %B %Y", strtotime($show['dateCreation']));
-                                    ?></p>
+                                <p class="mb-0"><?= strftime("%e %B %Y", strtotime($show['dateCreation'])); ?></p>
                             </div>
                         </div>
                     </li>
                 </ul>
             </div>
             <div class="col-lg-3 text-lg-right text-left">
-                <a href="#" data-toggle="modal" data-target="#reponseDiscusModal" class="btn btn-primary">Répondre</a>
+                <a href="#" data-toggle="modal" data-target="#reponseDiscusModal"
+                   class="btn btn-primary">Répondre</a>
             </div>
             <!-- border -->
             <div class="col-12 mt-4 order-4">
@@ -95,7 +95,7 @@ require_once '../../../traitement/discussion/cherche-discussion-tr.php';
         <div class="row">
             <div class="col-12 mb-50">
                 <h3>A propos</h3>
-                <p><?php echo $show['description']; ?></p>
+                <p><?= $show['description']; ?></p>
             </div>
         </div>
         <!-- event speakers -->
@@ -108,7 +108,7 @@ require_once '../../../traitement/discussion/cherche-discussion-tr.php';
                 <div class="media">
                     <img class="mr-3 img-fluid" src="images/event-speakers/speaker-1.jpg" alt="speaker">
                     <div class="media-body">
-                        <h4 class="mt-0"><?php echo $show['nom']; ?></h4>
+                        <h4 class="mt-0"><?= $show['nom']; ?></h4>
                     </div>
                 </div>
             </div>
@@ -163,7 +163,7 @@ require_once '../../../traitement/discussion/cherche-discussion-tr.php';
                     <!-- event details -->
                     <div class="row">
                         <div class="col-12 mb-50">
-                            <p><?php echo $reponse['reponse']; ?></p>
+                            <p><?= $reponse['reponse']; ?></p>
                         </div>
                     </div>
                     <!-- event speakers -->
@@ -173,7 +173,7 @@ require_once '../../../traitement/discussion/cherche-discussion-tr.php';
                             <div class="media">
                                 <img class="mr-3 img-fluid" src="images/event-speakers/speaker-1.jpg" alt="speaker">
                                 <div class="media-body">
-                                    <h4 class="mt-0"><?php echo $reponse['nom']; ?></h4>
+                                    <h4 class="mt-0"><?= $reponse['nom']; ?></h4>
                                 </div>
                             </div>
                         </div>
@@ -208,19 +208,19 @@ require_once '../../../traitement/discussion/cherche-discussion-tr.php';
                         <div class="col-lg-4 col-sm-6 mb-5">
                             <div class="card border-0 rounded-0 hover-shadow">
                                 <div class="card-img position-relative">
-                                    <img class="card-img-top rounded-0" src="images/events/event-1.jpg"
-                                         alt="event thumb">
+                                    <a href="discussion-no?idDiscussion=<?= $discus['idDiscussion']; ?>">
+                                        <img class="card-img-top rounded-0" src="images/events/event-1.jpg"
+                                             alt="<?= $discus['titre']; ?>">
+                                    </a>
                                     <div class="card-date">
-                                        <span><?php echo substr($discus['dateCreation'], 8, 2); ?></span><br>
-                                        <?php echo substr($discus['dateCreation'], 5, 2) . '/' . substr($discus['dateCreation'], 0, 4) ?>
+                                        <span><?= substr($discus['dateCreation'], 8, 2); ?></span><br>
+                                        <?= substr($discus['dateCreation'], 5, 2) . '/' . substr($discus['dateCreation'], 0, 4) ?>
                                     </div>
                                 </div>
                                 <div class="card-body">
-                                    <form method="post" action="discussion-no">
-                                        <button class="btn btn-lg btn-white" type="submit"
-                                                value="<?php echo $discus['idDiscussion']; ?>"
-                                                name="idDiscussion"><?php echo $discus['titre']; ?></button>
-                                    </form>
+                                    <a href="discussion-no?idDiscussion=<?= $discus['idDiscussion']; ?>">
+                                        <h4 class="card-title"><?= $discus['titre']; ?></h4>
+                                    </a>
                                 </div>
                             </div>
                         </div>
