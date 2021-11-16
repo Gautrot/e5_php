@@ -12,10 +12,9 @@ $email=$_POST['mail'];
 
 $bdd= new PDO('mysql:host=localhost;dbname=projet_lprs_sgs;charset=utf8','root',''); // on se connecte à la base de donnée "lprs", avec l'uttilisateur "root" avec l'encodage utf-8
 
-$reponse = $bdd->prepare('SELECT idUtilisateur ,mail,mdp FROM utilisateur WHERE mail = :mail') ;  //on prepare la requete de php pour accéder aux identifiants dans la base de données en sql
+$reponse = $bdd->prepare('SELECT idUtilisateur, mail, mdp FROM utilisateur WHERE mail = :mail') ;  //on prepare la requete de php pour accéder aux identifiants dans la base de données en sql
 $reponse->execute(array('mail'=>$_POST["mail"]));var_dump($_POST["mail"]); //on insère sous forme de tableau les données que l'on veut récupérer de la base
 $donne = $reponse->fetch(); //on execute finalement la requete
-var_dump($donne);
 if($donne) // si le mail existe, on applique la condition qui suit
 {
 
@@ -161,7 +160,7 @@ Pas de probl&#232;me, cliquez sur le bouton pour acceder &#224; un changement de
                                 <table role="presentation" border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; min-width: auto; width: auto;">
                                   <tbody>
                                      <tr>
-                                      <a class="btn btn-primary" valign="top" align="center" bgcolor="#ec0867" href="localhost/e5_php/traitement/ModifMDP.php?mail='.$_POST["mail"].'" target="_blank">CHANGER SON MOTS DE PASSE</a> 
+                                      <a class="btn btn-primary" valign="top" align="center" bgcolor="#ec0867" href="localhost/e5_php/template/themes/template/ModifMDP.php?mail='.$_POST["mail"].'" target="_blank">CHANGER SON MOTS DE PASSE</a> 
                                     </tr>
                                   </tbody>
                                 </table>

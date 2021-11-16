@@ -21,9 +21,9 @@ try {
     ]);
 # Lance la méthode modifEleve
     $manager->modifEleve($eleve);
-    header("Location: ../../template/themes/template/index");
+    header("Location: /e5_php/template/themes/template/index");
 } catch (Exception $e) {
 # Affiche un message d'erreur
     $_SESSION['erreur'] = 'Erreur : ' . $e->getMessage();
-    header("Location: ../../template/themes/template/modif-util");
+    header("Location: /e5_php/template/themes/template/modif-util");
 }

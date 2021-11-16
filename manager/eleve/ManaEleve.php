@@ -30,8 +30,8 @@ class ManaEleve extends Manager
         }
         // Préparation de l'ajout d'un étudiant dans la BDD
         $req = $bdd->prepare('
-                INSERT INTO utilisateur (nom, prenom, dateNaissance, adresse, telephone, mail, login, mdp, statut) VALUES (:nom, :prenom, :dateNaissance, :adresse, :telephone, :mail, :login, :mdp, :statut);
-                INSERT INTO eleve (idEleve, classe) VALUES (LAST_INSERT_ID(), :classe);
+                INSERT INTO utilisateur (nom, prenom, dateNaissance, adresse, telephone, mail, login, mdp) VALUES (:nom, :prenom, :dateNaissance, :adresse, :telephone, :mail, :login, :mdp);
+                INSERT INTO eleve (idEleve, classe, RefUser) VALUES (LAST_INSERT_ID(), :classe, LAST_INSERT_ID());
             ');
         // Execution de la requête
         $req->execute([
@@ -43,15 +43,15 @@ class ManaEleve extends Manager
             'mail' => $eleve->getMail(),
             'login' => $eleve->getLogin(),
             'mdp' => $eleve->getMdp(),
-            'statut' => $eleve->getStatut(),
             'classe' => $eleve->getClasse()
         ]);
-        $req = $bdd->query('SELECT idUtilisateur, login, mdp, statut, validUtilisateur FROM utilisateur WHERE login = :login');
+        $req = $bdd->prepare('SELECT idUtilisateur, login, mdp, validUtilisateur FROM utilisateur WHERE login = :login');
         $req->execute([
             'login' => $eleve->getLogin()
         ]);
         $res2 = $req->fetch();
         // S'il créé avec succès l'étudiant, alors il envoie la session.
+        die();
         if ($res2) {
             unset($_SESSION['erreur']);
             return $_SESSION['user'] = $res2;
@@ -97,7 +97,7 @@ class ManaEleve extends Manager
             'login' => $eleve->getLogin(),
             'mdp' => $eleve->getMdp()
         ]);
-        $req = $bdd->prepare('SELECT idUtilisateur, login, mdp, statut, validUtilisateur FROM utilisateur WHERE idUtilisateur = :idUtilisateur');
+        $req = $bdd->prepare('SELECT idUtilisateur, login, mdp, validUtilisateur FROM utilisateur WHERE idUtilisateur = :idUtilisateur');
         $req->execute([
             'idUtilisateur' => $eleve->getIdUtilisateur()
         ]);
