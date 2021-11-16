@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="zxx">
 
+
+
 <head>
     <meta charset="utf-8">
     <?php include_once '../../../include/head.php' ?>
@@ -27,6 +29,8 @@
 <!-- Modal Login-->
 <?php include_once '../../../include/modal/login.php' ?>
 
+<!-- Traitement "cherche-util-tr"-->
+<?php require_once '../../../traitement/cherche-util-tr.php' ?>
 
 <!-- page title -->
 <section class="page-title-section overlay" data-background="images/backgrounds/page-title.jpg">
@@ -42,15 +46,7 @@
         </div>
     </div>
 </section>
-<!-- /page title -->
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Modification de mon mots de passe</title>
-    <meta charset="utf-8">
-</head>
-<body>
-<p>Bonjour, veuillez modifier votre mots de passe :</p>
+
 
 <!--Recuperate l'url -->
 <?php
@@ -74,17 +70,57 @@ $str = str_replace("mail=", "", $parse);
 ?>
 <!--Fin de la recuperation -->
 
-<?php
-$bdd= new PDO('mysql:host=localhost;dbname=projet_lprs_sgs;charset=utf8','root',''); // on se connecte à la base de donnée "lprs", avec l'uttilisateur "root" avec l'encodage utf-8
+<!-- /page title -->
 
-$reponse = $bdd->prepare('SELECT mail, mdp FROM utilisateur WHERE mail = :mail') ;  //on prepare la requete de php pour accéder aux identifiants dans la base de données en sql
-$reponse->execute(array('mail'=>$str)); //on insère sous forme de tableau les données que l'on veut récupérer de la base
-$donne = $reponse->fetch(); //on execute finalement la requete
-var_dump($donne);
+<!-- teacher details -->
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 mb-5">
+                <h3>Modification de mot de passe</h3>
+                <form action="/e5_php/traitement/modifMDP-tr.php" method="post" >
+                <?php   $bdd= new PDO('mysql:host=localhost;dbname=projet_lprs_sgs;charset=utf8','root',''); // on se connecte à la base de donnée "lprs", avec l'uttilisateur "root" avec l'encodage utf-8
 
-echo 'Email : ' .$donne['mail'].'<br>';
-echo 'Mots de passe : ' .$donne['mdp'].'<br>';
-?>
+                $reponse = $bdd->prepare('SELECT mail, mdp FROM utilisateur WHERE mail = :mail') ;  //on prepare la requete de php pour accéder aux identifiants dans la base de données en sql
+                $reponse->execute(array('mail'=>$str)); //on insère sous forme de tableau les données que l'on veut récupérer de la base
+                $donne = $reponse->fetch(); //on execute finalement la requete
+                var_dump($donne); ?>
+                <div class="form-group">
+                <div class="col-12">
+                            <label for="login">Login</label>
+                            <input type="text" class="form-control form-control-sm mb-3" id="login" name="login" required
+                                   maxlength="40" value="<?php echo $donne['mail']; ?>">
+                        </div>
+                        <div class="form-group">
+                            <label for="mdp">Mot de passe</label>
+                            <input type="password" class="form-control form-control-sm mb-3" id="mdp" name="mdp"
+                                   required value="<?php echo $donne['mdp']; ?>">
+                        </div>
+                        <button type="submit" class="btn btn-primary" href="../traitement/modifMDP-tr.php">
+                            Modifier
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+</section>
+<!-- /teacher details -->
+
+<section class="section-sm bg-primary">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="text-center">
+                    <form method="POST" action="index">
+                        <button type="submit" class="btn btn-primary">
+                            Retour
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 <!-- footer -->
 <?php include_once '../../../include/footer.php' ?>

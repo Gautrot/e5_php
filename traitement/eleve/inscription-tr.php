@@ -14,7 +14,6 @@ try {
         'mail' => $_POST['mail'],
         'login' => $_POST['login'],
         'mdp' => $_POST['mdp'],
-        'statut' => 1,
         'classe' => $_POST['classe']
     ]);
 
