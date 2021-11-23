@@ -9,29 +9,35 @@ class ManaRdv extends Manager
     /**
      * @throws Exception
      */
-    public function creerRDV(rdv $rdv)
+    public function creerRDV(Rdv $rdv)
     {
         // On appelle la base de données
         $bdd = (new BDD)->getBase();
         $req = $bdd->query('SELECT * FROM rdv');
         $res = $req->fetchAll();
-        foreach ($res as $error) {
-            // Vérifie les conditions lors de l'ajout d'un évènement.
-            // S'il y a une erreur, la fonction s'arrête.
-            switch ($error) {
-                case ($error['objet'] == $_POST['objet']):
-                    throw new Exception('Le nom est déja pris dans un autre rdv.');
-            }
-        }
-        $req = $bdd->prepare('INSERT INTO rdv (idCreateur, objet, organisateur, date, horaire, dateCreation) VALUES (:idCreateur, :objet, :organisateur, :type, :date, :horaire)');
+
+        if ($user['statut'] === '2') {
+        $req = $bdd->prepare('INSERT INTO rdv (objet, message, date, horaire, dateCreation, idCreateurParent, idInviteProf) VALUES (:idCreateur, :objet, :message, :date, :horaire, :dateCreation, idCreateurParent, :idInviteProf)');
         $res2 = $req->execute([
-            'idCreateur' => $rdv->getIdCreateur(),
             'objet' => $rdv->getObjet(),
-            'organisateur' => $rdv->getOrganisateur(),
-            'objet' => $rdv->getObjet(),
+            'message' => $rdv->getMessage(),
             'date' => $rdv->getDate(),
-            'horaire' => $rdv->getHoraire()
-        ]);
+            'horaire' => $rdv->getHoraire(),
+            'idCreateurParent' => $res2[0],
+            'idInviteProf' => $res3[0]
+        ]); }
+
+        else if ($user['statut'] === '3') {
+          $req = $bdd->prepare('INSERT INTO rdv (objet, message, date, horaire, dateCreation, idCreateurProf, idInviteParent) VALUES (:idCreateur, :objet, :message, :date, :horaire, :dateCreation, idCreateurProf, :idInviteParent)');
+          $res2 = $req->execute([
+              'objet' => $rdv->getObjet(),
+              'message' => $rdv->getMessage(),
+              'date' => $rdv->getDate(),
+              'horaire' => $rdv->getHoraire(),
+              'idCreateurProf' => $res3[0],
+              'idInviteParent' => $res2[0]
+          ]);
+        }
         // S'il créé avec succès le rdv, alors il retourne un succès.
         if ($res2) {
             unset($_SESSION['erreur']);

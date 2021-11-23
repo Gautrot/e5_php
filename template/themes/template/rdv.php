@@ -73,7 +73,7 @@ include_once '../../../include/modal/connectionAdmin.php';
             <!-- event -->
             <?php if (empty($res)) { ?>
                 <div class="col-lg-4 col-sm-6 mb-5">
-                    Il n'y a aucun évènement pour le moment.
+                    Il n'y a aucun rendez-vous pour le moment.
                 </div>
             <?php } else {
                 foreach ($res as $rdv) { ?>

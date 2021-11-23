@@ -2,7 +2,7 @@
 
 class Rdv
 {
-    private $idRdv, $idCreateur, $objet, $message, $date, $horaire, $dateCreation;
+    private $idRdv, $objet, $message, $date, $horaire, $dateCreation, $idCreateurParent, $idCreateurProf, $idInviteParent, $idInviteProf;
 
 // constructeur
 
@@ -32,11 +32,6 @@ class Rdv
         return $this->idRdv;
     }
 
-    public function getIdCreateur()
-    {
-        return $this->idCreateur;
-    }
-
     public function getObjet()
     {
         return $this->objet;
@@ -62,6 +57,26 @@ class Rdv
         return $this->dateCreation;
     }
 
+    public function getIdCreateurParent()
+    {
+        return $this->idCreateurParent;
+    }
+
+    public function getIdCreateurProf()
+    {
+        return $this->idCreateurProf;
+    }
+
+    public function getIdInviteParent()
+    {
+        return $this->idInviteParent;
+    }
+
+    public function getIdInviteProf()
+    {
+        return $this->idInviteProf;
+    }
+
 
 // LISTE DES SETTERS
 
@@ -79,20 +94,6 @@ class Rdv
         }
     }
 
-    public function setIdCreateur($idCreateur)
-    {
-        // On convertit l'argument en nombre entier.
-        // Si c'en était déjà un, rien ne changera.
-        // Sinon, la $idEvent donnera le nombre 0 (à quelques exceptions près, mais rien d'important ici).
-        $id = (int)$idCreateur;
-
-        // On vérifie ensuite si ce nombre est bien strictement positif.
-        if ($id > 0) {
-            // Si c'est le cas, c'est tout bon, on assigne la valeur à l'attribut correspondant.
-            $this->idCreateur = $idCreateur;
-        }
-    }
-
     public function setObjet($objet)
     {
         // On vérifie qu'il s'agit bien d'une chaîne de caractères.
@@ -100,7 +101,6 @@ class Rdv
             $this->objet = $objet;
         }
     }
-
 
     public function setMessage($message)
     {
@@ -131,6 +131,62 @@ class Rdv
         // On vérifie qu'il s'agit bien d'une chaîne de caractères.
         if (is_string($dateCreation)) {
             $this->dateCreation = $dateCreation;
+        }
+    }
+
+    public function setIdCreateurParent($idCreateurParent)
+    {
+        // On convertit l'argument en nombre entier.
+        // Si c'en était déjà un, rien ne changera.
+        // Sinon, la $idEvent donnera le nombre 0 (à quelques exceptions près, mais rien d'important ici).
+        $id = (int)$idCreateurParent;
+
+        // On vérifie ensuite si ce nombre est bien strictement positif.
+        if ($id > 0) {
+            // Si c'est le cas, c'est tout bon, on assigne la valeur à l'attribut correspondant.
+            $this->idCreateurParent = $idCreateurParent;
+        }
+    }
+
+    public function setIdCreateurProf($idCreateurProf)
+    {
+        // On convertit l'argument en nombre entier.
+        // Si c'en était déjà un, rien ne changera.
+        // Sinon, la $idEvent donnera le nombre 0 (à quelques exceptions près, mais rien d'important ici).
+        $id = (int)$idCreateurProf;
+
+        // On vérifie ensuite si ce nombre est bien strictement positif.
+        if ($id > 0) {
+            // Si c'est le cas, c'est tout bon, on assigne la valeur à l'attribut correspondant.
+            $this->idCreateurProf = $idCreateurProf;
+        }
+    }
+
+    public function setIdInviteParent($idInviteParent)
+    {
+        // On convertit l'argument en nombre entier.
+        // Si c'en était déjà un, rien ne changera.
+        // Sinon, la $idEvent donnera le nombre 0 (à quelques exceptions près, mais rien d'important ici).
+        $id = (int)$idInviteParent;
+
+        // On vérifie ensuite si ce nombre est bien strictement positif.
+        if ($id > 0) {
+            // Si c'est le cas, c'est tout bon, on assigne la valeur à l'attribut correspondant.
+            $this->idInviteParent = $idInviteParent;
+        }
+    }
+
+    public function setIdInviteProf($idInviteProf)
+    {
+        // On convertit l'argument en nombre entier.
+        // Si c'en était déjà un, rien ne changera.
+        // Sinon, la $idEvent donnera le nombre 0 (à quelques exceptions près, mais rien d'important ici).
+        $id = (int)$idInviteProf;
+
+        // On vérifie ensuite si ce nombre est bien strictement positif.
+        if ($id > 0) {
+            // Si c'est le cas, c'est tout bon, on assigne la valeur à l'attribut correspondant.
+            $this->idInviteProf = $idInviteProf;
         }
     }
 

@@ -41,7 +41,7 @@ include_once '../../../include/modal/connectionAdmin.php';
                     </li>
                     <li class="list-inline-item text-white h3 font-secondary @@nasted"></li>
                 </ul>
-                <p class="text-lighten">Vous pouvez prendre un rendez-vous avec un professeur/parent.</p>
+                <p class="text-lighten">Vous pouvez prendre un rendez-vous.</p>
             </div>
         </div>
     </div>
@@ -63,24 +63,47 @@ include_once '../../../include/modal/connectionAdmin.php';
                                        maxlength="100" required placeholder="ex : Rendez-vous pour l'orientation.">
                             </div>
 
-                            <div class="form-group">
-                                <label for="idPriseRDV">Prendre rendez-vous avec :</label>
-                                <select class="form-control" name="idPriseRDV" id="idPriseRDV">
-                                  <option value="">- SELECTIONNER -</option>
-                                    <optgroup label="Parents">
-                                        <?php foreach ($res as $rdv) {
-                                            if ($rdv['statut'] == '2' && $rdv['idUtilisateur'] != $_SESSION['user']['idUtilisateur']) { ?>
-                                                <option value="<?= $rdv['idUtilisateur'] ?>"><?= $rdv['nom'] ?></option>
-                                            <?php }
-                                        } ?>
-                                    </optgroup>
-                                    <optgroup label="Professeurs">
-                                        <?php foreach ($res as $rdv) {
-                                            if ($rdv['statut'] == '3' && $rdv['idUtilisateur'] != $_SESSION['user']['idUtilisateur']) { ?>
-                                                <option value="<?= $rdv['idUtilisateur'] ?>"><?= $rdv['nom'] ?></option>
-                                            <?php }
-                                        } ?>
-                                    </optgroup>
+
+
+                              <?php if ($_SESSION['user']['statut'] === '2') {
+                                      //$bdd = (new BDD)->getBase();
+                                      //$req = $bdd->query("SELECT nom, prenom, idUtilisateur FROM parent ");
+                                      //$res = $req->fetchall(); } ?>
+                              <div class="form-group">
+                              <label for="idPriseRDV">Prendre rendez-vous avec :</label>
+                              <select class="form-control" name="idInviteProf" id="idInviteProf">
+                                <option value="">- SELECTIONNER -</option>
+
+                                      <?php foreach ($res as $rdv) {
+                                          if ($rdv['statut'] == '2' && $rdv['idUtilisateur'] != $_SESSION['user']['idUtilisateur']) { ?>
+                                              <option value="<?= $rdv['idUtilisateur'] ?>"><?= $rdv['nom'] ?></option>
+                                          <?php }
+                                      }} ?>
+
+                              </select>
+                            </div>
+
+
+                              <?php if ($_SESSION['user']['statut'] === '3') {
+                                      //$bdd = (new BDD)->getBase();
+                                      //$req = $bdd->query("SELECT nom, prenom, idUtilisateur FROM professeur ");
+                                      //$res = $req->fetchall();  } ?>
+
+                                      <div class="form-group">
+                                      <label for="idPriseRDV">Prendre rendez-vous avec :</label>
+                                      <select class="form-control" name="idInviteParent" id="idInviteParent">
+                                        <option value="">- SELECTIONNER -</option>
+
+
+                                  <?php foreach ($res as $rdv) {
+                                      if ($rdv['statut'] == '3' && $rdv['idUtilisateur'] != $_SESSION['user']['idUtilisateur']) { ?>
+                                          <option value="<?= $rdv['idUtilisateur'] ?>"><?= $rdv['nom'] ?></option>
+                                      <?php }
+                                  }} ?>
+
+                                </select>
+                              </div>
+
 
 <!--                              --><?php //if ($_SESSION['user']['statut'] === '2') {
 //                              $bdd = (new BDD)->getBase();
@@ -96,8 +119,7 @@ include_once '../../../include/modal/connectionAdmin.php';
 //                              foreach ($res as $value) { ?>
 <!--                                <option value="--><?php //echo $value['idUtilisateur']?><!--">--><?php //echo $value['nom'] , $value['prenom']?><!--</option>-->
 <!--                            --><?php //} ?>
-                                </select>
-                            </div>
+
 
                             <div class="form-group">
                                 <label for="message">Message</label>
