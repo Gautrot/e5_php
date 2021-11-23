@@ -13,17 +13,19 @@ class ManaMDP extends Manager
     {
         // On appelle la base de données
         $bdd = (new BDD)->getBase();
-        $req = $bdd->query('SELECT * FROM utilisateur');
-        $res = $req->fetchAll();
-        $req = $bdd->prepare('UPDATE utilisateur SET mdp = :mdp WHERE mail = :mail');
-        $req->execute([
-            'mdp' => $MDP_Modif->getMdp()
-        ]);
-        $req = $bdd->prepare('SELECT idUtilisateur, login, mdp, validUtilisateur FROM utilisateur WHERE mail = :mail');
-        $req->execute([
+        $req1 = $bdd->prepare('UPDATE utilisateur SET mdp = :mdp WHERE mail = :mail');
+        $req1->execute([
+            'mdp' => $MDP_Modif->getMdp(),
             'mail' => $MDP_Modif->getMail()
         ]);
-        $res2 = $req->fetch();
+
+        $req2 = $bdd->prepare('SELECT * FROM utilisateur WHERE mail = :mail');
+        $req2->execute([
+            'mail' => $MDP_Modif->getMail()
+        ]);
+        $res2 = $req2->fetch();
+
+
         // S'il modifie avec succès l'étudiant, alors il envoie la session.
         if ($res2) {
             unset($_SESSION['erreur']);
