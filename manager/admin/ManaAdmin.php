@@ -25,7 +25,7 @@ class ManaAdmin extends Manager
         // On appelle la base de données
         $bdd = (new BDD)->getBase();
         // Préparation de la requête pour la connexion d'un utilisateur
-        $req = $bdd->prepare('SELECT idUtilisateur, login, mdp, validUtilisateur, statut FROM utilisateur INNER JOIN administrateur ON administrateur.idUtil = utilisateur.idUtilisateur WHERE login = :login AND mdp = :mdp');
+        $req = $bdd->prepare('SELECT idUtilisateur, login, mdp, statut, validUtilisateur FROM utilisateur WHERE login = :login AND mdp = :mdp');
         $req->execute([
             'login' => $admin->getLogin(),
             'mdp' => $admin->getMdp()
@@ -78,7 +78,7 @@ class ManaAdmin extends Manager
             'login' => $admin->getLogin(),
             'mdp' => $admin->getMdp()
         ]);
-        $req = $bdd->prepare('SELECT idUtilisateur, login, mdp, validUtilisateur, statut FROM utilisateur INNER JOIN administrateur ON administrateur.idUtil = utilisateur.idUtilisateur WHERE login = :login AND mdp = :mdp');
+        $req = $bdd->prepare('SELECT idUtilisateur, login, mdp, statut, validUtilisateur FROM utilisateur WHERE login = :login AND mdp = :mdp');
         $req->execute([
             'idUtilisateur' => $admin->getIdUtilisateur()
         ]);

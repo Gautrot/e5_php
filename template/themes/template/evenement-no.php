@@ -98,13 +98,28 @@ include_once '../../../include/modal/connectionAdmin.php';
                     </li>
                 </ul>
             </div>
-            <?php if ($show['validEvent'] !== '0' || $_SESSION['user']['statut'] !== '4') { ?>
-                <div class="col-lg-3 text-lg-right text-left">
-                    <button href="#" class="btn btn-primary">S'inscrire</button>
-                </div>
-            <?php } else { ?>
+            <?php if ($show['validEvent'] !== '0' || $_SESSION['user']['statut'] !== '4') {
+                if (!isset($show['idInscription'])) { ?>
+                    <div class="col-lg-3 text-lg-right text-left">
+                        <form method="post" action="/e5_php/traitement/evenement/inscription-event-tr">
+                            <button type="submit" class="btn btn-primary" name="inscription"
+                                    value="<?= $show['idEvent']; ?>">S'inscrire
+                            </button>
+                        </form>
+                    </div>
+                <?php } else { ?>
+                    <div class="col-lg-3 text-lg-right text-left">
+                        <button class="btn btn-dark" disabled>Inscrit.e</button>
+                    </div>
+                <?php }
+            } else { ?>
                 <div class="col-lg-3 text-lg-right text-left">
                     <button class="btn btn-dark" disabled>Annulé</button>
+                </div>
+            <?php }
+            if ($_SESSION['user']['idUtilisateur'] == $show['idUtil']) { ?>
+                <div class="col-lg-3 text-lg-right text-left">
+                    <button href="#" class="btn btn-primary">Ajouter un organisateur</button>
                 </div>
             <?php }
             if ($_SESSION['user']['statut'] === '1' || $_SESSION['user']['statut'] === '3') {
@@ -140,13 +155,17 @@ include_once '../../../include/modal/connectionAdmin.php';
                 <div class="media">
                     <img class="mr-3 img-fluid" src="images/event-speakers/speaker-1.jpg" alt="speaker">
                     <div class="media-body">
-                        <h4 class="mt-0"><?php
-                            if (isset($show['idCreateurEleve'])) {
+                        <h4 class="mt-0">
+                            <?php if (isset($show['idCreateurEleve'])) {
                                 echo $show['idCreateurEleve'];
                             } else {
                                 echo $show['idCreateurProf'];
-                            }
-                            ?></h4>
+                            } ?></h4>
+                        <?php if (isset($show['idCreateurEleve'])) {
+                            echo 'Etudiant';
+                        } else {
+                            echo 'Professeur';
+                        } ?>
                         Organisateur
                     </div>
                 </div>

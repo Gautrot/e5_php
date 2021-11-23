@@ -147,7 +147,7 @@ class ManaDiscus extends Manager
             return $res2;
         }
         // sinon affiche un message d'erreur
-        throw new Exception('Erreur pendant la recherche de l\'évènement.', 1);
+        throw new Exception('Erreur pendant la recherche de la discussion.', 1);
     }
 
 // Méthode de réponse d'une discussion

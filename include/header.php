@@ -1,6 +1,6 @@
 <?php
 include_once '../../../manager/Manager.php';
-var_dump($_SESSION);
+//var_dump($_SESSION);
 ?>
 <header class="fixed-top header">
     <!-- navbar -->
@@ -28,11 +28,11 @@ var_dump($_SESSION);
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Profil
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <?php if (empty($_SESSION["user"])) { ?>
+                                <?php if (empty($_SESSION['user'])) { ?>
                                     <!-- navbar sans connexion -->
                                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#loginModal">Connexion</a>
                                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#signupModal">Inscription</a>
-                                <?php } else if (isset($_SESSION["user"])) { ?>
+                                <?php } else if (isset($_SESSION['user'])) { ?>
                                     <!-- navbar avec connexion -->
                                     <a class="dropdown-item" href="profil">Voir votre profil</a>
                                     <a class="dropdown-item" href="modif-util">Modifier

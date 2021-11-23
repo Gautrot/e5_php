@@ -25,7 +25,7 @@ class ManaProf
         // On appelle la base de données
         $bdd = (new BDD)->getBase();
         // Préparation de la requête pour la connexion d'un utilisateur
-        $req = $bdd->prepare('SELECT idUtilisateur, login, mdp, validUtilisateur, statut FROM utilisateur INNER JOIN professeur ON professeur.idUtil = utilisateur.idUtilisateur WHERE login = :login AND mdp = :mdp');
+        $req = $bdd->prepare('SELECT idUtilisateur, login, mdp, statut, validUtilisateur FROM utilisateur WHERE login = :login AND mdp = :mdp');
         $req->execute([
             'login' => $prof->getLogin(),
             'mdp' => $prof->getMdp()
@@ -82,7 +82,7 @@ class ManaProf
             'mdp' => $prof->getMdp(),
             'matiere' => $prof->getMatiere()
         ]);
-        $req = $bdd->prepare('SELECT idUtilisateur, login, mdp, validUtilisateur, statut FROM utilisateur INNER JOIN professeur ON professeur.idUtil = utilisateur.idUtilisateur WHERE login = :login');
+        $req = $bdd->prepare('SELECT idUtilisateur, login, mdp, statut, validUtilisateur FROM utilisateur WHERE login = :login');
         $req->execute([
             'login' => $prof->getLogin()
         ]);

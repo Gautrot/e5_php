@@ -25,7 +25,7 @@ class ManaParent extends Manager
         // On appelle la base de données
         $bdd = (new BDD)->getBase();
         // Préparation de la requête pour la connexion d'un utilisateur
-        $req = $bdd->prepare('SELECT idUtilisateur, login, mdp, validUtilisateur, statut FROM utilisateur INNER JOIN parent ON parent.idUtil = utilisateur.idUtilisateur WHERE login = :login AND mdp = :mdp');
+        $req = $bdd->prepare('SELECT idUtilisateur, login, mdp, statut, validUtilisateur FROM utilisateur WHERE login = :login AND mdp = :mdp');
         $req->execute([
             'login' => $parent->getLogin(),
             'mdp' => $parent->getMdp()
@@ -82,7 +82,7 @@ class ManaParent extends Manager
             'mdp' => $parent->getMdp(),
             'metier' => $parent->getMetier()
         ]);
-        $req = $bdd->prepare('SELECT idUtilisateur, login, mdp, validUtilisateur, statut FROM utilisateur INNER JOIN parent ON parent.idUtil = utilisateur.idUtilisateur WHERE login = :login');
+        $req = $bdd->prepare('SELECT idUtilisateur, login, mdp, statut, validUtilisateur FROM utilisateur WHERE login = :login');
         $req->execute([
             'login' => $parent->getLogin()
         ]);

@@ -25,7 +25,7 @@ class ManaEleve extends Manager
         // On appelle la base de données
         $bdd = (new BDD)->getBase();
         // Préparation de la requête pour la connexion d'un utilisateur
-        $req = $bdd->prepare('SELECT idUtilisateur, login, mdp, validUtilisateur, statut FROM utilisateur INNER JOIN eleve ON eleve.idUtil = utilisateur.idUtilisateur WHERE login = :login AND mdp = :mdp');
+        $req = $bdd->prepare('SELECT idUtilisateur, login, mdp, statut, validUtilisateur FROM utilisateur WHERE login = :login AND mdp = :mdp');
         $req->execute([
             'login' => $eleve->getLogin(),
             'mdp' => $eleve->getMdp()
@@ -82,7 +82,7 @@ class ManaEleve extends Manager
             'mdp' => $eleve->getMdp(),
             'classe' => $eleve->getClasse()
         ]);
-        $req = $bdd->prepare('SELECT idUtilisateur, login, mdp, validUtilisateur, statut FROM utilisateur INNER JOIN eleve ON eleve.idUtil = utilisateur.idUtilisateur WHERE login = :login');
+        $req = $bdd->prepare('SELECT idUtilisateur, login, mdp, statut, validUtilisateur FROM utilisateur WHERE login = :login');
         $req->execute([
             'login' => $eleve->getLogin()
         ]);
@@ -133,7 +133,7 @@ class ManaEleve extends Manager
             'login' => $eleve->getLogin(),
             'mdp' => $eleve->getMdp()
         ]);
-        $req = $bdd->prepare('SELECT idUtilisateur, login, mdp, validUtilisateur, statut FROM utilisateur INNER JOIN eleve ON eleve.idUtil = utilisateur.idUtilisateur WHERE idUtilisateur = :idUtilisateur');
+        $req = $bdd->prepare('SELECT idUtilisateur, login, mdp, statut, validUtilisateur FROM utilisateur WHERE idUtilisateur = :idUtilisateur');
         $req->execute([
             'idUtilisateur' => $eleve->getIdUtilisateur()
         ]);

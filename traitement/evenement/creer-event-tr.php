@@ -10,10 +10,8 @@ try {
             'titre' => $_POST['titre'],
             'description' => $_POST['description'],
             'organisateur' => $_POST['organisateur'],
-            'type' => 'Interne',
             'date' => $_POST['date'],
-            'horaire' => $_POST['horaire'],
-            'validEvent' => 0,
+            'horaire' => $_POST['horaire']
         ]);
     } else {
         # Instancie la classe Evenement
@@ -23,8 +21,7 @@ try {
             'organisateur' => $_POST['organisateur'],
             'type' => $_POST['type'],
             'date' => $_POST['date'],
-            'horaire' => $_POST['horaire'],
-            'validEvent' => 1,
+            'horaire' => $_POST['horaire']
         ]);
     }
     # Instancie la classe ManaEvent

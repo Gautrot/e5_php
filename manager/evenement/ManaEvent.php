@@ -11,7 +11,7 @@ class ManaEvent extends Manager
      */
     public function creerEvenement(Evenement $event)
     {
-        $statut = ['eleve', 'parent', 'professeur', 'administrateur'];
+        $statut = ['eleve', 'professeur'];
         // On appelle la base de données
         $bdd = (new BDD)->getBase();
         $req = $bdd->query('SELECT * FROM evenement');
@@ -24,51 +24,47 @@ class ManaEvent extends Manager
                     throw new Exception('Le nom est déja pris dans un autre évènement.');
             }
         }
-        // Cherche l'id de l'organisateur choisi
-        $req = $bdd->query('SELECT idUtilisateur FROM utilisateur ORDER BY idUtilisateur DESC');
-        $res2 = $req->fetchAll();
-        foreach ($res2 as $user) {
-            for ($j = 0; $j < 4; $j++) {
-                $req = $bdd->prepare('SELECT * FROM utilisateur INNER JOIN ' . $statut[$j] . ' ON ' . $statut[$j] . '.idUtil = utilisateur.idUtilisateur WHERE idUtilisateur = :idUtilisateur');
-                $req->execute([
-                    'idUtilisateur' => $user[0]
-                ]);
-                $res3 = $req->fetch();
-                if (isset($res3['idProf']) || isset($res3['idEleve'])) {
-                    $id = $res3;
-                    break;
-                }
+        // Cherche l'organisateur
+        for ($i = 0; $i < 2; $i++) {
+            $req = $bdd->prepare('SELECT * FROM utilisateur INNER JOIN ' . $statut[$i] . ' ON ' . $statut[$i] . '.idUtil = utilisateur.idUtilisateur WHERE idUtilisateur = :idUtilisateur');
+            $req->execute([
+                'idUtilisateur' => $_SESSION['user']['idUtilisateur']
+            ]);
+            $res2 = $req->fetch();
+            if (isset($res2['idProf']) || isset($res2['idEleve'])) {
+                $idCreateur = $res2;
+                break;
             }
         }
-        if ($id['statut'] === '1') {
+        if ($idCreateur['statut'] === '1') {
             // Si l'organisateur principal est un étudiant
             $req = $bdd->prepare('INSERT INTO evenement (titre, description, type, date, horaire, dateCreation, validEvent, idCreateurEleve) VALUES (:titre, :description, :type, :date, :horaire, NOW(), :validEvent, :idCreateurEleve)');
-            $res4 = $req->execute([
+            $res3 = $req->execute([
                 'titre' => $event->getTitre(),
                 'description' => $event->getDescription(),
-                'type' => $event->getType(),
+                'type' => 'Interne',
                 'date' => $event->getDate(),
                 'horaire' => $event->getHoraire(),
-                'validEvent' => $event->getValidEvent(),
-                'idCreateurEleve' => $res3[0]
+                'validEvent' => 0,
+                'idCreateurEleve' => $res2['idEleve']
             ]);
         } else {
             // Si l'organisateur principal est un professeur
             $req = $bdd->prepare('INSERT INTO evenement (titre, description, type, date, horaire, dateCreation, validEvent, idCreateurProf) VALUES (:titre, :description, :type, :date, :horaire, NOW(), :validEvent, :idCreateurProf)');
-            $res4 = $req->execute([
+            $res3 = $req->execute([
                 'titre' => $event->getTitre(),
                 'description' => $event->getDescription(),
                 'type' => $event->getType(),
                 'date' => $event->getDate(),
                 'horaire' => $event->getHoraire(),
-                'validEvent' => $event->getValidEvent(),
-                'idCreateurProf' => $res3[0]
+                'validEvent' => 1,
+                'idCreateurProf' => $res2['idProf']
             ]);
         }
         // S'il créé avec succès l'évènement, alors il retourne un succès.
-        if ($res4) {
+        if ($res3) {
             unset($_SESSION['erreur']);
-            return;
+            return true;
         }
         // Sinon, on affiche un message d'erreur
         throw new Exception('Ajout échouée !');
@@ -94,18 +90,61 @@ class ManaEvent extends Manager
      */
     public function chercheEvenement(Evenement $event)
     {
-        // on appelle la base de données
+        $statut = ['eleve', 'professeur', 'parent'];
+        $idStatut = ['Eleve', 'Prof', 'Parent'];
+        $idCreateur = ['idCreateurEleve', 'idCreateurProf'];
+        // On appelle la base de données
         $bdd = (new BDD)->getBase();
         $req = $bdd->prepare('SELECT * FROM evenement WHERE idEvent = :idEvent');
         $req->execute([
             'idEvent' => $event->getIdEvent()
         ]);
         $res = $req->fetch();
-        if ($res) {
-            unset($_SESSION['erreur']);
-            return $res;
+        // Cherche l'évènement choisi et son organisateur
+        for ($i = 0; $i < 2; $i++) {
+            $req = $bdd->prepare('SELECT * FROM evenement INNER JOIN ' . $statut[$i] . ' ON ' . $statut[$i] . '.id' . $idStatut[$i] . ' = evenement.' . $idCreateur[$i] . ' WHERE idEvent = :idEvent');
+            $req->execute([
+                'idEvent' => $res[0]
+            ]);
+            $res2 = $req->fetch();
+            // S'il trouve les deux, alors il retourne les valeurs
+            if ($res2) {
+                break;
+            }
         }
-        // sinon affiche un message d'erreur
+        for ($j = 0; $j < 3; $j++) {
+            // Si c'est un parent, il ne va pas vérifier l'id de l'organisateur
+            if ($j === 2) {
+                $req = $bdd->prepare('
+                    SELECT * FROM evenement
+                    INNER JOIN inscription_event ON inscription_event.id' . $idStatut[$j] . ' = ' . $statut[$j] . '.id' . $idStatut[$j] . '
+                    WHERE evenement.idEvent = :idEvent
+                ');
+            } else {
+                $req = $bdd->prepare('
+                    SELECT * FROM evenement
+                    INNER JOIN ' . $statut[$j] . ' ON ' . $statut[$j] . '.id' . $idStatut[$j] . ' = evenement.' . $idCreateur[$j] . '
+                    INNER JOIN inscription_event ON inscription_event.id' . $idStatut[$j] . ' = ' . $statut[$j] . '.id' . $idStatut[$j] . '
+                    WHERE evenement.idEvent = :idEvent
+                ');
+            }
+            $req->execute([
+                'idEvent' => $res[0]
+            ]);
+            $res3 = $req->fetch();
+            if ($res3 && isset($res3['idInscription'])) {
+                // S'il trouve les deux en plus que l'utilisateur est inscrit dans l'évènement,
+                // alors il retourne les valeurs avec le bouton "Inscrit.e" qui s'affiche
+                unset($_SESSION['erreur']);
+                return $res3;
+            }
+        }
+        if ($res2) {
+            // Sinon, il affiche les valeurs avec le bouton "S'inscrire" qui s'affiche
+            unset($_SESSION['erreur']);
+            return $res2;
+        }
+        // Sinon, on affiche un message d'erreur
         throw new Exception('Erreur pendant la recherche de l\'évènement.', 1);
     }
 
@@ -116,13 +155,14 @@ class ManaEvent extends Manager
      */
     public function annuleEvenement(Evenement $event)
     {
-        // on appelle la base de données
+        // On appelle la base de données
         $bdd = (new BDD)->getBase();
         $req = $bdd->prepare('SELECT idEvent FROM evenement WHERE idEvent = :idEvent');
         $req->execute([
             'idEvent' => $event->getIdEvent()
         ]);
         $res = $req->fetch();
+        // S'il trouve l'id de l'évènement, il va annuler celui-ci
         if ($res) {
             $req = $bdd->prepare('UPDATE evenement SET validEvent = 0 WHERE idEvent = :idEvent');
             $req->execute([
@@ -131,7 +171,75 @@ class ManaEvent extends Manager
             unset($_SESSION['erreur']);
             return true;
         }
-        // sinon affiche un message d'erreur
+        // Sinon, on affiche un message d'erreur
         throw new Exception('Annulation échouée.', 1);
+    }
+
+    // Méthode d'inscription à un évènement
+
+    /**
+     * @throws Exception
+     */
+    public function inscrEvenement(InscriptionEvent $event)
+    {
+        $statut = ['eleve', 'professeur', 'parent'];
+        // On appelle la base de données
+        $bdd = (new BDD)->getBase();
+        $req = $bdd->prepare('SELECT idEvent FROM evenement WHERE idEvent = :idEvent');
+        $req->execute([
+            'idEvent' => $event->getIdEvent()
+        ]);
+        $res = $req->fetch();
+        // S'il trouve l'id de l'évènement, il va inscrire un utilisateur
+        if ($res) {
+            $req = $bdd->query('SELECT idUtilisateur FROM utilisateur');
+            $res2 = $req->fetchAll();
+            foreach ($res2 as $user) {
+                // Cherche la personne à inscrire
+                for ($i = 0; $i < 3; $i++) {
+                    $req = $bdd->prepare('SELECT * FROM utilisateur INNER JOIN ' . $statut[$i] . ' ON ' . $statut[$i] . '.idUtil = utilisateur.idUtilisateur WHERE idUtilisateur = :idUtilisateur');
+                    $req->execute([
+                        'idUtilisateur' => $_SESSION['user']['idUtilisateur']
+                    ]);
+                    $res3 = $req->fetch();
+                    if ($res3 && $user['idUtilisateur'] == $_SESSION['user']['idUtilisateur']) {
+                        $idInscrit = $res3;
+                        break;
+                    }
+                }
+                if (isset($idInscrit)) {
+                    break;
+                }
+            }
+            switch ($idInscrit['statut']) {
+                case '1':
+                    $req = $bdd->prepare('INSERT INTO inscription_event (idEleve, idEvent) VALUES (:idEleve, :idEvent)');
+                    $res4 = $req->execute([
+                        'idEleve' => $idInscrit['idEleve'],
+                        'idEvent' => $event->getIdEvent()
+                    ]);
+                    break;
+                case '2':
+                    $req = $bdd->prepare('INSERT INTO inscription_event (idParent, idEvent) VALUES (:idParent, :idEvent)');
+                    $res4 = $req->execute([
+                        'idParent' => $idInscrit['idParent'],
+                        'idEvent' => $event->getIdEvent()
+                    ]);
+                    break;
+                case '3':
+                    $req = $bdd->prepare('INSERT INTO inscription_event (idProf, idEvent) VALUES (:idProf, :idEvent)');
+                    $res4 = $req->execute([
+                        'idProf' => $idInscrit['idProf'],
+                        'idEvent' => $event->getIdEvent()
+                    ]);
+                    break;
+            }
+            if ($res4) {
+                unset($_SESSION['erreur']);
+                return true;
+            }
+        }
+        // Sinon, on affiche un message d'erreur
+        throw new Exception('Inscription échouée.', 1);
     }
 }
