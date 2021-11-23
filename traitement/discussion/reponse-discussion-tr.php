@@ -9,7 +9,6 @@ try {
     # Instancie la classe Discussion
     $reponse = new Reponse([
         'idDiscussion' => $_POST['idDiscussion'],
-        'idCreateur' => $_SESSION['user']['idUtilisateur'],
         'reponse' => $_POST['reponse']
     ]);
     # Instancie la classe ManaDiscus

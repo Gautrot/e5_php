@@ -10,7 +10,11 @@
             <div class="modal-body">
                 <div class="login">
                     <div class="text-center pb-5">
-                        Répondre à <?php echo $show['nom']; ?>:
+                        Répondre à <?php if (isset($show['idCreateurEleve'])) {
+                            echo $show['idCreateurEleve'];
+                        } else {
+                            echo $show['idCreateurProf'];
+                        } ?>:
                     </div>
                     <div class="row justify-content-center">
                         <form method="POST" action="/e5_php/traitement/discussion/reponse-discussion-tr"

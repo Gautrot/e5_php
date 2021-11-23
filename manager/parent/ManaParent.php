@@ -4,65 +4,95 @@ require_once __DIR__ . '/../Manager.php';
 // création de la classe ManaParent
 class ManaParent extends Manager
 {
-  // Méthode d'inscription pour un parent
+// Méthode de connexion pour un parent
 
-  /**
-   * @throws Exception
-   */
-  public function inscriptionParent(Parents $parent)
-  {
-      $bdd = (new BDD)->getBase();
-      $req = $bdd->query('SELECT * FROM utilisateur WHERE statut = 1');
-      $res = $req->fetchAll();
-      // parcours de la table eleve pour verifier que les données ne soient pas les mêmes et concordent avec le parent
-      foreach ($res as $verification) {
-        if ($verification['prenom'] == $_POST['prenom']) {
-          throw new Exception('Ce prénom existe déjà.');
+    /**
+     * @throws Exception
+     */
+    public function connexionParent(Parents $parent)
+    {
+        // Vérifie les conditions lors de la connection.
+        // S'il y a une erreur, la fonction s'arrête.
+        switch ($_POST) {
+            case ($_POST['mdp'] == '' || $_POST['mdp'] == null):
+                throw new Exception('Mot de passe vide.', 1);
+            case ($_POST['login'] == '' || $_POST['login'] == null):
+                throw new Exception('Login vide.', 1);
+            case ($_POST['login'] == '' && $_POST['mdp'] == '' || $_POST['login'] == null && $_POST['mdp'] == null):
+                throw new Exception('Champs vide.', 1);
         }
-        if ($verification['dateNaissance'] == $_POST['dateNaissance']) {
-          throw new Exception('Cette date de naissance n\'est pas possible.');
-        }
-        if ($verification['login'] == $_POST['login']) {
-          throw new Exception('Ce login est déjà pris.');
-        }
-        if ($verification['telephone'] == $_POST['telephone']) {
-          throw new Exception('Ce numéro de téléphone n\'est pas possible.');
-        }
-      }
-          // preparation de la requête
-          $req = $bdd->prepare('
-              INSERT INTO utilisateur (nom, prenom, dateNaissance, adresse, telephone, mail, login, mdp, statut) VALUES (:nom, :prenom, :dateNaissance, :adresse, :telephone, :mail, :login, :mdp, :statut);
-              INSERT INTO parent (idParent, metier, idEleve) VALUES (LAST_INSERT_ID(), :metier, :idEleve);
-          ');
-          // execution de la requête
-          $res2 = $req->execute([
-              'nom' => $parent->getNom(),
-              'prenom' => $parent->getPrenom(),
-              'dateNaissance' => $parent->getDateNaissance(),
-              'adresse' => $parent->getAdresse(),
-              'telephone' => $parent->getTelephone(),
-              'mail' => $parent->getMail(),
-              'login' => $parent->getLogin(),
-              'mdp' => $parent->getMdp(),
-              'statut' => $parent->getStatut(),
-              'metier' => $parent->getMetier(),
-              'idEleve' => $parent->getIdEleve()
-          ]);
-  //        var_dump($res2);
-          if ($res2) {
-              $req = $bdd->prepare('SELECT idUtilisateur, login, mdp, statut FROM utilisateur WHERE login = :login');
-              $req->execute([
-                  'login' => $parent->getLogin()
-              ]);
-              $res3 = $req->fetch();
-              header('Location: /e5_php/template/themes/template/index');
-              return $_SESSION['user'] = $res3;
-          } else {
-              // sinon redirection vers la page inscription
-              throw new Exception('Inscription échouée.');
-          }
 
-      throw new Exception('Erreur.');
-  }
+        // On appelle la base de données
+        $bdd = (new BDD)->getBase();
+        // Préparation de la requête pour la connexion d'un utilisateur
+        $req = $bdd->prepare('SELECT idUtilisateur, login, mdp, validUtilisateur, statut FROM utilisateur INNER JOIN parent ON parent.idUtil = utilisateur.idUtilisateur WHERE login = :login AND mdp = :mdp');
+        $req->execute([
+            'login' => $parent->getLogin(),
+            'mdp' => $parent->getMdp()
+        ]);
+        $res = $req->fetch();
+        // Vérification du mot de passe entré par l'utilisateur.
+        // Si le mot de passe est correct, alors la connexion est réussi et on entre dans le compte
+        if (password_verify($parent->getMdp(), $res['mdp']) || $res['mdp']) {
+            unset($_SESSION['erreur']);
+            return $_SESSION['user'] = $res;
+        }
+        // Sinon, on affiche un message d'erreur
+        throw new Exception('Erreur pendant la connexion.', 1);
+    }
 
+    // Méthode d'inscription pour un parent
+
+    /**
+     * @throws Exception
+     */
+    public function inscrParent(Parents $parent)
+    {
+        $bdd = (new BDD)->getBase();
+        $req = $bdd->query('SELECT * FROM utilisateur');
+        $res = $req->fetchAll();
+        foreach ($res as $error) {
+            // Vérifie les conditions lors de l'inscription d'un étudiant.
+            // S'il y a une erreur, la fonction s'arrête.
+            switch ($error) {
+                case ($error['mail'] == $_POST['mail']):
+                    throw new Exception('L\'adresse mél est déjà pris par un autre utilisateur.');
+                case ($error['telephone'] == $_POST['telephone']):
+                    throw new Exception('Le numéro de téléphone est déjà pris par un autre utilisateur.');
+                case ($error['login'] == $_POST['login']):
+                    throw new Exception('Le login est déjà pris par un autre utilisateur.');
+                case ($error['nom'] == $_POST['nom'] && $error['prenom'] == $_POST['prenom']):
+                    throw new Exception('Le nom et prénom sont déjà pris par un autre utilisateur.');
+            }
+        }
+        // Préparation de l'ajout d'un étudiant dans la BDD
+        $req = $bdd->prepare('
+                INSERT INTO utilisateur (nom, prenom, dateNaissance, adresse, telephone, mail, login, mdp) VALUES (:nom, :prenom, :dateNaissance, :adresse, :telephone, :mail, :login, :mdp);
+                INSERT INTO parent (metier, idUtil) VALUES (:metier, LAST_INSERT_ID());
+            ');
+        // Execution de la requête
+        $req->execute([
+            'nom' => $parent->getNom(),
+            'prenom' => $parent->getPrenom(),
+            'dateNaissance' => $parent->getDateNaissance(),
+            'adresse' => $parent->getAdresse(),
+            'telephone' => $parent->getTelephone(),
+            'mail' => $parent->getMail(),
+            'login' => $parent->getLogin(),
+            'mdp' => $parent->getMdp(),
+            'metier' => $parent->getMetier()
+        ]);
+        $req = $bdd->prepare('SELECT idUtilisateur, login, mdp, validUtilisateur, statut FROM utilisateur INNER JOIN parent ON parent.idUtil = utilisateur.idUtilisateur WHERE login = :login');
+        $req->execute([
+            'login' => $parent->getLogin()
+        ]);
+        $res2 = $req->fetch();
+        // S'il créé avec succès le professeur, alors il envoie la session.
+        if ($res2) {
+            unset($_SESSION['erreur']);
+            return $_SESSION['user'] = $res2;
+        }
+        // Sinon, on affiche un message d'erreur
+        throw new Exception('Erreur.');
+    }
 }

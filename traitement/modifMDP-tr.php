@@ -6,8 +6,8 @@ require_once '../manager/Manager.php';
 
 try {
 # Instancie la classe Manager
-    $manager = new MDP_Modif();
-# Instancie la classe MDP_Modif
+    $manager = new ManaMDP();
+# Instancie la classe Utilisateur
     $MDP_Modif = new Utilisateur([
         'mail' => $_POST['mail'],
         'mdp' => $_POST['mdp']

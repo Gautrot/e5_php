@@ -73,7 +73,6 @@ $(document).ready(function () {
             {data: 'mail'},
             {data: 'login'},
             {data: 'mdp'},
-            */
             {
                 data: 'statut',
                 render: function (data) {
@@ -91,6 +90,7 @@ $(document).ready(function () {
                     }
                 }
             },
+            */
             {
                 data: 'validUtilisateur',
                 render: function (data, type, row) {

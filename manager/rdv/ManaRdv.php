@@ -53,6 +53,4 @@ class ManaRdv extends Manager
         $req = $bdd->query('SELECT * FROM rdv ORDER BY dateCreation DESC');
         return $req->fetchAll();
     }
-
-
 }

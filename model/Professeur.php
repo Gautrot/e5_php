@@ -2,7 +2,7 @@
 
 class Professeur extends Utilisateur
 {
-    private $idProf, $statut = 3, $matiere, $validation = 1;
+    private $idProf, $statut = 3, $matiere, $idUtil;
 
 // constructeur
 
@@ -43,9 +43,9 @@ class Professeur extends Utilisateur
         return $this->matiere;
     }
 
-    public function getValidation()
+    public function getIdUtil()
     {
-        return $this->validation;
+        return $this->idUtil;
     }
 
 // LISTE DES SETTERS
@@ -80,11 +80,17 @@ class Professeur extends Utilisateur
         }
     }
 
-    public function setValidation($validation)
+    public function setIdUtil($idUtil)
     {
-        // On vérifie qu'il s'agit bien d'une chaîne de caractères.
-        if (is_string($validation)) {
-            $this->validation = $validation;
+        // On convertit l'argument en nombre entier.
+        // Si c'en était déjà un, rien ne changera.
+        // Sinon, la conversion donnera le nombre 0 (à quelques exceptions près, mais rien d'important ici).
+        $id = (int)$idUtil;
+
+        // On vérifie ensuite si ce nombre est bien strictement positif.
+        if ($id > 0) {
+            // Si c'est le cas, c'est tout bon, on assigne la valeur à l'attribut correspondant.
+            $this->idUtil = $idUtil;
         }
     }
 }

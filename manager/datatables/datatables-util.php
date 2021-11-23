@@ -51,8 +51,8 @@ $columns = [
     ['db' => 'mail', 'dt' => 'mail'],
     ['db' => 'login', 'dt' => 'login'],
     ['db' => 'mdp', 'dt' => 'mdp'],
-*/
     ['db' => 'statut', 'dt' => 'statut'],
+*/
     ['db' => 'validUtilisateur', 'dt' => 'validUtilisateur']
 ];
 

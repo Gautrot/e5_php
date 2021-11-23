@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="zxx">
 
-
-
 <head>
     <meta charset="utf-8">
     <?php include_once '../../../include/head.php' ?>
@@ -10,27 +8,24 @@
 </head>
 
 <body>
-<!-- preloader start -->
-<div class="preloader">
-    <img src="images/preloader.gif" alt="preloader">
-</div>
-<!-- preloader end -->
-
-<!-- header -->
-<?php include_once '../../../include/header.php' ?>
-<!-- /header -->
-
-<!-- Modal Inscription-->
-<?php include_once '../../../include/modal/inscription.php' ?>
-
-<!-- Modal MotsDePasse-->
-<?php include_once '../../../include/modal/mdp.php' ?>
-
-<!-- Modal Login-->
-<?php include_once '../../../include/modal/login.php' ?>
-
-<!-- Traitement "cherche-util-tr"-->
-<?php require_once '../../../traitement/cherche-util-tr.php' ?>
+<?php
+// Preloader
+include_once '../../../include/modal/preloader.php';
+// Header
+include_once '../../../include/header.php';
+// Modal Inscription
+include_once '../../../include/modal/inscription.php';
+// Modal Mot de passe oublié
+include_once '../../../include/modal/mdp.php';
+// Modal Login
+include_once '../../../include/modal/login.php';
+include_once '../../../include/modal/connectionEleve.php';
+include_once '../../../include/modal/connectionParent.php';
+include_once '../../../include/modal/connectionProf.php';
+include_once '../../../include/modal/connectionAdmin.php';
+// Traitement "cherche-util-tr"
+require_once '../../../traitement/cherche-util-tr.php'
+?>
 
 <!-- page title -->
 <section class="page-title-section overlay" data-background="images/backgrounds/page-title.jpg">
@@ -143,12 +138,12 @@
     </div>
 </section>
 
-<!-- footer -->
-<?php include_once '../../../include/footer.php' ?>
-<!-- /footer -->
-
-<!-- script -->
-<?php include_once '../../../include/script.php' ?>
+<?php
+// Footer
+include_once '../../../include/footer.php';
+// Script
+include_once '../../../include/script.php';
+?>
 
 </body>
 </html>

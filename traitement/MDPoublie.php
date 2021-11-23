@@ -7,17 +7,16 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 //cette page sert au traitement php de la page d'oublie de mdp
-$email=$_POST['mail'];
+$email = $_POST['mail'];
 
+$bdd = new PDO('mysql:host=localhost;dbname=projet_lprs_sgs;charset=utf8', 'root', ''); // on se connecte à la base de donnée "lprs", avec l'uttilisateur "root" avec l'encodage utf-8
 
-$bdd= new PDO('mysql:host=localhost;dbname=projet_lprs_sgs;charset=utf8','root',''); // on se connecte à la base de donnée "lprs", avec l'uttilisateur "root" avec l'encodage utf-8
-
-$reponse = $bdd->prepare('SELECT idUtilisateur, mail, mdp FROM utilisateur WHERE mail = :mail') ;  //on prepare la requete de php pour accéder aux identifiants dans la base de données en sql
-$reponse->execute(array('mail'=>$_POST["mail"]));var_dump($_POST["mail"]); //on insère sous forme de tableau les données que l'on veut récupérer de la base
+$reponse = $bdd->prepare('SELECT idUtilisateur, mail, mdp FROM utilisateur WHERE mail = :mail');  //on prepare la requete de php pour accéder aux identifiants dans la base de données en sql
+$reponse->execute(array('mail' => $_POST["mail"])); //on insère sous forme de tableau les données que l'on veut récupérer de la base
+//var_dump($_POST["mail"]);
 $donne = $reponse->fetch(); //on execute finalement la requete
-if($donne) // si le mail existe, on applique la condition qui suit
-{
-
+if ($donne) {
+    // si le mail existe, on applique la condition qui suit
     $mail = new PHPMailer(); // fondation d'un nouvel objet
     $mail->CharSet = 'UTF-8';
     $mail->IsSMTP(); // activer SMTP
@@ -160,7 +159,7 @@ Pas de probl&#232;me, cliquez sur le bouton pour acceder &#224; un changement de
                                 <table role="presentation" border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; min-width: auto; width: auto;">
                                   <tbody>
                                      <tr>
-                                      <a class="btn btn-primary" valign="top" align="center" bgcolor="#ec0867" href="localhost/e5_php/template/themes/template/ModifMDP.php?mail='.$_POST["mail"].'" target="_blank">CHANGER SON MOTS DE PASSE</a> 
+                                      <a class="btn btn-primary" valign="top" align="center" bgcolor="#ec0867" href="localhost/e5_php/template/themes/template/ModifMDP.php?mail=' . $_POST["mail"] . '" target="_blank">CHANGER SON MOTS DE PASSE</a> 
                                     </tr>
                                   </tbody>
                                 </table>
@@ -205,23 +204,14 @@ Pas de probl&#232;me, cliquez sur le bouton pour acceder &#224; un changement de
 </html>
 ';
     $mail->AddAddress($_POST["mail"]);
-    if(!$mail->Send())
-    {
+    if (!$mail->Send()) {
         echo "Mailer Error: " . $mail->ErrorInfo;
-    }
-    else
-    {
+    } else {
         echo "Le message a été envoyé";
     }
-   header('location:../template/themes/template/index.php');
-
-}
-else //Gestion d'erreur, si le mail n'as pas été envoyé
-{
+} else {
+    // Gestion d'erreur, si le mail n'as pas été envoyé
     $_SESSION['erreur_mail'] = 1;
-    var_dump($_POST["mail"]);
-    header('location:../template/themes/template/index.php');
+//    var_dump($_POST["mail"]);
 }
-?>
-
-
+header('location:../template/themes/template/index.php');

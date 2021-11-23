@@ -7,27 +7,26 @@
 </head>
 
 <body>
-<!-- preloader start -->
-<?php include_once '../../../include/modal/preloader.php' ?>
-<!-- preloader end -->
-
-<!-- header -->
 <?php
+// Preloader
+include_once '../../../include/modal/preloader.php';
+// Header
 include_once '../../../include/header.php';
+// Liste des évènements
 include_once '../../../manager/evenement/ManaEvent.php';
 $liste = new ManaEvent();
 $res = $liste->listeEvenement();
+// Modal Inscription
+include_once '../../../include/modal/inscription.php';
+// Modal Mot de passe oublié
+include_once '../../../include/modal/mdp.php';
+// Modal Login
+include_once '../../../include/modal/login.php';
+include_once '../../../include/modal/connectionEleve.php';
+include_once '../../../include/modal/connectionParent.php';
+include_once '../../../include/modal/connectionProf.php';
+include_once '../../../include/modal/connectionAdmin.php';
 ?>
-<!-- /header -->
-
-<!-- Modal Inscription-->
-<?php include_once '../../../include/modal/inscription.php' ?>
-
-<!-- Modal MotsDePasse-->
-<?php include_once '../../../include/modal/mdp.php' ?>
-
-<!-- Modal Login-->
-<?php include_once '../../../include/modal/login.php' ?>
 
 <!-- about -->
 <section class="page-title-section overlay">
@@ -84,7 +83,7 @@ $res = $liste->listeEvenement();
                             <div class="card-img position-relative">
                                 <a href="evenement-no?idEvent=<?= $event['idEvent']; ?>">
                                     <img class="card-img-top rounded-0" src="images/events/event-1.jpg"
-                                         alt="<?= $event['nom']; ?>">
+                                         alt="<?= $event['titre']; ?>">
                                 </a>
                                 <div class="card-date">
                                     <span><?= substr($event['date'], 8, 2); ?></span><br>
@@ -94,7 +93,7 @@ $res = $liste->listeEvenement();
                             <div class="card-body">
                                 <div class="card-body">
                                     <a href="evenement-no?idEvent=<?= $event['idEvent']; ?>">
-                                        <h4 class="card-title"><?= $event['nom']; ?></h4>
+                                        <h4 class="card-title"><?= $event['titre']; ?></h4>
                                     </a>
                                 </div>
                             </div>
@@ -107,12 +106,12 @@ $res = $liste->listeEvenement();
 </section>
 <!-- /courses -->
 
-<!-- footer -->
-<?php include_once '../../../include/footer.php' ?>
-<!-- /footer -->
-
-<!-- script -->
-<?php include_once '../../../include/script.php' ?>
+<?php
+// Footer
+include_once '../../../include/footer.php';
+// Script
+include_once '../../../include/script.php';
+?>
 
 </body>
 </html>

@@ -1,6 +1,3 @@
-<?php
-//session_start();
-?>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -10,28 +7,26 @@
 </head>
 
 <body>
-<!-- preloader start -->
-<?php include_once '../../../include/modal/preloader.php' ?>
-<!-- preloader end -->
-
-<!-- header -->
 <?php
+// Preloader
+include_once '../../../include/modal/preloader.php';
+// Header
 include_once '../../../include/header.php';
+// Liste de rendez-vous
 include_once '../../../manager/rdv/ManaRdv.php';
 $liste = new ManaRdv();
 $res = $liste->listeRdv();
+// Modal Inscription
+include_once '../../../include/modal/inscription.php';
+// Modal Mot de passe oublié
+include_once '../../../include/modal/mdp.php';
+// Modal Login
+include_once '../../../include/modal/login.php';
+include_once '../../../include/modal/connectionEleve.php';
+include_once '../../../include/modal/connectionParent.php';
+include_once '../../../include/modal/connectionProf.php';
+include_once '../../../include/modal/connectionAdmin.php';
 ?>
-
-<!-- /header -->
-
-<!-- Modal Inscription-->
-<?php include_once '../../../include/modal/inscription.php' ?>
-
-<!-- Modal MotsDePasse-->
-<?php include_once '../../../include/modal/mdp.php' ?>
-
-<!-- Modal Login-->
-<?php include_once '../../../include/modal/login.php' ?>
 
 <!-- about -->
 <section class="page-title-section overlay">
@@ -106,12 +101,12 @@ $res = $liste->listeRdv();
     </div>
 </section>
 
-<!-- footer -->
-<?php include_once '../../../include/footer.php' ?>
-<!-- /footer -->
-
-<!-- script -->
-<?php include_once '../../../include/script.php' ?>
+<?php
+// Footer
+include_once '../../../include/footer.php';
+// Script
+include_once '../../../include/script.php';
+?>
 
 </body>
 </html>

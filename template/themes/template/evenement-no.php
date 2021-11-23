@@ -22,26 +22,26 @@ $today = date('Y-m-d H:i:s');
 
 <head>
     <?php include_once '../../../include/head.php' ?>
-    <title>Évènement - <?= $show['nom']; ?></title>
+    <title>Évènement - <?= $show['titre']; ?></title>
 </head>
 
 <body>
-<!-- preloader start -->
-<?php include_once '../../../include/modal/preloader.php' ?>
-<!-- preloader end -->
-
-<!-- header -->
-<?php include_once '../../../include/header.php' ?>
-<!-- /header -->
-
-<!-- Modal Inscription-->
-<?php include_once '../../../include/modal/inscription.php' ?>
-
-<!-- Modal MotsDePasse-->
-<?php include_once '../../../include/modal/mdp.php' ?>
-
-<!-- Modal Login-->
-<?php include_once '../../../include/modal/login.php' ?>
+<?php
+// Preloader
+include_once '../../../include/modal/preloader.php';
+// Header
+include_once '../../../include/header.php';
+// Modal Inscription
+include_once '../../../include/modal/inscription.php';
+// Modal Mot de passe oublié
+include_once '../../../include/modal/mdp.php';
+// Modal Login
+include_once '../../../include/modal/login.php';
+include_once '../../../include/modal/connectionEleve.php';
+include_once '../../../include/modal/connectionParent.php';
+include_once '../../../include/modal/connectionProf.php';
+include_once '../../../include/modal/connectionAdmin.php';
+?>
 
 <!-- about -->
 <section class="page-title-section overlay" data-background="images/backgrounds/page-title.jpg">
@@ -51,7 +51,7 @@ $today = date('Y-m-d H:i:s');
                 <ul class="list-inline custom-breadcrumb">
                     <li class="list-inline-item"><a class="h2 text-primary font-secondary"
                                                     href="evenements">Évènement</a></li>
-                    <li class="list-inline-item text-white h3 font-secondary nasted"><?= $show['nom']; ?></li>
+                    <li class="list-inline-item text-white h3 font-secondary nasted"><?= $show['titre']; ?></li>
                 </ul>
                 <p class="text-lighten"></p>
             </div>
@@ -65,7 +65,7 @@ $today = date('Y-m-d H:i:s');
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <h2 class="section-title"><?= $show['nom']; ?></h2>
+                <h2 class="section-title"><?= $show['titre']; ?></h2>
             </div>
             <!-- event image -->
             <div class="col-12 mb-4">
@@ -98,7 +98,7 @@ $today = date('Y-m-d H:i:s');
                     </li>
                 </ul>
             </div>
-            <?php if ($show['validEvent'] !== '0' ||  $_SESSION['user']['statut'] !== '4') { ?>
+            <?php if ($show['validEvent'] !== '0' || $_SESSION['user']['statut'] !== '4') { ?>
                 <div class="col-lg-3 text-lg-right text-left">
                     <button href="#" class="btn btn-primary">S'inscrire</button>
                 </div>
@@ -140,7 +140,13 @@ $today = date('Y-m-d H:i:s');
                 <div class="media">
                     <img class="mr-3 img-fluid" src="images/event-speakers/speaker-1.jpg" alt="speaker">
                     <div class="media-body">
-                        <h4 class="mt-0"><?= $show['organisateur']; ?></h4>
+                        <h4 class="mt-0"><?php
+                            if (isset($show['idCreateurEleve'])) {
+                                echo $show['idCreateurEleve'];
+                            } else {
+                                echo $show['idCreateurProf'];
+                            }
+                            ?></h4>
                         Organisateur
                     </div>
                 </div>
@@ -176,7 +182,7 @@ $today = date('Y-m-d H:i:s');
                                 <div class="card-img position-relative">
                                     <a href="evenement-no?idEvent=<?= $event['idEvent']; ?>">
                                         <img class="card-img-top rounded-0" src="images/events/event-1.jpg"
-                                             alt="<?= $event['nom']; ?>">
+                                             alt="<?= $event['titre']; ?>">
                                     </a>
                                     <div class="card-date">
                                         <span><?= substr($event['date'], 8, 2); ?></span><br>
@@ -185,7 +191,7 @@ $today = date('Y-m-d H:i:s');
                                 </div>
                                 <div class="card-body">
                                     <a href="evenement-no?idEvent=<?= $event['idEvent']; ?>">
-                                        <h4 class="card-title"><?= $event['nom']; ?></h4>
+                                        <h4 class="card-title"><?= $event['titre']; ?></h4>
                                     </a>
                                 </div>
                             </div>
@@ -205,12 +211,12 @@ $today = date('Y-m-d H:i:s');
 </section>
 <!-- /more event -->
 
-<!-- footer -->
-<?php include_once '../../../include/footer.php' ?>
-<!-- /footer -->
-
-<!-- script -->
-<?php include_once '../../../include/script.php' ?>
+<?php
+// Footer
+include_once '../../../include/footer.php';
+// Script
+include_once '../../../include/script.php';
+?>
 
 </body>
 </html>

@@ -14,7 +14,7 @@
                     </div>
                     <div class="row justify-content-center">
                         <form action="/e5_php/template/themes/template/inscr-eleve" method="post">
-                            <button type="submit" class="btn btn-dark m-1">Etudiant</button>
+                            <button type="submit" class="btn btn-dark m-1">Étudiant</button>
                         </form>
                         <form action="/e5_php/template/themes/template/inscr-parent" method="post">
                             <button type="submit" class="btn btn-info m-1">Parent</button>

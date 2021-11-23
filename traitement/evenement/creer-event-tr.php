@@ -7,26 +7,24 @@ try {
     if ($_SESSION['user']['statut'] === '1') {
         # Instancie la classe Evenement
         $event = new Evenement([
-            'idCreateur' => $_SESSION['user']['idUtilisateur'],
-            'nom' => $_POST['nom'],
+            'titre' => $_POST['titre'],
             'description' => $_POST['description'],
             'organisateur' => $_POST['organisateur'],
             'type' => 'Interne',
             'date' => $_POST['date'],
             'horaire' => $_POST['horaire'],
-            'validEvent' => 0
+            'validEvent' => 0,
         ]);
     } else {
         # Instancie la classe Evenement
         $event = new Evenement([
-            'idCreateur' => $_SESSION['user']['idUtilisateur'],
-            'nom' => $_POST['nom'],
+            'titre' => $_POST['titre'],
             'description' => $_POST['description'],
             'organisateur' => $_POST['organisateur'],
             'type' => $_POST['type'],
             'date' => $_POST['date'],
             'horaire' => $_POST['horaire'],
-            'validEvent' => 1
+            'validEvent' => 1,
         ]);
     }
     # Instancie la classe ManaEvent

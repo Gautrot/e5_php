@@ -22,25 +22,24 @@ setlocale(LC_TIME, 'fr_FR.UTF-8', 'fra');
 </head>
 
 <body>
-<!-- preloader start -->
-<?php include_once '../../../include/modal/preloader.php' ?>
-<!-- preloader end -->
-
-<!-- header -->
-<?php include_once '../../../include/header.php' ?>
-<!-- /header -->
-
-<!-- Modal Inscription-->
-<?php include_once '../../../include/modal/inscription.php' ?>
-
-<!-- Modal MotsDePasse-->
-<?php include_once '../../../include/modal/mdp.php' ?>
-
-<!-- Modal Login-->
-<?php include_once '../../../include/modal/login.php' ?>
-
-<!-- Modal Répondre-->
-<?php include_once '../../../include/modal/reponse_discussion.php' ?>
+<?php
+// Preloader
+include_once '../../../include/modal/preloader.php';
+// Header
+include_once '../../../include/header.php';
+// Modal Inscription
+include_once '../../../include/modal/inscription.php';
+// Modal Mot de passe oublié
+include_once '../../../include/modal/mdp.php';
+// Modal Login
+include_once '../../../include/modal/login.php';
+include_once '../../../include/modal/connectionEleve.php';
+include_once '../../../include/modal/connectionParent.php';
+include_once '../../../include/modal/connectionProf.php';
+include_once '../../../include/modal/connectionAdmin.php';
+// Modal réponse
+include_once '../../../include/modal/reponse_discussion.php'
+?>
 
 <!-- about -->
 <section class="page-title-section overlay" data-background="images/backgrounds/page-title.jpg">
@@ -108,7 +107,11 @@ setlocale(LC_TIME, 'fr_FR.UTF-8', 'fra');
                 <div class="media">
                     <img class="mr-3 img-fluid" src="images/event-speakers/speaker-1.jpg" alt="speaker">
                     <div class="media-body">
-                        <h4 class="mt-0"><?= $show['nom']; ?></h4>
+                        <h4 class="mt-0"><?php if (isset($show['idCreateurEleve'])) {
+                                echo $show['idCreateurEleve'];
+                            } else {
+                                echo $show['idCreateurProf'];
+                            } ?></h4>
                     </div>
                 </div>
             </div>
@@ -135,56 +138,53 @@ setlocale(LC_TIME, 'fr_FR.UTF-8', 'fra');
                     Il n'y a aucune réponse pour le moment.
                 </div>
             </div>
-        <?php } else {
-            foreach ($resRep as $reponse) {
-                if ($reponse['idDiscussion'] === $show['idDiscussion']) { ?>
-                    <div class="row align-items-center mb-5">
-                        <div class="col-lg-9">
-                            <ul class="list-inline">
-                                <li class="list-inline-item mr-xl-5 mr-4 mb-3 mb-lg-0">
-                                    <div class="d-flex align-items-center">
-                                        <i class="ti-calendar text-primary icon-md mr-2"></i>
-                                        <div class="text-left">
-                                            <h6 class="mb-0">DATE</h6>
-                                            <p class="mb-0"><?php
-                                                setlocale(LC_TIME, 'fr_FR.UTF-8', 'fra');
-                                                echo strftime("%e %B %Y", strtotime($reponse['dateCreation']));
-                                                ?></p>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                        <!-- border -->
-                        <div class="col-12 mt-4 order-4">
-                            <div class="border-bottom border-primary"></div>
-                        </div>
-                    </div>
-                    <!-- event details -->
-                    <div class="row">
-                        <div class="col-12 mb-50">
-                            <p><?= $reponse['reponse']; ?></p>
-                        </div>
-                    </div>
-                    <!-- event speakers -->
-                    <div class="row">
-                        <!-- speakers -->
-                        <div class="col-lg-3 col-sm-6 mb-4 mb-lg-0">
-                            <div class="media">
-                                <img class="mr-3 img-fluid" src="images/event-speakers/speaker-1.jpg" alt="speaker">
-                                <div class="media-body">
-                                    <h4 class="mt-0"><?= $reponse['nom']; ?></h4>
+        <?php } elseif ($resRep['idDiscussion'] === $show['idDiscussion']) { ?>
+            <div class="row align-items-center mb-5">
+                <div class="col-lg-9">
+                    <ul class="list-inline">
+                        <li class="list-inline-item mr-xl-5 mr-4 mb-3 mb-lg-0">
+                            <div class="d-flex align-items-center">
+                                <i class="ti-calendar text-primary icon-md mr-2"></i>
+                                <div class="text-left">
+                                    <h6 class="mb-0">DATE</h6>
+                                    <p class="mb-0"><?= strftime("%e %B %Y", strtotime($resRep['dateCreation'])); ?></p>
                                 </div>
                             </div>
-                        </div>
-                        <!-- border -->
-                        <div class="col-12 mt-4 order-4">
-                            <div class="border-bottom border-primary"></div>
+                        </li>
+                    </ul>
+                </div>
+                <!-- border -->
+                <div class="col-12 mt-4 order-4">
+                    <div class="border-bottom border-primary"></div>
+                </div>
+            </div>
+            <!-- event details -->
+            <div class="row">
+                <div class="col-12 mb-50">
+                    <p><?= $resRep['reponse']; ?></p>
+                </div>
+            </div>
+            <!-- event speakers -->
+            <div class="row">
+                <!-- speakers -->
+                <div class="col-lg-3 col-sm-6 mb-4 mb-lg-0">
+                    <div class="media">
+                        <img class="mr-3 img-fluid" src="images/event-speakers/speaker-1.jpg" alt="speaker">
+                        <div class="media-body">
+                            <h4 class="mt-0"><?php if (isset($resRep['idCreateurEleve'])) {
+                                    echo $resRep['idCreateurEleve'];
+                                } else {
+                                    echo $resRep['idCreateurProf'];
+                                } ?></h4>
                         </div>
                     </div>
-                <?php }
-            }
-        } ?>
+                </div>
+                <!-- border -->
+                <div class="col-12 mt-4 order-4">
+                    <div class="border-bottom border-primary"></div>
+                </div>
+            </div>
+        <?php } ?>
     </div>
 </section>
 
@@ -240,12 +240,12 @@ setlocale(LC_TIME, 'fr_FR.UTF-8', 'fra');
 </section>
 <!-- /more discus -->
 
-<!-- footer -->
-<?php include_once '../../../include/footer.php' ?>
-<!-- /footer -->
-
-<!-- script -->
-<?php include_once '../../../include/script.php' ?>
+<?php
+// Footer
+include_once '../../../include/footer.php';
+// Script
+include_once '../../../include/script.php';
+?>
 
 </body>
 </html>

@@ -1,6 +1,6 @@
 <?php
 include_once '../../../manager/Manager.php';
-//var_dump($_SESSION);
+var_dump($_SESSION);
 ?>
 <header class="fixed-top header">
     <!-- navbar -->

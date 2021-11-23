@@ -1,8 +1,8 @@
 <?php
 
-class Parents extends Utilisateur
+class Responsable extends Utilisateur
 {
-    private $idParent, $statut = 2, $metier, $idUtil;
+    private $idResponsable, $idParent, $idEleve;
 
 // constructeur
 
@@ -28,27 +28,36 @@ class Parents extends Utilisateur
 
 // LISTE DES GETTERS
 
+    public function getIdResponsable()
+    {
+        return $this->idResponsable;
+    }
+
     public function getIdParent()
     {
         return $this->idParent;
     }
 
-    public function getStatut()
+    public function getIdEleve()
     {
-        return $this->statut;
-    }
-
-    public function getMetier()
-    {
-        return $this->metier;
-    }
-
-    public function getIdUtil()
-    {
-        return $this->idUtil;
+        return $this->idEleve;
     }
 
 // LISTE DES SETTERS
+
+    public function setIdResponsable($idResponsable)
+    {
+        // On convertit l'argument en nombre entier.
+        // Si c'en était déjà un, rien ne changera.
+        // Sinon, la conversion donnera le nombre 0 (à quelques exceptions près, mais rien d'important ici).
+        $id = (int)$idResponsable;
+
+        // On vérifie ensuite si ce nombre est bien strictement positif.
+        if ($id > 0) {
+            // Si c'est le cas, c'est tout bon, on assigne la valeur à l'attribut correspondant.
+            $this->idResponsable = $idResponsable;
+        }
+    }
 
     public function setIdParent($idParent)
     {
@@ -64,33 +73,17 @@ class Parents extends Utilisateur
         }
     }
 
-    public function setStatut($statut)
-    {
-        // On vérifie qu'il s'agit bien d'une chaîne de caractères.
-        if (is_string($statut)) {
-            $this->statut = $statut;
-        }
-    }
-
-    public function setMetier($metier)
-    {
-        // On vérifie qu'il s'agit bien d'une chaîne de caractères.
-        if (is_string($metier)) {
-            $this->metier = $metier;
-        }
-    }
-
-    public function setIdUtil($idUtil)
+    public function setIdEleve($idEleve)
     {
         // On convertit l'argument en nombre entier.
         // Si c'en était déjà un, rien ne changera.
         // Sinon, la conversion donnera le nombre 0 (à quelques exceptions près, mais rien d'important ici).
-        $id = (int)$idUtil;
+        $id = (int)$idEleve;
 
         // On vérifie ensuite si ce nombre est bien strictement positif.
         if ($id > 0) {
             // Si c'est le cas, c'est tout bon, on assigne la valeur à l'attribut correspondant.
-            $this->idUtil = $idUtil;
+            $this->idEleve = $idEleve;
         }
     }
 }

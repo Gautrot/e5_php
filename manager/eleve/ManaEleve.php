@@ -4,6 +4,43 @@ require_once __DIR__ . '/../Manager.php';
 // création de la classe ManaEleve
 class ManaEleve extends Manager
 {
+// Méthode de connexion pour un étudiant
+
+    /**
+     * @throws Exception
+     */
+    public function connexionEleve(Eleve $eleve)
+    {
+        // Vérifie les conditions lors de la connection.
+        // S'il y a une erreur, la fonction s'arrête.
+        switch ($_POST) {
+            case ($_POST['mdp'] == '' || $_POST['mdp'] == null):
+                throw new Exception('Mot de passe vide.', 1);
+            case ($_POST['login'] == '' || $_POST['login'] == null):
+                throw new Exception('Login vide.', 1);
+            case ($_POST['login'] == '' && $_POST['mdp'] == '' || $_POST['login'] == null && $_POST['mdp'] == null):
+                throw new Exception('Champs vide.', 1);
+        }
+
+        // On appelle la base de données
+        $bdd = (new BDD)->getBase();
+        // Préparation de la requête pour la connexion d'un utilisateur
+        $req = $bdd->prepare('SELECT idUtilisateur, login, mdp, validUtilisateur, statut FROM utilisateur INNER JOIN eleve ON eleve.idUtil = utilisateur.idUtilisateur WHERE login = :login AND mdp = :mdp');
+        $req->execute([
+            'login' => $eleve->getLogin(),
+            'mdp' => $eleve->getMdp()
+        ]);
+        $res = $req->fetch();
+        // Vérification du mot de passe entré par l'utilisateur.
+        // Si le mot de passe est correct, alors la connexion est réussi et on entre dans le compte
+        if (password_verify($eleve->getMdp(), $res['mdp']) || $res['mdp']) {
+            unset($_SESSION['erreur']);
+            return $_SESSION['user'] = $res;
+        }
+        // Sinon, on affiche un message d'erreur
+        throw new Exception('Erreur pendant la connexion.', 1);
+    }
+
 // Méthode d'inscription pour un étudiant
 
     /**
@@ -31,7 +68,7 @@ class ManaEleve extends Manager
         // Préparation de l'ajout d'un étudiant dans la BDD
         $req = $bdd->prepare('
                 INSERT INTO utilisateur (nom, prenom, dateNaissance, adresse, telephone, mail, login, mdp) VALUES (:nom, :prenom, :dateNaissance, :adresse, :telephone, :mail, :login, :mdp);
-                INSERT INTO eleve (idEleve, classe, RefUser) VALUES (LAST_INSERT_ID(), :classe, LAST_INSERT_ID());
+                INSERT INTO eleve (classe, idUtil) VALUES (:classe, LAST_INSERT_ID());
             ');
         // Execution de la requête
         $req->execute([
@@ -45,13 +82,12 @@ class ManaEleve extends Manager
             'mdp' => $eleve->getMdp(),
             'classe' => $eleve->getClasse()
         ]);
-        $req = $bdd->prepare('SELECT idUtilisateur, login, mdp, validUtilisateur FROM utilisateur WHERE login = :login');
+        $req = $bdd->prepare('SELECT idUtilisateur, login, mdp, validUtilisateur, statut FROM utilisateur INNER JOIN eleve ON eleve.idUtil = utilisateur.idUtilisateur WHERE login = :login');
         $req->execute([
             'login' => $eleve->getLogin()
         ]);
         $res2 = $req->fetch();
         // S'il créé avec succès l'étudiant, alors il envoie la session.
-        die();
         if ($res2) {
             unset($_SESSION['erreur']);
             return $_SESSION['user'] = $res2;
@@ -97,7 +133,7 @@ class ManaEleve extends Manager
             'login' => $eleve->getLogin(),
             'mdp' => $eleve->getMdp()
         ]);
-        $req = $bdd->prepare('SELECT idUtilisateur, login, mdp, validUtilisateur FROM utilisateur WHERE idUtilisateur = :idUtilisateur');
+        $req = $bdd->prepare('SELECT idUtilisateur, login, mdp, validUtilisateur, statut FROM utilisateur INNER JOIN eleve ON eleve.idUtil = utilisateur.idUtilisateur WHERE idUtilisateur = :idUtilisateur');
         $req->execute([
             'idUtilisateur' => $eleve->getIdUtilisateur()
         ]);

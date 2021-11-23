@@ -1,6 +1,3 @@
-<?php
-//session_start();
-?>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -14,22 +11,22 @@
 </head>
 
 <body>
-<!-- preloader start -->
-<?php include_once '../../../include/modal/preloader.php' ?>
-<!-- preloader end -->
-
-<!-- header -->
-<?php include_once '../../../include/header.php' ?>
-<!-- /header -->
-
-<!-- Modal Inscription-->
-<?php include_once '../../../include/modal/inscription.php' ?>
-
-<!-- Modal MotsDePasse-->
-<?php include_once '../../../include/modal/mdp.php' ?>
-
-<!-- Modal Login-->
-<?php include_once '../../../include/modal/login.php' ?>
+<?php
+// Preloader
+include_once '../../../include/modal/preloader.php';
+// Header
+include_once '../../../include/header.php';
+// Modal Inscription
+include_once '../../../include/modal/inscription.php';
+// Modal Mot de passe oublié
+include_once '../../../include/modal/mdp.php';
+// Modal Login
+include_once '../../../include/modal/login.php';
+include_once '../../../include/modal/connectionEleve.php';
+include_once '../../../include/modal/connectionParent.php';
+include_once '../../../include/modal/connectionProf.php';
+include_once '../../../include/modal/connectionAdmin.php';
+?>
 
 <!-- about -->
 <section class="page-title-section overlay">
@@ -58,7 +55,7 @@
                     <tr>
                         <th></th>
                         <th>Nom</th>
-<!--
+                        <!--
                         <th>ID</th>
                         <th>Né.e le</th>
                         <th>Adresse</th>
@@ -66,8 +63,8 @@
                         <th>E-mail</th>
                         <th>Login</th>
                         <th>Mot de passe</th>
--->
                         <th>Statut</th>
+                        -->
                         <th>Activation</th>
                     </tr>
                     </thead>
@@ -75,7 +72,7 @@
                     <tr>
                         <th></th>
                         <th>Nom</th>
-<!--
+                        <!--
                         <th>ID</th>
                         <th>Né.e le</th>
                         <th>Adresse</th>
@@ -83,8 +80,8 @@
                         <th>E-mail</th>
                         <th>Login</th>
                         <th>Mot de passe</th>
--->
                         <th>Statut</th>
+                        -->
                         <th>Activation</th>
                     </tr>
                     </tfoot>
@@ -191,12 +188,12 @@
 </section>
 <!-- /ajouter un utilisateur -->
 
-<!-- footer -->
-<?php include_once '../../../include/footer.php' ?>
-<!-- /footer -->
-
-<!-- script -->
-<?php include_once '../../../include/script.php' ?>
+<?php
+// Footer
+include_once '../../../include/footer.php';
+// Script
+include_once '../../../include/script.php';
+?>
 <!-- DataTables -->
 <script type="text/javascript" src="/e5_php/vendor/datatables/datatables/media/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="/e5_php/style/js/datatables.js"></script>

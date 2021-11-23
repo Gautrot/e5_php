@@ -2,7 +2,7 @@
 require_once __DIR__ . '/../Manager.php';
 
 // création de la classe modifMDP
-class MDP_Modif extends Manager
+class ManaMDP extends Manager
 {
 // Méthode de modification mot de passe
 

@@ -10,3 +10,4 @@ $('#listeStatut').change(function () {
 });
 
 $('.idInvite').select2();
+$('.organisateur').select2();

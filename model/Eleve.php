@@ -2,7 +2,7 @@
 
 class Eleve extends Utilisateur
 {
-    private $idEleve, $statut = 1, $classe;
+    private $idEleve, $statut = 1, $classe, $idUtil;
 
 // constructeur
 
@@ -43,6 +43,11 @@ class Eleve extends Utilisateur
         return $this->classe;
     }
 
+    public function getIdUtil()
+    {
+        return $this->idUtil;
+    }
+
 // LISTE DES SETTERS
 
     public function setIdEleve($idEleve)
@@ -72,6 +77,20 @@ class Eleve extends Utilisateur
         // On vérifie qu'il s'agit bien d'une chaîne de caractères.
         if (is_string($classe)) {
             $this->classe = $classe;
+        }
+    }
+
+    public function setIdUtil($idUtil)
+    {
+        // On convertit l'argument en nombre entier.
+        // Si c'en était déjà un, rien ne changera.
+        // Sinon, la conversion donnera le nombre 0 (à quelques exceptions près, mais rien d'important ici).
+        $id = (int)$idUtil;
+
+        // On vérifie ensuite si ce nombre est bien strictement positif.
+        if ($id > 0) {
+            // Si c'est le cas, c'est tout bon, on assigne la valeur à l'attribut correspondant.
+            $this->idUtil = $idUtil;
         }
     }
 }

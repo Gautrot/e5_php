@@ -2,7 +2,7 @@
 
 class Discussion
 {
-    private $idDiscussion, $idCreateur, $idInvite, $titre, $description, $dateCreation;
+    private $idDiscussion, $titre, $description, $dateCreation, $idCreateurEleve, $idCreateurProf, $idInviteEleve, $idInviteProf;
 
 // constructeur
 
@@ -32,16 +32,6 @@ class Discussion
         return $this->idDiscussion;
     }
 
-    public function getIdCreateur()
-    {
-        return $this->idCreateur;
-    }
-
-    public function getIdInvite()
-    {
-        return $this->idInvite;
-    }
-
     public function getTitre()
     {
         return $this->titre;
@@ -57,6 +47,26 @@ class Discussion
         return $this->dateCreation;
     }
 
+    public function getIdCreateurEleve()
+    {
+        return $this->idCreateurEleve;
+    }
+
+    public function getIdCreateurProf()
+    {
+        return $this->idCreateurProf;
+    }
+
+    public function getIdInviteEleve()
+    {
+        return $this->idInviteEleve;
+    }
+
+    public function getIdInviteProf()
+    {
+        return $this->idInviteProf;
+    }
+
 // LISTE DES SETTERS
 
     public function setIdDiscussion($idDiscussion)
@@ -70,34 +80,6 @@ class Discussion
         if ($id > 0) {
             // Si c'est le cas, c'est tout bon, on assigne la valeur à l'attribut correspondant.
             $this->idDiscussion = $idDiscussion;
-        }
-    }
-
-    public function setIdCreateur($idCreateur)
-    {
-        // On convertit l'argument en nombre entier.
-        // Si c'en était déjà un, rien ne changera.
-        // Sinon, la $idDiscussion donnera le nombre 0 (à quelques exceptions près, mais rien d'important ici).
-        $id = (int)$idCreateur;
-
-        // On vérifie ensuite si ce nombre est bien strictement positif.
-        if ($id > 0) {
-            // Si c'est le cas, c'est tout bon, on assigne la valeur à l'attribut correspondant.
-            $this->idCreateur = $idCreateur;
-        }
-    }
-
-    public function setIdInvite($idInvite)
-    {
-        // On convertit l'argument en nombre entier.
-        // Si c'en était déjà un, rien ne changera.
-        // Sinon, la $idDiscussion donnera le nombre 0 (à quelques exceptions près, mais rien d'important ici).
-        $id = (int)$idInvite;
-
-        // On vérifie ensuite si ce nombre est bien strictement positif.
-        if ($id > 0) {
-            // Si c'est le cas, c'est tout bon, on assigne la valeur à l'attribut correspondant.
-            $this->idInvite = $idInvite;
         }
     }
 
@@ -122,6 +104,62 @@ class Discussion
         // On vérifie qu'il s'agit bien d'une chaîne de caractères.
         if (is_string($dateCreation)) {
             $this->dateCreation = $dateCreation;
+        }
+    }
+
+    public function setIdCreateurEleve($idCreateurEleve)
+    {
+        // On convertit l'argument en nombre entier.
+        // Si c'en était déjà un, rien ne changera.
+        // Sinon, la $idDiscussion donnera le nombre 0 (à quelques exceptions près, mais rien d'important ici).
+        $id = (int)$idCreateurEleve;
+
+        // On vérifie ensuite si ce nombre est bien strictement positif.
+        if ($id > 0) {
+            // Si c'est le cas, c'est tout bon, on assigne la valeur à l'attribut correspondant.
+            $this->idCreateurEleve = $idCreateurEleve;
+        }
+    }
+
+    public function setIdCreateurProf($idCreateurProf)
+    {
+        // On convertit l'argument en nombre entier.
+        // Si c'en était déjà un, rien ne changera.
+        // Sinon, la $idDiscussion donnera le nombre 0 (à quelques exceptions près, mais rien d'important ici).
+        $id = (int)$idCreateurProf;
+
+        // On vérifie ensuite si ce nombre est bien strictement positif.
+        if ($id > 0) {
+            // Si c'est le cas, c'est tout bon, on assigne la valeur à l'attribut correspondant.
+            $this->idCreateurProf = $idCreateurProf;
+        }
+    }
+
+    public function setIdInviteEleve($idInviteEleve)
+    {
+        // On convertit l'argument en nombre entier.
+        // Si c'en était déjà un, rien ne changera.
+        // Sinon, la $idDiscussion donnera le nombre 0 (à quelques exceptions près, mais rien d'important ici).
+        $id = (int)$idInviteEleve;
+
+        // On vérifie ensuite si ce nombre est bien strictement positif.
+        if ($id > 0) {
+            // Si c'est le cas, c'est tout bon, on assigne la valeur à l'attribut correspondant.
+            $this->idInviteEleve = $idInviteEleve;
+        }
+    }
+
+    public function setIdInviteProf($idInviteProf)
+    {
+        // On convertit l'argument en nombre entier.
+        // Si c'en était déjà un, rien ne changera.
+        // Sinon, la $idDiscussion donnera le nombre 0 (à quelques exceptions près, mais rien d'important ici).
+        $id = (int)$idInviteProf;
+
+        // On vérifie ensuite si ce nombre est bien strictement positif.
+        if ($id > 0) {
+            // Si c'est le cas, c'est tout bon, on assigne la valeur à l'attribut correspondant.
+            $this->idInviteProf = $idInviteProf;
         }
     }
 }

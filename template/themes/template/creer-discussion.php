@@ -3,31 +3,30 @@
 
 <head>
     <?php include_once '../../../include/head.php' ?>
-    <title>Créer un évènement</title>
+    <title>Créer une discussion</title>
 </head>
 
 <body>
-<!-- preloader start -->
-<?php include_once '../../../include/modal/preloader.php' ?>
-<!-- preloader end -->
-
-<!-- header -->
 <?php
+// Preloader
+include_once '../../../include/modal/preloader.php';
+// Header
 include_once '../../../include/header.php';
+// ManaDiscus
 include_once '../../../manager/discussion/ManaDiscus.php';
 $liste = new Manager();
 $res = $liste->listeUtil();
+// Modal Inscription
+include_once '../../../include/modal/inscription.php';
+// Modal Mot de passe oublié
+include_once '../../../include/modal/mdp.php';
+// Modal Login
+include_once '../../../include/modal/login.php';
+include_once '../../../include/modal/connectionEleve.php';
+include_once '../../../include/modal/connectionParent.php';
+include_once '../../../include/modal/connectionProf.php';
+include_once '../../../include/modal/connectionAdmin.php';
 ?>
-<!-- /header -->
-
-<!-- Modal Inscription-->
-<?php include_once '../../../include/modal/inscription.php' ?>
-
-<!-- Modal MotsDePasse-->
-<?php include_once '../../../include/modal/mdp.php' ?>
-
-<!-- Modal Login-->
-<?php include_once '../../../include/modal/login.php' ?>
 
 <!-- about -->
 <section class="page-title-section overlay">
@@ -68,14 +67,14 @@ $res = $liste->listeUtil();
                                 <select class="form-control idInvite" name="idInvite" id="idInvite">
                                     <optgroup label="Etudiants">
                                         <?php foreach ($res as $invite) {
-                                            if ($invite['statut'] == '1') { ?>
+                                            if ($invite['statut'] == '1' && $invite['idUtilisateur'] != $_SESSION['user']['idUtilisateur']) { ?>
                                                 <option value="<?php echo $invite['idUtilisateur'] ?>"><?php echo $invite['nom'] ?></option>
                                             <?php }
                                         } ?>
                                     </optgroup>
                                     <optgroup label="Professeurs">
                                         <?php foreach ($res as $invite) {
-                                            if ($invite['statut'] == '3') { ?>
+                                            if ($invite['statut'] == '3' && $invite['idUtilisateur'] != $_SESSION['user']['idUtilisateur']) { ?>
                                                 <option value="<?php echo $invite['idUtilisateur'] ?>"><?php echo $invite['nom'] ?></option>
                                             <?php }
                                         } ?>
@@ -97,12 +96,12 @@ $res = $liste->listeUtil();
 </section>
 <!-- /table -->
 
-<!-- footer -->
-<?php include_once '../../../include/footer.php' ?>
-<!-- /footer -->
-
-<!-- script -->
-<?php include_once '../../../include/script.php' ?>
+<?php
+// Footer
+include_once '../../../include/footer.php';
+// Script
+include_once '../../../include/script.php';
+?>
 
 </body>
 </html>

@@ -67,45 +67,6 @@ try {
 // création de la classe Manager
 class Manager
 {
-// Méthode de connexion
-
-    /**
-     * @throws Exception
-     */
-    public function connexion(Utilisateur $user)
-    {
-        // Vérifie les conditions lors de la connection.
-        // S'il y a une erreur, la fonction s'arrête.
-        switch ($_POST) {
-            case ($_POST['mdp'] == '' || $_POST['mdp'] == null):
-                throw new Exception('Mot de passe vide.', 1);
-            case ($_POST['login'] == '' || $_POST['login'] == null):
-                throw new Exception('Login vide.', 1);
-            case ($_POST['login'] == '' && $_POST['mdp'] == '' || $_POST['login'] == null && $_POST['mdp'] == null):
-                throw new Exception('Champs vide.', 1);
-        }
-
-        // On appelle la base de données
-        $bdd = (new BDD)->getBase();
-        // Préparation de la requête pour la connexion d'un utilisateur
-        $req = $bdd->prepare('SELECT idUtilisateur, login, mdp, statut, validUtilisateur FROM utilisateur WHERE login = :login AND mdp = :mdp');
-        $req->execute([
-            'login' => $user->getLogin(),
-            'mdp' => $user->getMdp()
-        ]);
-        $res = $req->fetch();
-
-        // Vérification du mot de passe entré par l'utilisateur.
-        // Si le mot de passe est correct, alors la connexion est réussi et on entre dans le compte
-        if (password_verify($user->getMdp(), $res['mdp']) || $res['mdp']) {
-            unset($_SESSION['erreur']);
-            return $_SESSION['user'] = $res;
-        }
-        // Sinon, on affiche un message d'erreur
-        throw new Exception('Erreur pendant la connexion.', 1);
-    }
-
-
 // Méthode d'affichage d'un utilisateur
 
     /**
@@ -113,35 +74,19 @@ class Manager
      */
     public function chercheUtil(Utilisateur $user)
     {
+        $statut = ['eleve', 'parent', 'professeur', 'administrateur'];
         // on appelle la base de données
         $bdd = (new BDD)->getBase();
-        $req = $bdd->prepare('SELECT idUtilisateur, statut FROM utilisateur WHERE idUtilisateur = :idUtilisateur');
-        $req->execute([
-            'idUtilisateur' => $user->getIdUtilisateur()
-        ]);
-        $res = $req->fetch();
-        // Si l'utilisateur existe, il cherche le statut de l'utilisateur
-        if ($res) {
-            switch ($res['statut']) {
-                case '1':
-                    $req = $bdd->prepare('SELECT * FROM utilisateur INNER JOIN eleve ON eleve.idEleve = utilisateur.idUtilisateur WHERE idUtilisateur = :idUtilisateur');
-                    break;
-                case '2':
-                    $req = $bdd->prepare('SELECT * FROM utilisateur INNER JOIN parent ON parent.idParent = utilisateur.idUtilisateur WHERE idUtilisateur = :idUtilisateur');
-                    break;
-                case '3':
-                    $req = $bdd->prepare('SELECT * FROM utilisateur INNER JOIN professeur ON professeur.idProf = utilisateur.idUtilisateur WHERE idUtilisateur = :idUtilisateur');
-                    break;
-                case '4':
-                    $req = $bdd->prepare('SELECT * FROM utilisateur INNER JOIN administrateur ON administrateur.idAdmin = utilisateur.idUtilisateur WHERE idUtilisateur = :idUtilisateur');
-                    break;
-            }
+        for ($i = 0; $i < 4; $i++) {
+            $req = $bdd->prepare('SELECT * FROM utilisateur INNER JOIN ' . $statut[$i] . ' ON ' . $statut[$i] . '.idUtil = utilisateur.idUtilisateur WHERE idUtilisateur = :idUtilisateur');
             $req->execute([
                 'idUtilisateur' => $user->getIdUtilisateur()
             ]);
-            $res2 = $req->fetch();
-            unset($_SESSION['erreur']);
-            return $res2;
+            $res = $req->fetch();
+            if ($res) {
+                unset($_SESSION['erreur']);
+                return $res;
+            }
         }
         // sinon affiche un message d'erreur
         throw new Exception('Erreur pendant la recherche de l\'utilisateur.', 1);
@@ -149,15 +94,29 @@ class Manager
 
 // Méthode de liste d'utilisateurs
 
-    /**
-     * @throws Exception
-     */
     public function listeUtil()
     {
+        $statut = ['eleve', 'parent', 'professeur', 'administrateur'];
+        $total = [];
+        $i = 0;
         #Instancie la classe BDD
         $bdd = (new BDD)->getBase();
-        $req = $bdd->query('SELECT * FROM utilisateur ORDER BY idUtilisateur DESC');
-        return $req->fetchAll();
+        $req = $bdd->query('SELECT idUtilisateur FROM utilisateur ORDER BY idUtilisateur DESC');
+        $res = $req->fetchAll();
+        foreach ($res as $user) {
+            for ($j = 0; $j < 4; $j++) {
+                $req = $bdd->prepare('SELECT * FROM utilisateur INNER JOIN ' . $statut[$j] . ' ON ' . $statut[$j] . '.idUtil = utilisateur.idUtilisateur WHERE idUtilisateur = :idUtilisateur');
+                $req->execute([
+                    'idUtilisateur' => $user[0]
+                ]);
+                $res2 = $req->fetch();
+                if ($res2) {
+                    $total[$i] = $res2;
+                }
+            }
+            $i++;
+        }
+        return $total;
     }
 
 // Méthode pour envoyer un mail et changer son mdp
@@ -166,10 +125,11 @@ class Manager
     {
         $bdd = (new BDD)->getBase();
 
-        $bdd= new PDO('mysql:host=localhost;dbname=projet_lprs_sgs;charset=utf8','root','');
+        $bdd = new PDO('mysql:host=localhost;dbname=projet_lprs_sgs;charset=utf8', 'root', '');
         // on récupère l'utilisateur ayant perdu son mot de passe
-        $reponse = $bdd->prepare('SELECT idUtilisateur ,mail,mdp FROM utilisateur WHERE mail = :mail') ;  //on prepare la requete de php pour accéder aux identifiants dans la base de données en sql
-        $reponse->execute(array('mail'=>$_POST["mail"]));var_dump($_POST["mail"]); //on insère sous forme de tableau les données que l'on veut récupérer de la base
+        $reponse = $bdd->prepare('SELECT idUtilisateur ,mail,mdp FROM utilisateur WHERE mail = :mail');  //on prepare la requete de php pour accéder aux identifiants dans la base de données en sql
+        $reponse->execute(array('mail' => $_POST["mail"]));
+        var_dump($_POST["mail"]); //on insère sous forme de tableau les données que l'on veut récupérer de la base
         $donne = $reponse->fetch(); //on execute finalement la requete
         var_dump($donne);
         //Si l'adresse email correspond à aucun mail et donc aucun utilisateur

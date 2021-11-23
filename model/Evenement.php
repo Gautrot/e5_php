@@ -2,7 +2,7 @@
 
 class Evenement
 {
-    private $idEvent, $idCreateur, $nom, $description, $organisateur, $type = 'Interne', $date, $horaire, $dateCreation, $validEvent = 0;
+    private $idEvent, $idCreateur, $titre, $description, $organisateur, $type = 'Interne', $date, $horaire, $dateCreation, $validEvent = 0;
 
 // constructeur
 
@@ -37,9 +37,9 @@ class Evenement
         return $this->idCreateur;
     }
 
-    public function getNom()
+    public function getTitre()
     {
-        return $this->nom;
+        return $this->titre;
     }
 
     public function getDescription()
@@ -108,11 +108,11 @@ class Evenement
         }
     }
 
-    public function setNom($nom)
+    public function setTitre($titre)
     {
         // On vérifie qu'il s'agit bien d'une chaîne de caractères.
-        if (is_string($nom)) {
-            $this->nom = $nom;
+        if (is_string($titre)) {
+            $this->titre = $titre;
         }
     }
 

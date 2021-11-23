@@ -1,6 +1,3 @@
-<?php
-//session_start();
-?>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -10,22 +7,26 @@
 </head>
 
 <body>
-<!-- preloader start -->
-<?php include_once '../../../include/modal/preloader.php' ?>
-<!-- preloader end -->
-
-<!-- header -->
-<?php include_once '../../../include/header.php' ?>
-<!-- /header -->
-
-<!-- Modal Inscription-->
-<?php include_once '../../../include/modal/inscription.php' ?>
-
-<!-- Modal MotsDePasse-->
-<?php include_once '../../../include/modal/mdp.php' ?>
-
-<!-- Modal Login-->
-<?php include_once '../../../include/modal/login.php' ?>
+<?php
+// Preloader
+include_once '../../../include/modal/preloader.php';
+// Header
+include_once '../../../include/header.php';
+// ManaDiscus
+include_once '../../../manager/discussion/ManaDiscus.php';
+$liste = new Manager();
+$res = $liste->listeUtil();
+// Modal Inscription
+include_once '../../../include/modal/inscription.php';
+// Modal Mot de passe oublié
+include_once '../../../include/modal/mdp.php';
+// Modal Login
+include_once '../../../include/modal/login.php';
+include_once '../../../include/modal/connectionEleve.php';
+include_once '../../../include/modal/connectionParent.php';
+include_once '../../../include/modal/connectionProf.php';
+include_once '../../../include/modal/connectionAdmin.php';
+?>
 
 <!-- about -->
 <section class="page-title-section overlay">
@@ -56,8 +57,8 @@
                     <div class="login">
                         <form method="POST" action="/e5_php/traitement/evenement/creer-event-tr" style="width:100%">
                             <div class="form-group">
-                                <label for="nom">Nom de l'évènement</label>
-                                <input type="text" class="form-control form-control-sm mb-3" id="nom" name="nom"
+                                <label for="titre">Nom de l'évènement</label>
+                                <input type="text" class="form-control form-control-sm mb-3" id="titre" name="titre"
                                        maxlength="100" required placeholder="ex : Sortie à un musée">
                             </div>
                             <div class="form-group">
@@ -67,8 +68,29 @@
                             </div>
                             <div class="form-group">
                                 <label for="organisateur">Organisateur</label>
-                                <input type="text" class="form-control form-control-sm mb-3" id="organisateur"
-                                       maxlength="100" name="organisateur" required>
+                                <select class="form-control organisateur" name="organisateur" id="organisateur">
+                                    <optgroup label="Etudiants">
+                                        <?php foreach ($res as $invite) {
+                                            if ($invite['statut'] == '1') { ?>
+                                                <option value="<?php echo $invite['idUtilisateur'] ?>"><?php echo $invite['nom'] ?></option>
+                                            <?php }
+                                        } ?>
+                                    </optgroup>
+                                    <optgroup label="Parents">
+                                        <?php foreach ($res as $invite) {
+                                            if ($invite['statut'] == '2') { ?>
+                                                <option value="<?php echo $invite['idUtilisateur'] ?>"><?php echo $invite['nom'] ?></option>
+                                            <?php }
+                                        } ?>
+                                    </optgroup>
+                                    <optgroup label="Professeurs">
+                                        <?php foreach ($res as $invite) {
+                                            if ($invite['statut'] == '3') { ?>
+                                                <option value="<?php echo $invite['idUtilisateur'] ?>"><?php echo $invite['nom'] ?></option>
+                                            <?php }
+                                        } ?>
+                                    </optgroup>
+                                </select>
                             </div>
                             <?php if ($_SESSION['user']['statut'] === '3' || $_SESSION['user']['statut'] === '4') { ?>
                                 <div class="form-group">
@@ -107,12 +129,12 @@
 </section>
 <!-- /table -->
 
-<!-- footer -->
-<?php include_once '../../../include/footer.php' ?>
-<!-- /footer -->
-
-<!-- script -->
-<?php include_once '../../../include/script.php' ?>
+<?php
+// Footer
+include_once '../../../include/footer.php';
+// Script
+include_once '../../../include/script.php';
+?>
 
 </body>
 </html>
