@@ -72,12 +72,12 @@ $str = str_replace("mail=", "", $parse);
                 <form action="/e5_php/traitement/modifMDP-tr.php" method="post">
                     <?php $bdd = new PDO('mysql:host=localhost;dbname=projet_lprs_sgs;charset=utf8', 'root', ''); // on se connecte à la base de donnée "lprs", avec l'uttilisateur "root" avec l'encodage utf-8
 
-                    $reponse = $bdd->prepare('SELECT mail, mdp FROM utilisateur WHERE mail = :mail');  //on prepare la requete de php pour accéder aux identifiants dans la base de données en sql
-                    $reponse->execute(array('mail' => $str)); //on insère sous forme de tableau les données que l'on veut récupérer de la base
-                    $donne = $reponse->fetch(); //on execute finalement la requete
-                    var_dump($donne); ?>
-                    <div class="form-group">
-                        <div class="col-12">
+                $reponse = $bdd->prepare('SELECT mail, mdp FROM utilisateur WHERE mail = :mail') ;  //on prepare la requete de php pour accéder aux identifiants dans la base de données en sql
+                $reponse->execute(array('mail'=>$str)); //on insère sous forme de tableau les données que l'on veut récupérer de la base
+                $donne = $reponse->fetch(); //on execute finalement la requete
+                var_dump($donne); ?>
+                <div class="form-group">
+                <div class="col-12">
                             <label for="login">Login</label>
                             <input type="text" class="form-control form-control-sm mb-3" id="login" name="login"
                                    required

@@ -15,10 +15,7 @@ include_once '../../../manager/Manager.php';
                 <div class="collapse navbar-collapse" id="navigation">
                     <ul class="navbar-nav ml-auto text-center">
                         <li class="nav-item active">
-                            <a class="nav-link" href="index">Accueil</a>
-                        </li>
-                        <li class="nav-item @@about">
-                            <a class="nav-link" href="about">Qui sommes-nous ?</a>
+                            <a class="nav-link" href="index">Accueil et Presentation</a>
                         </li>
                         <li class="nav-item @@courses">
                             <a class="nav-link" href="courses">Formations</a>
