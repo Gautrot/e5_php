@@ -67,7 +67,7 @@ class ManaParent extends Manager
         }
         // Préparation de l'ajout d'un étudiant dans la BDD
         $req = $bdd->prepare('
-                INSERT INTO utilisateur (nom, prenom, dateNaissance, adresse, telephone, mail, login, mdp) VALUES (:nom, :prenom, :dateNaissance, :adresse, :telephone, :mail, :login, :mdp);
+                INSERT INTO utilisateur (nom, prenom, dateNaissance, adresse, telephone, mail, login, mdp, statut) VALUES (:nom, :prenom, :dateNaissance, :adresse, :telephone, :mail, :login, :mdp, 2);
                 INSERT INTO parent (metier, idUtil) VALUES (:metier, LAST_INSERT_ID());
             ');
         // Execution de la requête

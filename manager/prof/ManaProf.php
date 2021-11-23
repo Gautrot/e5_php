@@ -67,7 +67,7 @@ class ManaProf
         }
         // Préparation de l'ajout d'un étudiant dans la BDD
         $req = $bdd->prepare('
-                INSERT INTO utilisateur (nom, prenom, dateNaissance, adresse, telephone, mail, login, mdp) VALUES (:nom, :prenom, :dateNaissance, :adresse, :telephone, :mail, :login, :mdp);
+                INSERT INTO utilisateur (nom, prenom, dateNaissance, adresse, telephone, mail, login, mdp, statut) VALUES (:nom, :prenom, :dateNaissance, :adresse, :telephone, :mail, :login, :mdp, 3);
                 INSERT INTO professeur (matiere, idUtil) VALUES (:matiere, LAST_INSERT_ID());
             ');
         // Execution de la requête

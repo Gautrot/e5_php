@@ -15,18 +15,16 @@ try {
         'mail' => $_POST['mail'],
         'login' => $_POST['login'],
         'mdp' => $_POST['mdp'],
-        'statut' => 2,
         'metier' => $_POST['metier'],
-        'idEleve' => $_POST['idEleve']
+        //'idEleve' => $_POST['idEleve']
     ]);
   //  var_dump($parent);
 // instanciation du manager
     $manager = new ManaParent();
-    $manager->inscriptionParent($parent);
+    $manager->inscrParent($parent);
     header('Location: /e5_php/template/themes/template/index.php');
 
 } catch (Exception $e) {
     $_SESSION["erreur"] = $e->getMessage();
     header('Location: /e5_php/template/themes/template/inscr-parent.php');
 }
-?>

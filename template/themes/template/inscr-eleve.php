@@ -101,8 +101,12 @@ include_once '../../../include/modal/connectionAdmin.php';
                             </div>
                             <div class="form-group">
                                 <label for="classe">Classe</label>
-                                <input type="text" class="form-control form-control-sm mb-3" id="classe"
-                                       name="classe" required maxlength="10" placeholder="ex : SLAM1">
+                                <select class="form-control classe" name="classe" id="classe">
+                                    <option value="SLAM1">SLAM1</option>
+                                    <option value="SLAM1">SLAM2</option>
+                                    <option value="SLAM1">SISR1</option>
+                                    <option value="SLAM1">SISR2</option>
+                                </select>
                             </div>
                             <button type="submit" class="btn btn-primary">
                                 S'inscrire
