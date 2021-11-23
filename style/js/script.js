@@ -10,4 +10,5 @@ $('#listeStatut').change(function () {
 });
 
 $('.idInvite').select2();
+$('.idPriseRDV').select2();
 $('.organisateur').select2();

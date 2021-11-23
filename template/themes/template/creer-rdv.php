@@ -12,7 +12,10 @@
 include_once '../../../include/modal/preloader.php';
 // Header
 include_once '../../../include/header.php';
-include_once '../../../model/BDD.php';
+// ManaRdv
+include_once '../../../manager/rdv/ManaRdv.php';
+$liste = new Manager();
+$res = $liste->listeUtil();
 // Modal Inscription
 include_once '../../../include/modal/inscription.php';
 // Modal Mot de passe oublié
@@ -64,21 +67,35 @@ include_once '../../../include/modal/connectionAdmin.php';
                                 <label for="idPriseRDV">Prendre rendez-vous avec :</label>
                                 <select class="form-control" name="idPriseRDV" id="idPriseRDV">
                                   <option value="">- SELECTIONNER -</option>
+                                    <optgroup label="Parents">
+                                        <?php foreach ($res as $rdv) {
+                                            if ($rdv['statut'] == '2' && $rdv['idUtilisateur'] != $_SESSION['user']['idUtilisateur']) { ?>
+                                                <option value="<?= $rdv['idUtilisateur'] ?>"><?= $rdv['nom'] ?></option>
+                                            <?php }
+                                        } ?>
+                                    </optgroup>
+                                    <optgroup label="Professeurs">
+                                        <?php foreach ($res as $rdv) {
+                                            if ($rdv['statut'] == '3' && $rdv['idUtilisateur'] != $_SESSION['user']['idUtilisateur']) { ?>
+                                                <option value="<?= $rdv['idUtilisateur'] ?>"><?= $rdv['nom'] ?></option>
+                                            <?php }
+                                        } ?>
+                                    </optgroup>
 
-                              <?php if ($_SESSION['user']['statut'] === '2') {
-                              $bdd = (new BDD)->getBase();
-                              $req = $bdd->query("SELECT nom, prenom, idUtilisateur FROM utilisateur WHERE statut = '3'");
-                              $res = $req->fetchall(); } ?>
-
-                              <?php if ($_SESSION['user']['statut'] === '3') {
-                              $bdd = (new BDD)->getBase();
-                              $req = $bdd->query("SELECT nom, prenom, idUtilisateur FROM utilisateur WHERE statut = '2'");
-                              $res = $req->fetchall(); } ?>
-
-                              <?php
-                              foreach ($res as $value) { ?>
-                                <option value="<?php echo $value['idUtilisateur']?>"><?php echo $value['nom'] , $value['prenom']?></option>
-                            <?php } ?>
+<!--                              --><?php //if ($_SESSION['user']['statut'] === '2') {
+//                              $bdd = (new BDD)->getBase();
+//                              $req = $bdd->query("SELECT nom, prenom, idUtilisateur FROM utilisateur WHERE statut = '3'");
+//                              $res = $req->fetchall(); } ?>
+<!---->
+<!--                              --><?php //if ($_SESSION['user']['statut'] === '3') {
+//                              $bdd = (new BDD)->getBase();
+//                              $req = $bdd->query("SELECT nom, prenom, idUtilisateur FROM utilisateur WHERE statut = '2'");
+//                              $res = $req->fetchall(); } ?>
+<!---->
+<!--                              --><?php
+//                              foreach ($res as $value) { ?>
+<!--                                <option value="--><?php //echo $value['idUtilisateur']?><!--">--><?php //echo $value['nom'] , $value['prenom']?><!--</option>-->
+<!--                            --><?php //} ?>
                                 </select>
                             </div>
 
