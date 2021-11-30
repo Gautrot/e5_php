@@ -75,7 +75,7 @@ include_once '../../../include/modal/connectionAdmin.php';
                                 <option value="">- SELECTIONNER -</option>
 
                                       <?php foreach ($res as $rdv) {
-                                          if ($rdv['statut'] == '2' && $rdv['idUtilisateur'] != $_SESSION['user']['idUtilisateur']) { ?>
+                                          if ($rdv['statut'] == '3' && $rdv['idUtilisateur'] != $_SESSION['user']['idUtilisateur']) { ?>
                                               <option value="<?= $rdv['idUtilisateur'] ?>"><?= $rdv['nom'] ?></option>
                                           <?php }
                                       }} ?>
@@ -96,7 +96,7 @@ include_once '../../../include/modal/connectionAdmin.php';
 
 
                                   <?php foreach ($res as $rdv) {
-                                      if ($rdv['statut'] == '3' && $rdv['idUtilisateur'] != $_SESSION['user']['idUtilisateur']) { ?>
+                                      if ($rdv['statut'] == '2' && $rdv['idUtilisateur'] != $_SESSION['user']['idUtilisateur']) { ?>
                                           <option value="<?= $rdv['idUtilisateur'] ?>"><?= $rdv['nom'] ?></option>
                                       <?php }
                                   }} ?>
