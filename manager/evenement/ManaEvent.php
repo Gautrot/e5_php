@@ -285,4 +285,22 @@ class ManaEvent extends Manager
         // Sinon, on affiche un message d'erreur
         throw new Exception('Inscription échouée.', 1);
     }
+    // Méthode validation d'un évènement
+
+    /**
+     * @throws Exception
+     */
+    public function validationEvent(Evenement $event)
+    {
+        // On appelle la base de données
+        $bdd = (new BDD)->getBase();
+        $req = $bdd->prepare('UPDATE `evenement` SET `validEvent`= 1,idCreateurProf = :idCreateurProf WHERE idEvent = :idEvent' );
+        $req->execute([
+            'idCreateurProf' => $event->getIdCreateurProf(),
+            'idEvent' => $event->getIdEvent()
+        ]);
+        $res = $req->fetch();
+        // Sinon, on affiche un message d'erreur
+        throw new Exception('Validation échouée.', 1);
+    }
 }
