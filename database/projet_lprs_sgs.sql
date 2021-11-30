@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  mar. 23 nov. 2021 à 10:17
+-- Généré le :  mar. 30 nov. 2021 à 09:11
 -- Version du serveur :  5.7.26
 -- Version de PHP :  7.3.5
 
@@ -106,11 +106,20 @@ CREATE TABLE IF NOT EXISTS `evenement` (
   `dateCreation` datetime NOT NULL,
   `validEvent` int(11) NOT NULL DEFAULT '0',
   `idCreateurEleve` int(11) DEFAULT NULL,
+  `idCreateurParent` int(11) DEFAULT NULL,
   `idCreateurProf` int(11) DEFAULT NULL,
   PRIMARY KEY (`idEvent`),
   KEY `idCreateurProf` (`idCreateurProf`),
-  KEY `idCreateurEleve` (`idCreateurEleve`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  KEY `idCreateurEleve` (`idCreateurEleve`) USING BTREE,
+  KEY `idCreateurParent` (`idCreateurParent`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `evenement`
+--
+
+INSERT INTO `evenement` (`idEvent`, `titre`, `description`, `type`, `date`, `horaire`, `dateCreation`, `validEvent`, `idCreateurEleve`, `idCreateurParent`, `idCreateurProf`) VALUES
+(5, 'A', 'A', 'Interne', '2021-12-01', '10:00:00', '2021-11-29 00:00:00', 1, NULL, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -130,7 +139,16 @@ CREATE TABLE IF NOT EXISTS `inscription_event` (
   KEY `idEleve` (`idEleve`) USING BTREE,
   KEY `idParent` (`idParent`),
   KEY `idProf` (`idProf`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Déchargement des données de la table `inscription_event`
+--
+
+INSERT INTO `inscription_event` (`idInscription`, `idEleve`, `idParent`, `idProf`, `idEvent`) VALUES
+(3, NULL, NULL, 1, 5),
+(4, 1, NULL, NULL, 5),
+(5, 1, NULL, NULL, 5);
 
 -- --------------------------------------------------------
 
@@ -309,7 +327,8 @@ ALTER TABLE `eleve`
 --
 ALTER TABLE `evenement`
   ADD CONSTRAINT `evenement_ibfk_1` FOREIGN KEY (`idCreateurEleve`) REFERENCES `eleve` (`idEleve`),
-  ADD CONSTRAINT `evenement_ibfk_3` FOREIGN KEY (`idCreateurProf`) REFERENCES `professeur` (`idProf`);
+  ADD CONSTRAINT `evenement_ibfk_3` FOREIGN KEY (`idCreateurProf`) REFERENCES `professeur` (`idProf`),
+  ADD CONSTRAINT `evenement_ibfk_4` FOREIGN KEY (`idCreateurParent`) REFERENCES `parent` (`idParent`);
 
 --
 -- Contraintes pour la table `inscription_event`

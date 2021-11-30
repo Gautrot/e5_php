@@ -2,8 +2,6 @@
 include_once '../../../manager/evenement/ManaEvent.php';
 // Traitement "cherche-event-tr"
 require_once '../../../traitement/evenement/cherche-event-tr.php';
-//var_dump($show);
-//die();
 // Traitement de liste d'évènement
 $liste = new ManaEvent();
 try {
@@ -98,8 +96,8 @@ include_once '../../../include/modal/connectionAdmin.php';
                     </li>
                 </ul>
             </div>
-            <?php if ($show['validEvent'] !== '0' || $_SESSION['user']['statut'] !== '4') {
-                if (!isset($show['idInscription']) || $_SESSION['user']['idUtilisateur'] !== $show['idUtil']) { ?>
+            <?php if ($show['validEvent'] !== '0') {
+                if (!isset($show['idInscription']) || $_SESSION['user']['statut'] !== '4' || $_SESSION['user']['idUtilisateur'] !== $show['idUtil']) { ?>
                     <div class="col-lg-3 text-lg-right text-left">
                         <form method="post" action="/e5_php/traitement/evenement/inscription-event-tr">
                             <button type="submit" class="btn btn-primary" name="inscription"
@@ -119,7 +117,7 @@ include_once '../../../include/modal/connectionAdmin.php';
             <?php } ?>
         </div>
         <div class="row align-items-center mb-5">
-            <?php if ($_SESSION['user']['statut'] === '1' || $_SESSION['user']['statut'] === '3') {
+            <?php if ($_SESSION['user']['idUtilisateur'] === $show['idUtil']) {
                 if ($annul > $today && $show['validEvent'] !== '0') { ?>
                     <div class="col-lg-3 text-lg-right text-left">
                         <form method="post" action="/e5_php/traitement/evenement/annule-event-tr">
