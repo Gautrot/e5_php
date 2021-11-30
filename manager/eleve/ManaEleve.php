@@ -66,6 +66,7 @@ class ManaEleve extends Manager
             }
         }
         // Préparation de l'ajout d'un étudiant dans la BDD
+
         $req = $bdd->prepare('
                 INSERT INTO utilisateur (nom, prenom, dateNaissance, adresse, telephone, mail, login, mdp, statut) VALUES (:nom, :prenom, :dateNaissance, :adresse, :telephone, :mail, :login, :mdp, 1);
                 INSERT INTO eleve (classe, idUtil) VALUES (:classe, LAST_INSERT_ID());
