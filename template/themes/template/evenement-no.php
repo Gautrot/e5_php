@@ -98,6 +98,27 @@ include_once '../../../include/modal/connectionAdmin.php';
                     </li>
                 </ul>
             </div>
+            <?php if ($show['validEvent'] !== '0' || $_SESSION['user']['statut'] !== '4') {
+                if (!isset($show['idInscription']) || $_SESSION['user']['idUtilisateur'] !== $show['idUtil']) { ?>
+                    <div class="col-lg-3 text-lg-right text-left">
+                        <form method="post" action="/e5_php/traitement/evenement/inscription-event-tr">
+                            <button type="submit" class="btn btn-primary" name="inscription"
+                                    value="<?= $show['idEvent']; ?>">S'inscrire
+                            </button>
+                        </form>
+                    </div>
+                <?php } else { ?>
+                    <div class="col-lg-3 text-lg-right text-left">
+                        <button class="btn btn-dark" disabled>Inscrit.e</button>
+                    </div>
+                <?php }
+            } else { ?>
+                <div class="col-lg-3 text-lg-right text-left">
+                    <button class="btn btn-dark" disabled>Annulé</button>
+                </div>
+            <?php } ?>
+        </div>
+        <div class="row align-items-center mb-5">
             <?php if ($_SESSION['user']['statut'] === '1' || $_SESSION['user']['statut'] === '3') {
                 if ($annul > $today && $show['validEvent'] !== '0') { ?>
                     <div class="col-lg-3 text-lg-right text-left">
@@ -118,23 +139,13 @@ include_once '../../../include/modal/connectionAdmin.php';
                     </form>
                 </div>
             <?php }
-            if ($show['validEvent'] !== '0' || $_SESSION['user']['statut'] !== '4') {
-                if (!isset($show['idInscription']) || $_SESSION['user']['idUtilisateur'] !== $show['idUtil']) { ?>
-                    <div class="col-lg-3 text-lg-right text-left">
-                        <form method="post" action="/e5_php/traitement/evenement/inscription-event-tr">
-                            <button type="submit" class="btn btn-primary" name="inscription"
-                                    value="<?= $show['idEvent']; ?>">S'inscrire
-                            </button>
-                        </form>
-                    </div>
-                <?php } else { ?>
-                    <div class="col-lg-3 text-lg-right text-left">
-                        <button class="btn btn-dark" disabled>Inscrit.e</button>
-                    </div>
-                <?php }
-            } else { ?>
+            if ($_SESSION['user']['idUtilisateur'] === $show['idUtil']) { ?>
                 <div class="col-lg-3 text-lg-right text-left">
-                    <button class="btn btn-dark" disabled>Annulé</button>
+                    <form method="post" action="/e5_php/traitement/evenement/ajout-organisateur-event-tr">
+                        <button type="submit" name="ajoutOrganisateur" value="<?= $show['idEvent']; ?>"
+                                class="btn btn-success">+ Organisateur
+                        </button>
+                    </form>
                 </div>
             <?php } ?>
             <!-- border -->
@@ -167,15 +178,15 @@ include_once '../../../include/modal/connectionAdmin.php';
                 </div>
             <?php }
             if (isset($show['idCreateurParent'])) { ?>
-            <div class="col-lg-3 col-sm-6 mb-4 mb-lg-0">
-                <div class="media">
-                    <img class="mr-3 img-fluid" src="images/event-speakers/speaker-1.jpg" alt="speaker">
-                    <div class="media-body">
-                        <h4 class="mt-0"><?= $show['idCreateurParent']; ?></h4>
-                        Parent
+                <div class="col-lg-3 col-sm-6 mb-4 mb-lg-0">
+                    <div class="media">
+                        <img class="mr-3 img-fluid" src="images/event-speakers/speaker-1.jpg" alt="speaker">
+                        <div class="media-body">
+                            <h4 class="mt-0"><?= $show['idCreateurParent']; ?></h4>
+                            Parent
+                        </div>
                     </div>
                 </div>
-            </div>
             <?php }
             if (isset($show['idCreateurProf'])) { ?>
                 <div class="col-lg-3 col-sm-6 mb-4 mb-lg-0">
