@@ -9,7 +9,6 @@ try {
         $event = new Evenement([
             'titre' => $_POST['titre'],
             'description' => $_POST['description'],
-            'organisateur' => $_POST['organisateur'],
             'date' => $_POST['date'],
             'horaire' => $_POST['horaire']
         ]);
@@ -18,7 +17,6 @@ try {
         $event = new Evenement([
             'titre' => $_POST['titre'],
             'description' => $_POST['description'],
-            'organisateur' => $_POST['organisateur'],
             'type' => $_POST['type'],
             'date' => $_POST['date'],
             'horaire' => $_POST['horaire']

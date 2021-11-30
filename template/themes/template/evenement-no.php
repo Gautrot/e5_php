@@ -2,6 +2,8 @@
 include_once '../../../manager/evenement/ManaEvent.php';
 // Traitement "cherche-event-tr"
 require_once '../../../traitement/evenement/cherche-event-tr.php';
+//var_dump($show);
+//die();
 // Traitement de liste d'évènement
 $liste = new ManaEvent();
 try {
@@ -74,9 +76,7 @@ include_once '../../../include/modal/connectionAdmin.php';
         </div>
         <!-- event info -->
         <div class="row align-items-center mb-5">
-            <div class="<?php if ($_SESSION['user']['statut'] === '1' || $_SESSION['user']['statut'] === '3') {
-                if ($annul > $today && $show['validEvent'] !== '0') { ?> col-lg-6 <?php }
-            } else { ?> col-lg-9 <?php } ?>">
+            <div class="col-lg-9">
                 <ul class="list-inline">
                     <li class="list-inline-item mr-xl-5 mr-4 mb-3 mb-lg-0">
                         <div class="d-flex align-items-center">
@@ -98,8 +98,28 @@ include_once '../../../include/modal/connectionAdmin.php';
                     </li>
                 </ul>
             </div>
-            <?php if ($show['validEvent'] !== '0' || $_SESSION['user']['statut'] !== '4') {
-                if (!isset($show['idInscription'])) { ?>
+            <?php if ($_SESSION['user']['statut'] === '1' || $_SESSION['user']['statut'] === '3') {
+                if ($annul > $today && $show['validEvent'] !== '0') { ?>
+                    <div class="col-lg-3 text-lg-right text-left">
+                        <form method="post" action="/e5_php/traitement/evenement/annule-event-tr">
+                            <button type="submit" name="annulation" value="<?= $show['idEvent']; ?>"
+                                    class="btn btn-danger">Annuler l'évènement
+                            </button>
+                        </form>
+                    </div>
+                <?php }
+            }
+            if ($_SESSION['user']['statut'] === '3' && $show['validEvent'] === '0') { ?>
+                <div class="col-lg-3 text-lg-right text-left">
+                    <form method="post" action="/e5_php/traitement/evenement/valide-event-tr">
+                        <button type="submit" name="validation" value="<?= $show['idEvent']; ?>"
+                                class="btn btn-success">Valider l'évènement
+                        </button>
+                    </form>
+                </div>
+            <?php }
+            if ($show['validEvent'] !== '0' || $_SESSION['user']['statut'] !== '4') {
+                if (!isset($show['idInscription']) || $_SESSION['user']['idUtilisateur'] !== $show['idUtil']) { ?>
                     <div class="col-lg-3 text-lg-right text-left">
                         <form method="post" action="/e5_php/traitement/evenement/inscription-event-tr">
                             <button type="submit" class="btn btn-primary" name="inscription"
@@ -116,23 +136,7 @@ include_once '../../../include/modal/connectionAdmin.php';
                 <div class="col-lg-3 text-lg-right text-left">
                     <button class="btn btn-dark" disabled>Annulé</button>
                 </div>
-            <?php }
-            if ($_SESSION['user']['idUtilisateur'] == $show['idUtil']) { ?>
-                <div class="col-lg-3 text-lg-right text-left">
-                    <button href="#" class="btn btn-primary">Ajouter un organisateur</button>
-                </div>
-            <?php }
-            if ($_SESSION['user']['statut'] === '1' || $_SESSION['user']['statut'] === '3') {
-                if ($annul > $today && $show['validEvent'] !== '0') { ?>
-                    <div class="col-lg-3 text-lg-right text-left">
-                        <form method="post" action="/e5_php/traitement/evenement/annule-event-tr">
-                            <button type="submit" name="annulation" value="<?= $show['idEvent']; ?>"
-                                    class="btn btn-danger">Annuler l'évènement
-                            </button>
-                        </form>
-                    </div>
-                <?php }
-            } ?>
+            <?php } ?>
             <!-- border -->
             <div class="col-12 mt-4 order-4">
                 <div class="border-bottom border-primary"></div>
@@ -148,28 +152,42 @@ include_once '../../../include/modal/connectionAdmin.php';
         <!-- event speakers -->
         <div class="row">
             <div class="col-12">
-                <h3 class="mb-4">Organisateur</h3>
+                <h3 class="mb-4">Organisateur.s</h3>
             </div>
             <!-- speakers -->
+            <?php if (isset($show['idCreateurEleve'])) { ?>
+                <div class="col-lg-3 col-sm-6 mb-4 mb-lg-0">
+                    <div class="media">
+                        <img class="mr-3 img-fluid" src="images/event-speakers/speaker-1.jpg" alt="speaker">
+                        <div class="media-body">
+                            <h4 class="mt-0"><?= $show['idCreateurEleve']; ?></h4>
+                            Etudiant
+                        </div>
+                    </div>
+                </div>
+            <?php }
+            if (isset($show['idCreateurParent'])) { ?>
             <div class="col-lg-3 col-sm-6 mb-4 mb-lg-0">
                 <div class="media">
                     <img class="mr-3 img-fluid" src="images/event-speakers/speaker-1.jpg" alt="speaker">
                     <div class="media-body">
-                        <h4 class="mt-0">
-                            <?php if (isset($show['idCreateurEleve'])) {
-                                echo $show['idCreateurEleve'];
-                            } else {
-                                echo $show['idCreateurProf'];
-                            } ?></h4>
-                        <?php if (isset($show['idCreateurEleve'])) {
-                            echo 'Etudiant';
-                        } else {
-                            echo 'Professeur';
-                        } ?>
-                        Organisateur
+                        <h4 class="mt-0"><?= $show['idCreateurParent']; ?></h4>
+                        Parent
                     </div>
                 </div>
             </div>
+            <?php }
+            if (isset($show['idCreateurProf'])) { ?>
+                <div class="col-lg-3 col-sm-6 mb-4 mb-lg-0">
+                    <div class="media">
+                        <img class="mr-3 img-fluid" src="images/event-speakers/speaker-1.jpg" alt="speaker">
+                        <div class="media-body">
+                            <h4 class="mt-0"><?= $show['idCreateurProf']; ?></h4>
+                            Professeur
+                        </div>
+                    </div>
+                </div>
+            <?php } ?>
             <!-- border -->
             <div class="col-12 mt-4 order-4">
                 <div class="border-bottom border-primary"></div>

@@ -7,7 +7,6 @@ require_once '../../manager/evenement/ManaEvent.php';
 try {
 # Instancie la classe InscriptionEvent
     $event = new InscriptionEvent([
-        //'idUtil' => $_SESSION['user']['idUtilisateur'],
         'idEvent' => $_POST['inscription']
     ]);
 

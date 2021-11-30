@@ -66,32 +66,6 @@ include_once '../../../include/modal/connectionAdmin.php';
                                 <textarea type="text" class="form-control form-control-sm mb-3" id="description"
                                           name="description" required></textarea>
                             </div>
-                            <div class="form-group">
-                                <label for="organisateur">Organisateur</label>
-                                <select class="form-control organisateur" name="organisateur" id="organisateur">
-                                    <optgroup label="Etudiants">
-                                        <?php foreach ($res as $invite) {
-                                            if ($invite['statut'] == '1') { ?>
-                                                <option value="<?php echo $invite['idUtilisateur'] ?>"><?php echo $invite['nom'] ?></option>
-                                            <?php }
-                                        } ?>
-                                    </optgroup>
-                                    <optgroup label="Parents">
-                                        <?php foreach ($res as $invite) {
-                                            if ($invite['statut'] == '2') { ?>
-                                                <option value="<?php echo $invite['idUtilisateur'] ?>"><?php echo $invite['nom'] ?></option>
-                                            <?php }
-                                        } ?>
-                                    </optgroup>
-                                    <optgroup label="Professeurs">
-                                        <?php foreach ($res as $invite) {
-                                            if ($invite['statut'] == '3') { ?>
-                                                <option value="<?php echo $invite['idUtilisateur'] ?>"><?php echo $invite['nom'] ?></option>
-                                            <?php }
-                                        } ?>
-                                    </optgroup>
-                                </select>
-                            </div>
                             <?php if ($_SESSION['user']['statut'] === '3' || $_SESSION['user']['statut'] === '4') { ?>
                                 <div class="form-group">
                                     <div class="mb-3">Type d'évènement</div>
