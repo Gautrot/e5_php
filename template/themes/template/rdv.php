@@ -87,7 +87,7 @@ include_once '../../../include/modal/connectionAdmin.php';
                                 </div>
                             </div>
                             <div class="card-body">
-                                <form method="post" action="evenement-no">
+                                <form method="post" action="rdv-no">
                                     <button class="btn btn-lg btn-white" type="submit"
                                             value="<?php echo $rdv['idRdv']; ?>"
                                             name="idRdv"><?php echo $rdv['objet']; ?></button>
