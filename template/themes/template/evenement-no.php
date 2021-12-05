@@ -96,49 +96,49 @@ include_once '../../../include/modal/connectionAdmin.php';
                     </li>
                 </ul>
             </div>
-            <?php if ($show['validEvent'] !== '0') {
-                if (!isset($show['idInscription']) || $_SESSION['user']['statut'] !== '4' || $_SESSION['user']['idUtilisateur'] !== $show['idUtil']) { ?>
+            <?= $annul > $today; ?>
+            <?php if ($_SESSION['user']['statut'] !== '4' || $annul < $today) {
+                if ($show['validEvent'] !== '0') {
+                    if (!isset($show['idInscription']) || $_SESSION['user']['idUtilisateur'] !== $show['idUtil']) { ?>
+                        <div class="col-lg-3 text-lg-right text-left">
+                            <form method="post" action="/e5_php/traitement/evenement/inscription-event-tr">
+                                <button type="submit" class="btn btn-primary" name="inscription"
+                                        value="<?= $show['idEvent']; ?>">S'inscrire
+                                </button>
+                            </form>
+                        </div>
+                    <?php } else { ?>
+                        <div class="col-lg-3 text-lg-right text-left">
+                            <button class="btn btn-dark" disabled>Inscrit.e</button>
+                        </div>
+                    <?php }
+                } else { ?>
                     <div class="col-lg-3 text-lg-right text-left">
-                        <form method="post" action="/e5_php/traitement/evenement/inscription-event-tr">
-                            <button type="submit" class="btn btn-primary" name="inscription"
-                                    value="<?= $show['idEvent']; ?>">S'inscrire
-                            </button>
-                        </form>
-                    </div>
-                <?php } else { ?>
-                    <div class="col-lg-3 text-lg-right text-left">
-                        <button class="btn btn-dark" disabled>Inscrit.e</button>
+                        <button class="btn btn-dark" disabled>Invalide</button>
                     </div>
                 <?php }
-            } else { ?>
-                <div class="col-lg-3 text-lg-right text-left">
-                    <button class="btn btn-dark" disabled>Annulé</button>
-                </div>
-            <?php } ?>
+            } ?>
         </div>
         <div class="row align-items-center mb-5">
-            <?php if ($_SESSION['user']['idUtilisateur'] === $show['idUtil']) {
+            <?php if (isset($show['idCreateurEleve']) && $_SESSION['user']['idUtilisateur'] === $show['idUtil'] || isset($show['idCreateurProf']) && $_SESSION['user']['idUtilisateur'] === $show['idUtil']) {
                 if ($annul > $today && $show['validEvent'] !== '0') { ?>
-                    <div class="col-lg-3 text-lg-right text-left">
+                    <div class="col-lg-3 text-left">
                         <form method="post" action="/e5_php/traitement/evenement/annule-event-tr">
                             <button type="submit" name="annulation" value="<?= $show['idEvent']; ?>"
                                     class="btn btn-danger">Annuler l'évènement
                             </button>
                         </form>
                     </div>
-                <?php }
-            }
-            if ($_SESSION['user']['statut'] === '3' && $show['validEvent'] === '0') { ?>
-                <div class="col-lg-3 text-lg-right text-left">
-                    <form method="post" action="/e5_php/traitement/evenement/valide-event-tr">
-                        <button type="submit" name="validation" value="<?= $show['idEvent']; ?>"
-                                class="btn btn-success">Valider l'évènement
-                        </button>
-                    </form>
-                </div>
-            <?php }
-            if ($_SESSION['user']['idUtilisateur'] === $show['idUtil']) { ?>
-                <div class="col-lg-3 text-lg-right text-left">
+                <?php } else if ($_SESSION['user']['statut'] === '3' && $show['validEvent'] === '0') { ?>
+                    <div class="col-lg-3 text-left">
+                        <form method="post" action="/e5_php/traitement/evenement/valide-event-tr">
+                            <button type="submit" name="validation" value="<?= $show['idEvent']; ?>"
+                                    class="btn btn-success">Valider l'évènement
+                            </button>
+                        </form>
+                    </div>
+                <?php } ?>
+                <div class="col-lg-3 text-left">
                     <form method="post" action="/e5_php/traitement/evenement/ajout-organisateur-event-tr">
                         <button type="submit" name="ajoutOrganisateur" value="<?= $show['idEvent']; ?>"
                                 class="btn btn-success">+ Organisateur
