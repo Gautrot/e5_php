@@ -81,12 +81,12 @@ $str = str_replace("mail=", "", $parse);
                             <label for="login">Login</label>
                             <input type="text" class="form-control form-control-sm mb-3" id="login" name="login"
                                    required
-                                   maxlength="40" value="<?php echo $donne['mail']; ?>">
+                                   maxlength="40" value="<?= $donne['mail']; ?>">
                         </div>
                         <div class="form-group">
                             <label for="mdp">Mot de passe</label>
                             <input type="password" class="form-control form-control-sm mb-3" id="mdp" name="mdp"
-                                   required value="<?php echo $donne['mdp']; ?>">
+                                   required value="<?= $donne['mdp']; ?>">
                         </div>
                         <button type="submit" class="btn btn-primary" href="/e5_php/traitement/modifMDP-tr">
                             Modifier

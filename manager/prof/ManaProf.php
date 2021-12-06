@@ -25,7 +25,7 @@ class ManaProf
         // On appelle la base de données
         $bdd = (new BDD)->getBase();
         // Préparation de la requête pour la connexion d'un utilisateur
-        $req = $bdd->prepare('SELECT idUtilisateur, login, mdp, statut, validUtilisateur FROM utilisateur WHERE login = :login AND mdp = :mdp');
+        $req = $bdd->prepare('SELECT idUtilisateur, login, mdp, statut, validUtilisateur FROM utilisateur WHERE login = :login');
         $req->execute([
             'login' => $prof->getLogin(),
             'mdp' => $prof->getMdp()
@@ -33,7 +33,7 @@ class ManaProf
         $res = $req->fetch();
         // Vérification du mot de passe entré par l'utilisateur.
         // Si le mot de passe est correct, alors la connexion est réussi et on entre dans le compte
-        if (password_verify($prof->getMdp(), $res['mdp']) || $res['mdp']) {
+        if (password_verify($_POST['mdp'], $res['mdp'])) {
             unset($_SESSION['erreur']);
             return $_SESSION['user'] = $res;
         }
@@ -41,13 +41,16 @@ class ManaProf
         throw new Exception('Erreur pendant la connexion.', 1);
     }
 
-    // Méthode d'inscription pour un professeur
+// Méthode d'inscription pour un professeur
 
     /**
      * @throws Exception
      */
     public function inscrProf(Professeur $prof)
     {
+        // Encryptage du mot de passe
+        $hash = password_hash($_POST['mdp'], PASSWORD_DEFAULT);
+        // On appelle la base de données
         $bdd = (new BDD)->getBase();
         $req = $bdd->query('SELECT * FROM utilisateur');
         $res = $req->fetchAll();
@@ -79,7 +82,7 @@ class ManaProf
             'telephone' => $prof->getTelephone(),
             'mail' => $prof->getMail(),
             'login' => $prof->getLogin(),
-            'mdp' => $prof->getMdp(),
+            'mdp' => $hash,
             'matiere' => $prof->getMatiere()
         ]);
         $req = $bdd->prepare('SELECT idUtilisateur, login, mdp, statut, validUtilisateur FROM utilisateur WHERE login = :login');
@@ -102,6 +105,8 @@ class ManaProf
      */
     public function modifProf(Professeur $prof)
     {
+        // Encryptage du mot de passe
+        $hash = password_hash($_POST['mdp'], PASSWORD_DEFAULT);
         // On appelle la base de données
         $bdd = (new BDD)->getBase();
         $req = $bdd->query('SELECT * FROM utilisateur');
@@ -130,7 +135,7 @@ class ManaProf
             'telephone' => $prof->getTelephone(),
             'mail' => $prof->getMail(),
             'login' => $prof->getLogin(),
-            'mdp' => $prof->getMdp()
+            'mdp' => $hash
         ]);
         $req = $bdd->prepare('SELECT idUtilisateur, login, mdp, statut, validUtilisateur FROM utilisateur WHERE idUtilisateur = :idUtilisateur');
         $req->execute([

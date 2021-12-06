@@ -25,7 +25,6 @@ class ManaMDP extends Manager
         ]);
         $res2 = $req2->fetch();
 
-
         // S'il modifie avec succès l'étudiant, alors il envoie la session.
         if ($res2) {
             unset($_SESSION['erreur']);

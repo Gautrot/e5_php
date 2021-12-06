@@ -21,19 +21,17 @@ class ManaEleve extends Manager
             case ($_POST['login'] == '' && $_POST['mdp'] == '' || $_POST['login'] == null && $_POST['mdp'] == null):
                 throw new Exception('Champs vide.', 1);
         }
-
         // On appelle la base de données
         $bdd = (new BDD)->getBase();
         // Préparation de la requête pour la connexion d'un utilisateur
-        $req = $bdd->prepare('SELECT idUtilisateur, login, mdp, statut, validUtilisateur FROM utilisateur WHERE login = :login AND mdp = :mdp');
+        $req = $bdd->prepare('SELECT idUtilisateur, login, mdp, statut, validUtilisateur FROM utilisateur WHERE login = :login');
         $req->execute([
-            'login' => $eleve->getLogin(),
-            'mdp' => $eleve->getMdp()
+            'login' => $eleve->getLogin()
         ]);
         $res = $req->fetch();
         // Vérification du mot de passe entré par l'utilisateur.
-        // Si le mot de passe est correct, alors la connexion est réussi et on entre dans le compte
-        if (password_verify($eleve->getMdp(), $res['mdp']) || $res['mdp']) {
+        // Si le mot de passe est correct, alors la connexion est réussie et on entre dans le compte
+        if (password_verify($_POST['mdp'], $res['mdp'])) {
             unset($_SESSION['erreur']);
             return $_SESSION['user'] = $res;
         }
@@ -48,6 +46,9 @@ class ManaEleve extends Manager
      */
     public function inscrEleve(Eleve $eleve)
     {
+        // Encryptage du mot de passe
+        $hash = password_hash($_POST['mdp'], PASSWORD_DEFAULT);
+        // On appelle la base de données
         $bdd = (new BDD)->getBase();
         $req = $bdd->query('SELECT * FROM utilisateur');
         $res = $req->fetchAll();
@@ -66,7 +67,6 @@ class ManaEleve extends Manager
             }
         }
         // Préparation de l'ajout d'un étudiant dans la BDD
-
         $req = $bdd->prepare('
                 INSERT INTO utilisateur (nom, prenom, dateNaissance, adresse, telephone, mail, login, mdp, statut) VALUES (:nom, :prenom, :dateNaissance, :adresse, :telephone, :mail, :login, :mdp, 1);
                 INSERT INTO eleve (classe, idUtil) VALUES (:classe, LAST_INSERT_ID());
@@ -80,7 +80,7 @@ class ManaEleve extends Manager
             'telephone' => $eleve->getTelephone(),
             'mail' => $eleve->getMail(),
             'login' => $eleve->getLogin(),
-            'mdp' => $eleve->getMdp(),
+            'mdp' => $hash,
             'classe' => $eleve->getClasse()
         ]);
         $req = $bdd->prepare('SELECT idUtilisateur, login, mdp, statut, validUtilisateur FROM utilisateur WHERE login = :login');
@@ -104,6 +104,8 @@ class ManaEleve extends Manager
      */
     public function modifEleve(Eleve $eleve)
     {
+        // Encryptage du mot de passe
+        $hash = password_hash($_POST['mdp'], PASSWORD_DEFAULT);
         // On appelle la base de données
         $bdd = (new BDD)->getBase();
         $req = $bdd->query('SELECT * FROM utilisateur');
@@ -132,7 +134,7 @@ class ManaEleve extends Manager
             'telephone' => $eleve->getTelephone(),
             'mail' => $eleve->getMail(),
             'login' => $eleve->getLogin(),
-            'mdp' => $eleve->getMdp()
+            'mdp' => $hash
         ]);
         $req = $bdd->prepare('SELECT idUtilisateur, login, mdp, statut, validUtilisateur FROM utilisateur WHERE idUtilisateur = :idUtilisateur');
         $req->execute([

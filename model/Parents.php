@@ -2,7 +2,7 @@
 
 class Parents extends Utilisateur
 {
-    private $idParent, $statut = 2, $metier, $idUtil;
+    private $idParent, $metier, $idUtil, $idEleve;
 
 // constructeur
 
@@ -33,11 +33,6 @@ class Parents extends Utilisateur
         return $this->idParent;
     }
 
-    public function getStatut()
-    {
-        return $this->statut;
-    }
-
     public function getMetier()
     {
         return $this->metier;
@@ -46,6 +41,11 @@ class Parents extends Utilisateur
     public function getIdUtil()
     {
         return $this->idUtil;
+    }
+
+    public function getIdEleve()
+    {
+        return $this->idEleve;
     }
 
 // LISTE DES SETTERS
@@ -61,14 +61,6 @@ class Parents extends Utilisateur
         if ($id > 0) {
             // Si c'est le cas, c'est tout bon, on assigne la valeur à l'attribut correspondant.
             $this->idParent = $idParent;
-        }
-    }
-
-    public function setStatut($statut)
-    {
-        // On vérifie qu'il s'agit bien d'une chaîne de caractères.
-        if (is_string($statut)) {
-            $this->statut = $statut;
         }
     }
 
@@ -91,6 +83,20 @@ class Parents extends Utilisateur
         if ($id > 0) {
             // Si c'est le cas, c'est tout bon, on assigne la valeur à l'attribut correspondant.
             $this->idUtil = $idUtil;
+        }
+    }
+
+    public function setIdEleve($idEleve)
+    {
+        // On convertit l'argument en nombre entier.
+        // Si c'en était déjà un, rien ne changera.
+        // Sinon, la conversion donnera le nombre 0 (à quelques exceptions près, mais rien d'important ici).
+        $id = (int)$idEleve;
+
+        // On vérifie ensuite si ce nombre est bien strictement positif.
+        if ($id > 0) {
+            // Si c'est le cas, c'est tout bon, on assigne la valeur à l'attribut correspondant.
+            $this->idEleve = $idEleve;
         }
     }
 }

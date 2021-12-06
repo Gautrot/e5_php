@@ -68,14 +68,14 @@ include_once '../../../include/modal/connectionAdmin.php';
                                     <optgroup label="Etudiants">
                                         <?php foreach ($res as $invite) {
                                             if ($invite['statut'] == '1' && $invite['idUtilisateur'] != $_SESSION['user']['idUtilisateur']) { ?>
-                                                <option value="<?php echo $invite['idUtilisateur'] ?>"><?php echo $invite['nom'] ?></option>
+                                                <option value="<?= $invite['idUtilisateur'] ?>"><?= $invite['nom'] ?></option>
                                             <?php }
                                         } ?>
                                     </optgroup>
                                     <optgroup label="Professeurs">
                                         <?php foreach ($res as $invite) {
                                             if ($invite['statut'] == '3' && $invite['idUtilisateur'] != $_SESSION['user']['idUtilisateur']) { ?>
-                                                <option value="<?php echo $invite['idUtilisateur'] ?>"><?php echo $invite['nom'] ?></option>
+                                                <option value="<?= $invite['idUtilisateur'] ?>"><?= $invite['nom'] ?></option>
                                             <?php }
                                         } ?>
                                     </optgroup>

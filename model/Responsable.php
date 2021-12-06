@@ -1,6 +1,6 @@
 <?php
 
-class Responsable extends Utilisateur
+class Responsable extends Parents
 {
     private $idResponsable, $idParent, $idEleve;
 

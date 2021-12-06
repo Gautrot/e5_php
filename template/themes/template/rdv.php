@@ -82,15 +82,15 @@ include_once '../../../include/modal/connectionAdmin.php';
                             <div class="card-img position-relative">
                                 <img class="card-img-top rounded-0" src="images/events/event-1.jpg" alt="event thumb">
                                 <div class="card-date">
-                                    <span><?php echo substr($rdv['date'], 8, 2); ?></span><br>
-                                    <?php echo substr($rdv['date'], 5, 2) . '/' . substr($rdv['date'], 0, 4) ?>
+                                    <span><?= substr($rdv['date'], 8, 2); ?></span><br>
+                                    <?= substr($rdv['date'], 5, 2) . '/' . substr($rdv['date'], 0, 4) ?>
                                 </div>
                             </div>
                             <div class="card-body">
                                 <form method="post" action="rdv-no">
                                     <button class="btn btn-lg btn-white" type="submit"
-                                            value="<?php echo $rdv['idRdv']; ?>"
-                                            name="idRdv"><?php echo $rdv['objet']; ?></button>
+                                            value="<?= $rdv['idRdv']; ?>"
+                                            name="idRdv"><?= $rdv['objet']; ?></button>
                                 </form>
                             </div>
                         </div>

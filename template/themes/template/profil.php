@@ -34,8 +34,8 @@ require_once '../../../traitement/cherche-util-tr.php'
             <div class="col-md-8">
                 <ul class="list-inline custom-breadcrumb">
                     <li class="list-inline-item">
-                        <a class="h2 text-primary font-secondary" href="profil">Profil</a></li>
-                    <li class="list-inline-item text-white h3 font-secondary nasted">Modification</li>
+                        <a class="h2 text-primary font-secondary" href="profil">Profil</a>
+                    </li>
                 </ul>
                 <p class="text-lighten">Votre profil.</p>
             </div>
@@ -54,31 +54,31 @@ require_once '../../../traitement/cherche-util-tr.php'
                     <tbody>
                     <tr>
                         <th scope="row">Nom</th>
-                        <td><?php echo $show['nom'] . ' ' . $show['prenom']; ?></td>
+                        <td><?= $show['nom'] . ' ' . $show['prenom']; ?></td>
                     </tr>
                     <tr>
                         <th scope="row">Né.e le</th>
-                        <td class="form-group"><?php echo $show['dateNaissance']; ?></td>
+                        <td class="form-group"><?= $show['dateNaissance']; ?></td>
                     </tr>
                     <tr>
                         <th scope="row">Numéro de téléphone</th>
-                        <td class="form-group"><?php echo $show['telephone']; ?></td>
+                        <td class="form-group"><?= $show['telephone']; ?></td>
                     </tr>
                     <tr>
                         <th scope="row">Adresse</th>
-                        <td class="form-group"><?php echo $show['adresse']; ?></td>
+                        <td class="form-group"><?= $show['adresse']; ?></td>
                     </tr>
                     <tr>
                         <th scope="row">Adresse mél</th>
-                        <td class="form-group"><?php echo $show['mail']; ?></td>
+                        <td class="form-group"><?= $show['mail']; ?></td>
                     </tr>
                     <tr>
                         <th scope="row">Login</th>
-                        <td class="form-group"><?php echo $show['login']; ?></td>
+                        <td class="form-group"><?= $show['login']; ?></td>
                     </tr>
                     <tr>
                         <th scope="row">Mot de passe</th>
-                        <td class="form-group"><?php echo $show['mdp']; ?></td>
+                        <td class="form-group">********</td>
                     </tr>
                     <tr>
                         <?php switch ($show['statut']) {

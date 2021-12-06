@@ -25,15 +25,14 @@ class ManaAdmin extends Manager
         // On appelle la base de données
         $bdd = (new BDD)->getBase();
         // Préparation de la requête pour la connexion d'un utilisateur
-        $req = $bdd->prepare('SELECT idUtilisateur, login, mdp, statut, validUtilisateur FROM utilisateur WHERE login = :login AND mdp = :mdp');
+        $req = $bdd->prepare('SELECT idUtilisateur, login, mdp, statut, validUtilisateur FROM utilisateur WHERE login = :login');
         $req->execute([
-            'login' => $admin->getLogin(),
-            'mdp' => $admin->getMdp()
+            'login' => $admin->getLogin()
         ]);
         $res = $req->fetch();
         // Vérification du mot de passe entré par l'utilisateur.
         // Si le mot de passe est correct, alors la connexion est réussi et on entre dans le compte
-        if (password_verify($admin->getMdp(), $res['mdp']) || $res['mdp']) {
+        if (password_verify($_POST['mdp'], $res['mdp'])) {
             unset($_SESSION['erreur']);
             return $_SESSION['user'] = $res;
         }
@@ -48,6 +47,8 @@ class ManaAdmin extends Manager
      */
     public function modifAdmin(Administrateur $admin)
     {
+        // Encryptage du mot de passe
+        $hash = password_hash($_POST['mdp'], PASSWORD_DEFAULT);
         // On appelle la base de données
         $bdd = (new BDD)->getBase();
         $req = $bdd->query('SELECT * FROM utilisateur');
@@ -76,7 +77,7 @@ class ManaAdmin extends Manager
             'telephone' => $admin->getTelephone(),
             'mail' => $admin->getMail(),
             'login' => $admin->getLogin(),
-            'mdp' => $admin->getMdp()
+            'mdp' => $hash
         ]);
         $req = $bdd->prepare('SELECT idUtilisateur, login, mdp, statut, validUtilisateur FROM utilisateur WHERE login = :login AND mdp = :mdp');
         $req->execute([

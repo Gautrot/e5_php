@@ -48,7 +48,7 @@ require_once '../../../traitement/cherche-util-tr.php'
     <div class="container">
         <div class="row">
             <div class="col-md-6 mb-5">
-                <h3>Modification de <?php echo $show['nom']; ?></h3>
+                <h3>Modification de <?= $show['nom']; ?></h3>
             <div class="col-12">
                 <form method="POST" action="<?php switch ($_SESSION['user']['statut']) {
                     case '1':
@@ -62,55 +62,54 @@ require_once '../../../traitement/cherche-util-tr.php'
                     <div class="form-group">
                         <label for="idUtilisateur" hidden>ID</label>
                         <input type="text" class="form-control form-control-sm mb-3" id="idUtilisateur"
-                               name="idUtilisateur" value="<?php echo $show['idUtilisateur']; ?>" hidden>
+                               name="idUtilisateur" value="<?= $show['idUtilisateur']; ?>" hidden>
                     </div>
                     <div class="form-group">
                         <label for="nom">Nom</label>
                         <input type="text" class="form-control form-control-sm mb-3" id="nom" name="nom" required
-                               maxlength="40" value="<?php echo $show['nom']; ?>">
-                        <small>Avant : <?php echo $show['nom']; ?></small>
+                               maxlength="40" value="<?= $show['nom']; ?>">
+                        <small>Avant : <?= $show['nom']; ?></small>
                     </div>
                     <div class="form-group">
                         <label for="prenom">Prénom</label>
                         <input type="text" class="form-control form-control-sm mb-3" id="prenom" name="prenom" required
-                               maxlength="40" value="<?php echo $show['prenom']; ?>">
-                        <small>Avant : <?php echo $show['prenom']; ?></small>
+                               maxlength="40" value="<?= $show['prenom']; ?>">
+                        <small>Avant : <?= $show['prenom']; ?></small>
                     </div>
                     <div class="form-group">
                         <label for="dateNaissance">Né.e le</label>
                         <input type="date" class="form-control form-control-sm mb-3" id="dateNaissance"
-                               name="dateNaissance" required value="<?php echo $show['dateNaissance']; ?>">
-                        <small>Avant : <?php echo $show['dateNaissance']; ?></small>
+                               name="dateNaissance" required value="<?= $show['dateNaissance']; ?>">
+                        <small>Avant : <?= $show['dateNaissance']; ?></small>
                     </div>
                     <div class="form-group">
                         <label for="telephone">Numéro de Téléphone</label>
                         <input type="text" class="form-control form-control-sm mb-3" id="telephone" name="telephone"
-                               required maxlength="10" value="<?php echo $show['telephone']; ?>">
-                        <small>Avant : <?php echo $show['telephone']; ?></small>
+                               required maxlength="10" value="<?= $show['telephone']; ?>">
+                        <small>Avant : <?= $show['telephone']; ?></small>
                     </div>
                     <div class="form-group">
                         <label for="adresse">Adresse</label>
                         <input type="text" class="form-control form-control-sm mb-3" id="adresse" name="adresse"
-                               required value="<?php echo $show['adresse']; ?>">
-                        <small>Avant : <?php echo $show['adresse']; ?></small>
+                               required value="<?= $show['adresse']; ?>">
+                        <small>Avant : <?= $show['adresse']; ?></small>
                     </div>
                     <div class="form-group">
                         <label for="mail">Adresse Mél</label>
                         <input type="email" class="form-control form-control-sm mb-3" id="mail" name="mail"
-                               required value="<?php echo $show['mail']; ?>">
-                        <small>Avant : <?php echo $show['mail']; ?></small>
+                               required value="<?= $show['mail']; ?>">
+                        <small>Avant : <?= $show['mail']; ?></small>
                     </div>
                     <div class="form-group">
                         <label for="login">Login</label>
                         <input type="text" class="form-control form-control-sm mb-3" id="login" name="login" required
-                               maxlength="40" value="<?php echo $show['login']; ?>">
-                        <small>Avant : <?php echo $show['login']; ?></small>
+                               maxlength="40" value="<?= $show['login']; ?>">
+                        <small>Avant : <?= $show['login']; ?></small>
                     </div>
                     <div class="form-group">
                         <label for="mdp">Mot de passe</label>
                         <input type="password" class="form-control form-control-sm mb-3" id="mdp" name="mdp"
-                               required value="<?php echo $show['mdp']; ?>">
-                        <small>Avant : <?php echo $show['mdp']; ?></small>
+                               required>
                     </div>
                     <button type="submit" class="btn btn-primary">
                         Modifier

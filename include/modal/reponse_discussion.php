@@ -24,7 +24,7 @@
                                 <textarea type="text" class="form-control form-control-sm mb-3" id="reponse"
                                           name="reponse" required></textarea>
                             </div>
-                            <button type="submit" value="<?php echo $show['idDiscussion']; ?>"
+                            <button type="submit" value="<?= $show['idDiscussion']; ?>"
                                     name="idDiscussion" class="btn btn-primary">Répondre
                             </button>
                         </form>

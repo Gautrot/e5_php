@@ -15,7 +15,10 @@
 include_once '../../../include/modal/preloader.php';
 // Header
 include_once '../../../include/header.php';
-include_once '../../../model/BDD.php';
+// ManaDiscus
+include_once '../../../manager/discussion/ManaDiscus.php';
+$liste = new Manager();
+$res = $liste->listeUtil();
 // Modal Inscription
 include_once '../../../include/modal/inscription.php';
 // Modal Mot de passe oublié
@@ -55,7 +58,7 @@ include_once '../../../include/modal/connectionAdmin.php';
             <div class="col-12">
                 <div class="modal-body">
                     <div class="login">
-                        <form method="POST" action="/e5_php/traitement/parent/inscription-parent-tr.php" style="width:100%">
+                        <form method="POST" action="/e5_php/traitement/parent/inscription-tr.php" style="width:100%">
                             <div class="form-row">
                                 <div class="col">
                                     <label for="nom">Nom</label>
@@ -111,18 +114,16 @@ include_once '../../../include/modal/connectionAdmin.php';
                                        required placeholder="ex : Banquier.ère">
                             </div>
                             <div class="form-group">
-                                <label for="adresse">Parent de :</label>
-                                  <select name="idEleve">
+                                <label for="idEleve">Parent de :</label>
+                                <select class="form-control idEleve" name="idEleve" id="idEleve">
                                     <option value="">- SELECTIONNER -</option>
-                                <?php $bdd = (new BDD)->getBase();
-                                $req = $bdd->query("SELECT nom, prenom, idUtilisateur FROM utilisateur WHERE statut = '1'");
-                                $res = $req->fetchall();
-                                foreach ($res as $value) { ?>
-                                  <option value="<?php echo $value['idUtilisateur']?>"><?php echo $value['nom'] , $value['prenom']?></option>
-                              <?php } ?>
-                            </select>
+                                    <?php foreach ($res as $invite) {
+                                        if ($invite['statut'] == '1') { ?>
+                                            <option value="<?= $invite['idEleve'] ?>"><?= $invite['nom'] . ' ' . $invite['prenom'] ?></option>
+                                        <?php }
+                                    } ?>
+                                </select>
                             </div>
-
                             <button type="submit" class="btn btn-primary">
                                 S'inscrire
                             </button>

@@ -34,7 +34,7 @@ require_once '../../../traitement/admin/cherche-util-tr.php'
                 <ul class="list-inline custom-breadcrumb">
                     <li class="list-inline-item">
                         <a class="h2 text-primary font-secondary" href="@@page-link">
-                            <?php echo $show['nom']; ?>
+                            <?= $show['nom']; ?>
                         </a>
                     </li>
                     <li class="list-inline-item text-white h3 font-secondary @@nasted"></li>
@@ -56,27 +56,27 @@ require_once '../../../traitement/admin/cherche-util-tr.php'
                     <tbody>
                     <tr>
                         <th scope="row">Nom</th>
-                        <td><?php echo $show['nom'] . ' ' . $show['prenom']; ?></td>
+                        <td><?= $show['nom'] . ' ' . $show['prenom']; ?></td>
                     </tr>
                     <tr>
                         <th scope="row">Né.e le</th>
-                        <td><?php echo $show['dateNaissance']; ?></td>
+                        <td><?= $show['dateNaissance']; ?></td>
                     </tr>
                     <tr>
                         <th scope="row">Numéro de téléphone</th>
-                        <td><?php echo $show['telephone']; ?></td>
+                        <td><?= $show['telephone']; ?></td>
                     </tr>
                     <tr>
                         <th scope="row">Adresse</th>
-                        <td><?php echo $show['adresse']; ?></td>
+                        <td><?= $show['adresse']; ?></td>
                     </tr>
                     <tr>
                         <th scope="row">Adresse mél</th>
-                        <td><?php echo $show['mail']; ?></td>
+                        <td><?= $show['mail']; ?></td>
                     </tr>
                     <tr>
                         <th scope="row">Login</th>
-                        <td><?php echo $show['login']; ?></td>
+                        <td><?= $show['login']; ?></td>
                     </tr>
                     <tr>
                         <th scope="row">Statut</th>

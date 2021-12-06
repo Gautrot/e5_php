@@ -5,7 +5,7 @@ require_once '../../manager/Manager.php';
 require_once '../../manager/parent/ManaParent.php';
 
 try {
-// instanciation de l'objet parent
+# Instancie la classe Parents
     $parent = new Parents([
         'nom' => $_POST['nom'],
         'prenom' => $_POST['prenom'],
@@ -18,8 +18,10 @@ try {
         'metier' => $_POST['metier'],
         'idEleve' => $_POST['idEleve']
     ]);
-// instanciation du manager
+
+# Instancie la classe ManaParent
     $manager = new ManaParent();
+# Lance la méthode inscrParent
     $manager->inscrParent($parent);
     header('Location: /e5_php/template/themes/template/index.php');
 } catch (Exception $e) {

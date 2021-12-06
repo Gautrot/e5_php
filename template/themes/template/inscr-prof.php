@@ -55,7 +55,7 @@ include_once '../../../include/modal/connectionAdmin.php';
             <div class="col-12">
                 <div class="modal-body">
                     <div class="login">
-                        <form method="POST" action="/e5_php/traitement/prof/inscription-prof-tr.php" style="width:100%">
+                        <form method="POST" action="/e5_php/traitement/prof/inscription-tr.php" style="width:100%">
                             <div class="form-row">
                                 <div class="col">
                                     <label for="nom">Nom</label>
