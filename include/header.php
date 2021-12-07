@@ -1,5 +1,6 @@
 <?php
 include_once '../../../manager/Manager.php';
+
 ?>
 <header class="fixed-top header">
     <!-- navbar -->
@@ -40,6 +41,7 @@ include_once '../../../manager/Manager.php';
                                             <?php break;
                                         case '2': ?>
                                             <a class="dropdown-item" href="rdv">Rendez-vous</a>
+                                            <a class="dropdown-item" href="discussions">Discussion</a>
                                             <?php break;
                                         case '3':
                                         case '4':

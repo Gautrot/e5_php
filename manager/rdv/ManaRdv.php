@@ -56,38 +56,46 @@ if (isset($idCreateurProf)) {
   }
 }
 
-        var_dump($res2);
-        var_dump($res3);
+        //var_dump($res2);
+        //var_dump($res3);
 
-        if (isset($idCreateurParent) && isset($idInviteProf)) {
-        $req = $bdd->prepare('INSERT INTO rdv (objet, message, date, horaire, dateCreation, idCreateurParent, idInviteProf) VALUES (:objet, :message, :date, :horaire, NOW(), :idCreateurParent, :idInviteProf)');
+
+        //var_dump(date('N', strtotime($_POST['date'])));
+
+        //var_dump($_POST['date']);
+        //die();
+        if (isset($idCreateurParent) && isset($idInviteProf) && date('N', strtotime($_POST['date'])) == 6) {
+        $req = $bdd->prepare('INSERT INTO rdv (objet, message, date, horaire, dateCreation, idCreateurParent, idInviteProf, validRdv) VALUES (:objet, :message, :date, :horaire, NOW(), :idCreateurParent, :idInviteProf, :validRdv)');
         $res1 = $req->execute([
             'objet' => $rdv->getObjet(),
             'message' => $rdv->getMessage(),
             'date' => $rdv->getDate(),
             'horaire' => $rdv->getHoraire(),
             'idCreateurParent' => $idCreateurParent['idParent'],
-            'idInviteProf' => $idInviteProf['idProf']
+            'idInviteProf' => $idInviteProf['idProf'],
+            'validRdv' => 1
         ]);
         //var_dump($res1);
 
        }
 
         else if (isset($idCreateurProf) && isset($idInviteParent)) {
-          $req = $bdd->prepare('INSERT INTO rdv (objet, message, date, horaire, dateCreation, idCreateurProf, idInviteParent) VALUES (:objet, :message, :date, :horaire, NOW(), :idCreateurProf, :idInviteParent)');
+          $req = $bdd->prepare('INSERT INTO rdv (objet, message, date, horaire, dateCreation, idCreateurProf, idInviteParent, validRdv) VALUES (:objet, :message, :date, :horaire, NOW(), :idCreateurProf, :idInviteParent, :validRdv)');
           $res1 = $req->execute([
               'objet' => $rdv->getObjet(),
               'message' => $rdv->getMessage(),
               'date' => $rdv->getDate(),
               'horaire' => $rdv->getHoraire(),
               'idCreateurProf' => $idCreateurProf['idProf'],
-              'idInviteParent' => $idInviteParent['idParent']
+              'idInviteParent' => $idInviteParent['idParent'],
+              'validRdv' => 1
           ]);
 
 
           //var_dump($res1);
 
         }
+
         //die();
         // S'il créé avec succès le rdv, alors il retourne un succès.
         if ($res1) {
@@ -110,4 +118,71 @@ if (isset($idCreateurProf)) {
         $req = $bdd->query('SELECT * FROM rdv ORDER BY dateCreation DESC');
         return $req->fetchAll();
     }
+
+    // Méthode d'affichage d'un rendez-vous
+
+        /**
+         * @throws Exception
+         */
+        public function chercheRdv(Rdv $rdv)
+        {
+          //  $statut = ['professeur', 'parent'];
+          //  $idStatut = ['Prof', 'Parent'];
+          //  $idCreateur = ['idCreateurProf', 'idCreateurParent'];
+            // On appelle la base de données
+            $bdd = (new BDD)->getBase();
+            // Cherche le rdv choisi et son créateur.rice
+            if ($_SESSION['user']['statut'] === '2') {
+                  $req = $bdd->prepare('SELECT * FROM rdv INNER JOIN parent ON parent.idParent = rdv.idCreateurParent INNER JOIN utilisateur ON utilisateur.idUtilisateur = parent.idUtil WHERE idRdv = :idRdv');
+                  $req->execute([
+                      'idRdv' => $rdv->getIdRdv()
+                  ]);
+                  $res2 = $req->fetch();
+                  // S'il trouve au moins un rdv, alors il retourne les valeurs
+                  return $res2;
+            }
+
+            else if ($_SESSION['user']['statut'] === '3') {
+                  $req = $bdd->prepare('SELECT * FROM rdv INNER JOIN prof ON prof.idProf = rdv.idCreateurProf INNER JOIN utilisateur ON utilisateur.idUtilisateur = prof.idUtil WHERE idRdv = :idRdv');
+                  $req->execute([
+                      'idRdv' => $rdv->getIdRdv()
+                  ]);
+                  $res2 = $req->fetch();
+                  // S'il trouve au moins un rdv, alors il retourne les valeurs
+                  return $res2;
+            }
+
+            // Sinon, on affiche un message d'erreur
+            throw new Exception('Erreur pendant la recherche du rendez-vous.', 1);
+        }
+
+        // Méthode d'annulation d'un rdv
+
+            /**
+             * @throws Exception
+             */
+            public function annuleRdv(Rdv $rdv)
+            {
+                // On appelle la base de données
+                $bdd = (new BDD)->getBase();
+                $req = $bdd->prepare('SELECT idRdv FROM rdv WHERE idRdv = :idRdv');
+                $req->execute([
+                    'idRdv' => $rdv->getIdRdv()
+                ]);
+                $res = $req->fetch();
+                // S'il trouve l'id du rdv, il va annuler celui-ci
+                if ($res) {
+                    $req = $bdd->prepare('UPDATE rdv SET validRdv = 0 WHERE idRdv = :idRdv');
+                    $req->execute([
+                        'idRdv' => $rdv->getIdRdv()
+                    ]);
+                    unset($_SESSION['erreur']);
+                    return true;
+                }
+                // Sinon, on affiche un message d'erreur
+                throw new Exception('Annulation échouée.', 1);
+            }
+
+
+
 }

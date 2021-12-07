@@ -1,8 +1,8 @@
 <?php
-include_once '../../../manager/evenement/ManaRdv.php';
-// Traitement "cherche-event-tr"
-require_once '../../../traitement/evenement/cherche-rdv-tr.php';
-// Traitement de liste d'évènement
+include_once '../../../manager/rdv/ManaRdv.php';
+// Traitement "cherche-rdv-tr"
+require_once '../../../traitement/rdv/cherche-rdv-tr.php';
+// Traitement de liste de rdv
 $liste = new ManaRdv();
 try {
   $res = $liste->listeRdv();
@@ -22,7 +22,7 @@ $today = date('Y-m-d H:i:s');
 
 <head>
   <?php include_once '../../../include/head.php' ?>
-  <title>Évènement - <?= $show['titre']; ?></title>
+  <title>Rendez-vous - <?= $show['titre']; ?></title>
 </head>
 
 <body>
@@ -60,7 +60,7 @@ $today = date('Y-m-d H:i:s');
     </section>
     <!-- /about -->
 
-    <!-- event single -->
+    <!-- rdv single -->
     <section class="section-sm">
       <div class="container">
         <div class="row">
@@ -72,7 +72,7 @@ $today = date('Y-m-d H:i:s');
             <img src="images/events/event-single.jpg" alt="event thumb" class="img-fluid w-100">
           </div>
         </div>
-        <!-- event info -->
+        <!-- rdv info -->
         <div class="row align-items-center mb-5">
           <div class="col-lg-9">
             <ul class="list-inline">
@@ -96,72 +96,40 @@ $today = date('Y-m-d H:i:s');
               </li>
             </ul>
           </div>
-          <?php if ($show['validEvent'] !== '0') {
-            if (!isset($show['idInscription']) || $_SESSION['user']['statut'] !== '4' || $_SESSION['user']['idUtilisateur'] !== $show['idUtil']) { ?>
-              <div class="col-lg-3 text-lg-right text-left">
-                <form method="post" action="/e5_php/traitement/evenement/inscription-event-tr">
-                  <button type="submit" class="btn btn-primary" name="inscription"
-                  value="<?= $show['idEvent']; ?>">S'inscrire
+          <?php if ($show['validRdv'] === '1') {
+             if ($_SESSION['user']['idUtilisateur'] === $show['idUtil'] || $annul < $today) { ?>
+            <div class="col-lg-3 text-lg-right text-left">
+              <form method="post" action="/e5_php/traitement/rdv/annule-rdv-tr.php">
+                <button type="submit" name="annulation" value="<?= $show['idRdv']; ?>"
+                  class="btn btn-danger">Annuler le rendez-vous
                 </button>
               </form>
             </div>
-          <?php } else { ?>
+        <?php }
+      } else { ?>
             <div class="col-lg-3 text-lg-right text-left">
-              <button class="btn btn-dark" disabled>Inscrit.e</button>
+              <button class="btn btn-dark" disabled>Rendez-vous annulé</button>
             </div>
-          <?php }
-        } else { ?>
-          <div class="col-lg-3 text-lg-right text-left">
-            <button class="btn btn-dark" disabled>Annulé</button>
-          </div>
-        <?php } ?>
+          <?php } ?>
       </div>
       <div class="row align-items-center mb-5">
-        <?php if ($_SESSION['user']['idUtilisateur'] === $show['idUtil']) {
-          if ($annul > $today && $show['validEvent'] !== '0') { ?>
-            <div class="col-lg-3 text-lg-right text-left">
-              <form method="post" action="/e5_php/traitement/evenement/annule-event-tr">
-                <button type="submit" name="annulation" value="<?= $show['idEvent']; ?>"
-                  class="btn btn-danger">Annuler l'évènement
-                </button>
-              </form>
-            </div>
-          <?php }
-        }
-        if ($_SESSION['user']['statut'] === '3' && $show['validEvent'] === '0') { ?>
-          <div class="col-lg-3 text-lg-right text-left">
-            <form method="post" action="/e5_php/traitement/evenement/valide-event-tr">
-              <button type="submit" name="validation" value="<?= $show['idEvent']; ?>"
-                class="btn btn-success">Valider l'évènement
-              </button>
-            </form>
-          </div>
-        <?php }
-        if ($_SESSION['user']['idUtilisateur'] === $show['idUtil']) { ?>
-          <div class="col-lg-3 text-lg-right text-left">
-            <form method="post" action="/e5_php/traitement/evenement/ajout-organisateur-event-tr">
-              <button type="submit" name="ajoutOrganisateur" value="<?= $show['idEvent']; ?>"
-                class="btn btn-success">+ Organisateur
-              </button>
-            </form>
-          </div>
-        <?php } ?>
+
         <!-- border -->
         <div class="col-12 mt-4 order-4">
           <div class="border-bottom border-primary"></div>
         </div>
       </div>
-      <!-- event details -->
+      <!-- rdv details -->
       <div class="row">
         <div class="col-12 mb-50">
           <h3>A propos</h3>
-          <p><?= $show['description']; ?></p>
+          <p><?= $show['message']; ?></p>
         </div>
       </div>
-      <!-- event speakers -->
+      <!-- rdv speakers -->
       <div class="row">
         <div class="col-12">
-          <h3 class="mb-4">Organisateur.s</h3>
+          <h3 class="mb-4">Organisateur.trice.s</h3>
         </div>
         <!-- speakers -->
         <?php if (isset($show['idCreateurParent'])) { ?>
@@ -207,26 +175,26 @@ $today = date('Y-m-d H:i:s');
         <!-- event -->
         <?php if (empty($res)) { ?>
           <div class="col-lg-4 col-sm-6 mb-5">
-            Il n'y a pas d'évènements pour le moment.
+            Il n'y a pas de rendez-vous pour le moment.
           </div>
         <?php } else {
-          foreach ($res as $event) {
-            if (isset($event) && $event['idEvent'] !== $show['idEvent']) { ?>
+          foreach ($res as $rdv) {
+            if (isset($rdv) && $rdv['idRdv'] !== $show['idRdv']) { ?>
               <div class="col-lg-4 col-sm-6 mb-5">
                 <div class="card border-0 rounded-0 hover-shadow">
                   <div class="card-img position-relative">
-                    <a href="evenement-no?idEvent=<?= $event['idEvent']; ?>">
+                    <a href="rdv-no?idRdv=<?= $rdv['idRdv']; ?>">
                       <img class="card-img-top rounded-0" src="images/events/event-1.jpg"
-                      alt="<?= $event['titre']; ?>">
+                      alt="<?= $rdv['objet']; ?>">
                     </a>
                     <div class="card-date">
-                      <span><?= substr($event['date'], 8, 2); ?></span><br>
-                      <?= substr($event['date'], 5, 2) . '/' . substr($event['date'], 0, 4) ?>
+                      <span><?= substr($rdv['date'], 8, 2); ?></span><br>
+                      <?= substr($rdv['date'], 5, 2) . '/' . substr($rdv['date'], 0, 4) ?>
                     </div>
                   </div>
                   <div class="card-body">
-                    <a href="evenement-no?idEvent=<?= $event['idEvent']; ?>">
-                      <h4 class="card-title"><?= $event['titre']; ?></h4>
+                    <a href="rdv-no?idRdv=<?= $rdv['idRdv']; ?>">
+                      <h4 class="card-title"><?= $rdv['objet']; ?></h4>
                     </a>
                   </div>
                 </div>
@@ -244,7 +212,7 @@ $today = date('Y-m-d H:i:s');
       </div>
     </div>
   </section>
-  <!-- /more event -->
+  <!-- /more rdv -->
 
   <?php
   // Footer

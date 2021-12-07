@@ -76,7 +76,7 @@ include_once '../../../include/modal/connectionAdmin.php';
 
                                       <?php foreach ($res as $rdv) {
                                           if ($rdv['statut'] == '3' && $rdv['idUtilisateur'] != $_SESSION['user']['idUtilisateur']) { ?>
-                                              <option value="<?= $rdv['idUtilisateur'] ?>"><?= $rdv['nom'] ?></option>
+                                              <option value="<?= $rdv['idProf'] ?>"><?= $rdv['nom'] ?></option>
                                           <?php }
                                       }} ?>
 
@@ -97,7 +97,7 @@ include_once '../../../include/modal/connectionAdmin.php';
 
                                   <?php foreach ($res as $rdv) {
                                       if ($rdv['statut'] == '2' && $rdv['idUtilisateur'] != $_SESSION['user']['idUtilisateur']) { ?>
-                                          <option value="<?= $rdv['idUtilisateur'] ?>"><?= $rdv['nom'] ?></option>
+                                          <option value="<?= $rdv['idParent'] ?>"><?= $rdv['nom'] ?></option>
                                       <?php }
                                   }} ?>
 
@@ -128,14 +128,14 @@ include_once '../../../include/modal/connectionAdmin.php';
                             </div>
 
                             <div class="form-group">
-                                <label for="date">Date du rendez-vous</label>
+                                <label for="date">Date du rendez-vous (que les samedis !)</label>
                                 <input type="date" class="form-control form-control-sm mb-3" id="date" name="date"
                                        required>
                             </div>
 
                             <div class="form-group">
-                                <label for="horaire">Heure du rendez-vous</label>
-                                <input type="time" class="form-control form-control-sm mb-3" id="horaire" name="horaire"
+                                <label for="horaire">Heure du rendez-vous (de 8h00 à 12h30 !)</label>
+                                <input type="time" class="form-control form-control-sm mb-3" id="horaire" name="horaire" min="08:00" max="12:30"
                                        required>
                             </div>
                             <button type="submit" class="btn btn-primary">Envoyer</button>

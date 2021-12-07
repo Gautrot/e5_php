@@ -1,5 +1,5 @@
 <?php
-include '../Manager.php';
+require_once __DIR__ . '/../Manager.php';
 
 // création de la classe ManaProf
 class ManaProf
@@ -13,6 +13,7 @@ class ManaProf
     {
         // Vérifie les conditions lors de la connection.
         // S'il y a une erreur, la fonction s'arrête.
+
         switch ($_POST) {
             case ($_POST['mdp'] == '' || $_POST['mdp'] == null):
                 throw new Exception('Mot de passe vide.', 1);
@@ -27,8 +28,7 @@ class ManaProf
         // Préparation de la requête pour la connexion d'un utilisateur
         $req = $bdd->prepare('SELECT idUtilisateur, login, mdp, statut, validUtilisateur FROM utilisateur WHERE login = :login');
         $req->execute([
-            'login' => $prof->getLogin(),
-            'mdp' => $prof->getMdp()
+            'login' => $prof->getLogin()
         ]);
         $res = $req->fetch();
         // Vérification du mot de passe entré par l'utilisateur.

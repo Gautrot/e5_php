@@ -2,6 +2,8 @@
 include_once '../../../manager/evenement/ManaEvent.php';
 // Traitement "cherche-event-tr"
 require_once '../../../traitement/evenement/cherche-event-tr.php';
+var_dump($show);
+die();
 // Traitement de liste d'évènement
 $liste = new ManaEvent();
 try {

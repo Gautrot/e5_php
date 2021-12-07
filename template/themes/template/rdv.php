@@ -80,19 +80,21 @@ include_once '../../../include/modal/connectionAdmin.php';
                     <div class="col-lg-4 col-sm-6 mb-5">
                         <div class="card border-0 rounded-0 hover-shadow">
                             <div class="card-img position-relative">
-                                <img class="card-img-top rounded-0" src="images/events/event-1.jpg" alt="event thumb">
+                              <a href="rdv-no?idRdv=<?= $rdv['idRdv']; ?>">
+                                <img class="card-img-top rounded-0" src="images/events/event-1.jpg" alt="<?= $rdv['objet']; ?>">
+                              </a>
                                 <div class="card-date">
                                     <span><?= substr($rdv['date'], 8, 2); ?></span><br>
                                     <?= substr($rdv['date'], 5, 2) . '/' . substr($rdv['date'], 0, 4) ?>
                                 </div>
                             </div>
                             <div class="card-body">
-                                <form method="post" action="rdv-no">
-                                    <button class="btn btn-lg btn-white" type="submit"
-                                            value="<?= $rdv['idRdv']; ?>"
-                                            name="idRdv"><?= $rdv['objet']; ?></button>
-                                </form>
+                              <div class="card-body">
+                                <a href="rdv-no?idRdv=<?= $rdv['idRdv']; ?>">
+                                  <h4 class="card-title"><?= $rdv['objet']; ?></h4>
+                                </a>
                             </div>
+                          </div>
                         </div>
                     </div>
                 <?php }
