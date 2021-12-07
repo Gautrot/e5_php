@@ -26,64 +26,51 @@ class Responsable extends Parents
         }
     }
 
-// LISTE DES GETTERS
-
+    /**
+     * @return mixed
+     */
     public function getIdResponsable()
     {
         return $this->idResponsable;
     }
 
+    /**
+     * @param mixed $idResponsable
+     */
+    public function setIdResponsable($idResponsable): void
+    {
+        $this->idResponsable = $idResponsable;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getIdParent()
     {
         return $this->idParent;
     }
 
+    /**
+     * @param mixed $idParent
+     */
+    public function setIdParent($idParent): void
+    {
+        $this->idParent = $idParent;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getIdEleve()
     {
         return $this->idEleve;
     }
 
-// LISTE DES SETTERS
-
-    public function setIdResponsable($idResponsable)
+    /**
+     * @param mixed $idEleve
+     */
+    public function setIdEleve($idEleve): void
     {
-        // On convertit l'argument en nombre entier.
-        // Si c'en était déjà un, rien ne changera.
-        // Sinon, la conversion donnera le nombre 0 (à quelques exceptions près, mais rien d'important ici).
-        $id = (int)$idResponsable;
-
-        // On vérifie ensuite si ce nombre est bien strictement positif.
-        if ($id > 0) {
-            // Si c'est le cas, c'est tout bon, on assigne la valeur à l'attribut correspondant.
-            $this->idResponsable = $idResponsable;
-        }
-    }
-
-    public function setIdParent($idParent)
-    {
-        // On convertit l'argument en nombre entier.
-        // Si c'en était déjà un, rien ne changera.
-        // Sinon, la conversion donnera le nombre 0 (à quelques exceptions près, mais rien d'important ici).
-        $id = (int)$idParent;
-
-        // On vérifie ensuite si ce nombre est bien strictement positif.
-        if ($id > 0) {
-            // Si c'est le cas, c'est tout bon, on assigne la valeur à l'attribut correspondant.
-            $this->idParent = $idParent;
-        }
-    }
-
-    public function setIdEleve($idEleve)
-    {
-        // On convertit l'argument en nombre entier.
-        // Si c'en était déjà un, rien ne changera.
-        // Sinon, la conversion donnera le nombre 0 (à quelques exceptions près, mais rien d'important ici).
-        $id = (int)$idEleve;
-
-        // On vérifie ensuite si ce nombre est bien strictement positif.
-        if ($id > 0) {
-            // Si c'est le cas, c'est tout bon, on assigne la valeur à l'attribut correspondant.
-            $this->idEleve = $idEleve;
-        }
+        $this->idEleve = $idEleve;
     }
 }

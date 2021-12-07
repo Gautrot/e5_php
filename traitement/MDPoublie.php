@@ -11,9 +11,10 @@ $email = $_POST['mail'];
 
 $bdd = new PDO('mysql:host=localhost;dbname=projet_lprs_sgs;charset=utf8', 'root', ''); // on se connecte à la base de donnée "lprs", avec l'uttilisateur "root" avec l'encodage utf-8
 
-$reponse = $bdd->prepare('SELECT idUtilisateur, mail, mdp FROM utilisateur WHERE mail = :mail');  //on prepare la requete de php pour accéder aux identifiants dans la base de données en sql
-$reponse->execute(array('mail' => $_POST["mail"])); //on insère sous forme de tableau les données que l'on veut récupérer de la base
-//var_dump($_POST["mail"]);
+$reponse = $bdd->prepare('SELECT idUtilisateur, mail FROM utilisateur WHERE mail = :mail');  //on prepare la requete de php pour accéder aux identifiants dans la base de données en sql
+$reponse->execute([
+    'mail' => $_POST["mail"]
+]); //on insère sous forme de tableau les données que l'on veut récupérer de la base
 $donne = $reponse->fetch(); //on execute finalement la requete
 if ($donne) {
     // si le mail existe, on applique la condition qui suit
@@ -212,6 +213,5 @@ Pas de probl&#232;me, cliquez sur le bouton pour acceder &#224; un changement de
 } else {
     // Gestion d'erreur, si le mail n'as pas été envoyé
     $_SESSION['erreur_mail'] = 1;
-//    var_dump($_POST["mail"]);
 }
 header('location:../template/themes/template/index.php');

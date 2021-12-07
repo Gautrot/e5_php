@@ -25,180 +25,179 @@ class Evenement
         }
     }
 
-// LISTE DES GETTERS
-
+    /**
+     * @return mixed
+     */
     public function getIdEvent()
     {
         return $this->idEvent;
     }
 
+    /**
+     * @param mixed $idEvent
+     */
+    public function setIdEvent($idEvent): void
+    {
+        $this->idEvent = $idEvent;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getTitre()
     {
         return $this->titre;
     }
 
+    /**
+     * @param mixed $titre
+     */
+    public function setTitre($titre): void
+    {
+        $this->titre = $titre;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getDescription()
     {
         return $this->description;
     }
 
-    public function getType()
+    /**
+     * @param mixed $description
+     */
+    public function setDescription($description): void
+    {
+        $this->description = $description;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType(): string
     {
         return $this->type;
     }
 
+    /**
+     * @param string $type
+     */
+    public function setType(string $type): void
+    {
+        $this->type = $type;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getDate()
     {
         return $this->date;
     }
 
+    /**
+     * @param mixed $date
+     */
+    public function setDate($date): void
+    {
+        $this->date = $date;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getHoraire()
     {
         return $this->horaire;
     }
 
+    /**
+     * @param mixed $horaire
+     */
+    public function setHoraire($horaire): void
+    {
+        $this->horaire = $horaire;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getDateCreation()
     {
         return $this->dateCreation;
     }
 
-    public function getValidEvent()
+    /**
+     * @param mixed $dateCreation
+     */
+    public function setDateCreation($dateCreation): void
+    {
+        $this->dateCreation = $dateCreation;
+    }
+
+    /**
+     * @return int
+     */
+    public function getValidEvent(): int
     {
         return $this->validEvent;
     }
 
+    /**
+     * @param int $validEvent
+     */
+    public function setValidEvent(int $validEvent): void
+    {
+        $this->validEvent = $validEvent;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getIdCreateurEleve()
     {
         return $this->idCreateurEleve;
     }
 
+    /**
+     * @param mixed $idCreateurEleve
+     */
+    public function setIdCreateurEleve($idCreateurEleve): void
+    {
+        $this->idCreateurEleve = $idCreateurEleve;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getIdCreateurParent()
     {
         return $this->idCreateurParent;
     }
 
+    /**
+     * @param mixed $idCreateurParent
+     */
+    public function setIdCreateurParent($idCreateurParent): void
+    {
+        $this->idCreateurParent = $idCreateurParent;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getIdCreateurProf()
     {
         return $this->idCreateurProf;
     }
 
-// LISTE DES SETTERS
-
-    public function setIdEvent($idEvent)
+    /**
+     * @param mixed $idCreateurProf
+     */
+    public function setIdCreateurProf($idCreateurProf): void
     {
-        // On convertit l'argument en nombre entier.
-        // Si c'en était déjà un, rien ne changera.
-        // Sinon, la $idEvent donnera le nombre 0 (à quelques exceptions près, mais rien d'important ici).
-        $id = (int)$idEvent;
-
-        // On vérifie ensuite si ce nombre est bien strictement positif.
-        if ($id > 0) {
-            // Si c'est le cas, c'est tout bon, on assigne la valeur à l'attribut correspondant.
-            $this->idEvent = $idEvent;
-        }
-    }
-
-    public function setTitre($titre)
-    {
-        // On vérifie qu'il s'agit bien d'une chaîne de caractères.
-        if (is_string($titre)) {
-            $this->titre = $titre;
-        }
-    }
-
-    public function setDescription($description)
-    {
-        // On vérifie qu'il s'agit bien d'une chaîne de caractères.
-        if (is_string($description)) {
-            $this->description = $description;
-        }
-    }
-
-    public function setType($type)
-    {
-        // On vérifie qu'il s'agit bien d'une chaîne de caractères.
-        if (is_string($type)) {
-            $this->type = $type;
-        }
-    }
-
-    public function setDate($date)
-    {
-        // On vérifie qu'il s'agit bien d'une chaîne de caractères.
-        if (is_string($date)) {
-            $this->date = $date;
-        }
-    }
-
-    public function setHoraire($horaire)
-    {
-        // On vérifie qu'il s'agit bien d'une chaîne de caractères.
-        if (is_string($horaire)) {
-            $this->horaire = $horaire;
-        }
-    }
-
-    public function setDateCreation($dateCreation)
-    {
-        // On vérifie qu'il s'agit bien d'une chaîne de caractères.
-        if (is_string($dateCreation)) {
-            $this->dateCreation = $dateCreation;
-        }
-    }
-
-    public function setValidEvent($validEvent)
-    {
-        // On convertit l'argument en nombre entier.
-        // Si c'en était déjà un, rien ne changera.
-        // Sinon, la conversion donnera le nombre 0 (à quelques exceptions près, mais rien d'important ici).
-        $valid = (int)$validEvent;
-
-        // On vérifie ensuite si ce nombre est bien positif.
-        if ($valid >= 0) {
-            // Si c'est le cas, c'est tout bon, on assigne la valeur à l'attribut correspondant.
-            $this->validEvent = $validEvent;
-        }
-    }
-
-    public function setIdCreateurEleve($idCreateurEleve)
-    {
-        // On convertit l'argument en nombre entier.
-        // Si c'en était déjà un, rien ne changera.
-        // Sinon, la $idEvent donnera le nombre 0 (à quelques exceptions près, mais rien d'important ici).
-        $id = (int)$idCreateurEleve;
-
-        // On vérifie ensuite si ce nombre est bien strictement positif.
-        if ($id > 0) {
-            // Si c'est le cas, c'est tout bon, on assigne la valeur à l'attribut correspondant.
-            $this->idCreateurEleve = $idCreateurEleve;
-        }
-    }
-
-    public function setIdCreateurParent($idCreateurParent)
-    {
-        // On convertit l'argument en nombre entier.
-        // Si c'en était déjà un, rien ne changera.
-        // Sinon, la $idEvent donnera le nombre 0 (à quelques exceptions près, mais rien d'important ici).
-        $id = (int)$idCreateurParent;
-
-        // On vérifie ensuite si ce nombre est bien strictement positif.
-        if ($id > 0) {
-            // Si c'est le cas, c'est tout bon, on assigne la valeur à l'attribut correspondant.
-            $this->idCreateurParent = $idCreateurParent;
-        }
-    }
-
-    public function setIdCreateurProf($idCreateurProf)
-    {
-        // On convertit l'argument en nombre entier.
-        // Si c'en était déjà un, rien ne changera.
-        // Sinon, la $idEvent donnera le nombre 0 (à quelques exceptions près, mais rien d'important ici).
-        $id = (int)$idCreateurProf;
-
-        // On vérifie ensuite si ce nombre est bien strictement positif.
-        if ($id > 0) {
-            // Si c'est le cas, c'est tout bon, on assigne la valeur à l'attribut correspondant.
-            $this->idCreateurProf = $idCreateurProf;
-        }
+        $this->idCreateurProf = $idCreateurProf;
     }
 }

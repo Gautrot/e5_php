@@ -1,3 +1,24 @@
+<?php
+if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') {
+    $url = "https";
+} else {
+    $url = "http";
+}
+$url .= "://";
+$url .= $_SERVER['HTTP_HOST'];
+$url .= $_SERVER['REQUEST_URI'];
+
+$parse = parse_url($url, PHP_URL_QUERY);
+$str = str_replace("mail=", "", $parse);
+
+$bdd = new PDO('mysql:host=localhost;dbname=projet_lprs_sgs;charset=utf8', 'root', ''); // on se connecte à la base de donnée "lprs", avec l'uttilisateur "root" avec l'encodage utf-8
+$reponse = $bdd->prepare('SELECT mail, mdp FROM utilisateur WHERE mail = :mail');  //on prepare la requete de php pour accéder aux identifiants dans la base de données en sql
+$reponse->execute([
+    'mail' => $str
+]); //on insère sous forme de tableau les données que l'on veut récupérer de la base
+$donne = $reponse->fetch(); //on execute finalement la requete
+?>
+
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -42,23 +63,8 @@ require_once '../../../traitement/cherche-util-tr.php'
     </div>
 </section>
 
-<!--Recuperate l'url -->
-<?php
-if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') {
-    $url = "https";
-} else {
-    $url = "http";
-}
-$url .= "://";
-$url .= $_SERVER['HTTP_HOST'];
-$url .= $_SERVER['REQUEST_URI'];
+<!--Recupere l'url -->
 
-$parse = parse_url($url, PHP_URL_QUERY);
-//var_dump($parse);
-$str = str_replace("mail=", "", $parse);
-//var_dump($str);
-//var_dump($url);
-?>
 <!--Fin de la recuperation -->
 
 <!-- /page title -->
@@ -70,23 +76,17 @@ $str = str_replace("mail=", "", $parse);
             <div class="col-md-6 mb-5">
                 <h3>Modification de mot de passe</h3>
                 <form action="/e5_php/traitement/modifMDP-tr.php" method="post">
-                    <?php $bdd = new PDO('mysql:host=localhost;dbname=projet_lprs_sgs;charset=utf8', 'root', ''); // on se connecte à la base de donnée "lprs", avec l'uttilisateur "root" avec l'encodage utf-8
-
-                $reponse = $bdd->prepare('SELECT mail, mdp FROM utilisateur WHERE mail = :mail') ;  //on prepare la requete de php pour accéder aux identifiants dans la base de données en sql
-                $reponse->execute(array('mail'=>$str)); //on insère sous forme de tableau les données que l'on veut récupérer de la base
-                $donne = $reponse->fetch(); //on execute finalement la requete
-                var_dump($donne); ?>
-                <div class="form-group">
-                <div class="col-12">
-                            <label for="login">Login</label>
-                            <input type="text" class="form-control form-control-sm mb-3" id="login" name="login"
+                    <div class="form-group">
+                        <div class="col-12">
+                            <label for="mail">Mail</label>
+                            <input type="text" class="form-control form-control-sm mb-3" id="mail" name="mail"
                                    required
                                    maxlength="40" value="<?= $donne['mail']; ?>">
                         </div>
                         <div class="form-group">
                             <label for="mdp">Mot de passe</label>
                             <input type="password" class="form-control form-control-sm mb-3" id="mdp" name="mdp"
-                                   required value="<?= $donne['mdp']; ?>">
+                                   required>
                         </div>
                         <button type="submit" class="btn btn-primary" href="/e5_php/traitement/modifMDP-tr">
                             Modifier

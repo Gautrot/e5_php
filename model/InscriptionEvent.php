@@ -26,102 +26,84 @@ class InscriptionEvent extends Evenement
         }
     }
 
-// LISTE DES GETTERS
-
+    /**
+     * @return mixed
+     */
     public function getIdInscription()
     {
         return $this->idInscription;
     }
 
+    /**
+     * @param mixed $idInscription
+     */
+    public function setIdInscription($idInscription): void
+    {
+        $this->idInscription = $idInscription;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getIdEleve()
     {
         return $this->idEleve;
     }
 
+    /**
+     * @param mixed $idEleve
+     */
+    public function setIdEleve($idEleve): void
+    {
+        $this->idEleve = $idEleve;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getIdParent()
     {
         return $this->idParent;
     }
 
+    /**
+     * @param mixed $idParent
+     */
+    public function setIdParent($idParent): void
+    {
+        $this->idParent = $idParent;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getIdProf()
     {
         return $this->idProf;
     }
 
+    /**
+     * @param mixed $idProf
+     */
+    public function setIdProf($idProf): void
+    {
+        $this->idProf = $idProf;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getIdEvent()
     {
         return $this->idEvent;
     }
 
-// LISTE DES SETTERS
-
-    public function setIdInscription($idInscription)
+    /**
+     * @param mixed $idEvent
+     */
+    public function setIdEvent($idEvent): void
     {
-        // On convertit l'argument en nombre entier.
-        // Si c'en était déjà un, rien ne changera.
-        // Sinon, la conversion donnera le nombre 0 (à quelques exceptions près, mais rien d'important ici).
-        $id = (int)$idInscription;
-
-        // On vérifie ensuite si ce nombre est bien strictement positif.
-        if ($id > 0) {
-            // Si c'est le cas, c'est tout bon, on assigne la valeur à l'attribut correspondant.
-            $this->idInscription = $idInscription;
-        }
+        $this->idEvent = $idEvent;
     }
 
-    public function setIdEleve($idEleve)
-    {
-        // On convertit l'argument en nombre entier.
-        // Si c'en était déjà un, rien ne changera.
-        // Sinon, la conversion donnera le nombre 0 (à quelques exceptions près, mais rien d'important ici).
-        $id = (int)$idEleve;
-
-        // On vérifie ensuite si ce nombre est bien strictement positif.
-        if ($id > 0) {
-            // Si c'est le cas, c'est tout bon, on assigne la valeur à l'attribut correspondant.
-            $this->idEleve = $idEleve;
-        }
-    }
-
-    public function setIdParent($idParent)
-    {
-        // On convertit l'argument en nombre entier.
-        // Si c'en était déjà un, rien ne changera.
-        // Sinon, la conversion donnera le nombre 0 (à quelques exceptions près, mais rien d'important ici).
-        $id = (int)$idParent;
-
-        // On vérifie ensuite si ce nombre est bien strictement positif.
-        if ($id > 0) {
-            // Si c'est le cas, c'est tout bon, on assigne la valeur à l'attribut correspondant.
-            $this->idParent = $idParent;
-        }
-    }
-
-    public function setIdProf($idProf)
-    {
-        // On convertit l'argument en nombre entier.
-        // Si c'en était déjà un, rien ne changera.
-        // Sinon, la conversion donnera le nombre 0 (à quelques exceptions près, mais rien d'important ici).
-        $id = (int)$idProf;
-
-        // On vérifie ensuite si ce nombre est bien strictement positif.
-        if ($id > 0) {
-            // Si c'est le cas, c'est tout bon, on assigne la valeur à l'attribut correspondant.
-            $this->idProf = $idProf;
-        }
-    }
-
-    public function setIdEvent($idEvent)
-    {
-        // On convertit l'argument en nombre entier.
-        // Si c'en était déjà un, rien ne changera.
-        // Sinon, la conversion donnera le nombre 0 (à quelques exceptions près, mais rien d'important ici).
-        $id = (int)$idEvent;
-
-        // On vérifie ensuite si ce nombre est bien strictement positif.
-        if ($id > 0) {
-            // Si c'est le cas, c'est tout bon, on assigne la valeur à l'attribut correspondant.
-            $this->idEvent = $idEvent;
-        }
-    }
 }

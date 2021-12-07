@@ -129,13 +129,11 @@ class Manager
         // on récupère l'utilisateur ayant perdu son mot de passe
         $reponse = $bdd->prepare('SELECT idUtilisateur ,mail,mdp FROM utilisateur WHERE mail = :mail');  //on prepare la requete de php pour accéder aux identifiants dans la base de données en sql
         $reponse->execute(array('mail' => $_POST["mail"]));
-        var_dump($_POST["mail"]); //on insère sous forme de tableau les données que l'on veut récupérer de la base
+        //on insère sous forme de tableau les données que l'on veut récupérer de la base
         $donne = $reponse->fetch(); //on execute finalement la requete
-        var_dump($donne);
         //Si l'adresse email correspond à aucun mail et donc aucun utilisateur
         if ($profil) {
             $select_idUtilisateur = '';
-            var_dump($select_idUtilisateur);
             $this->mail('Mot de passe oublié', $body, $select_idUser, $mail_user);
         }
         header('Location: /e5_php/template/themes/template/index.php');

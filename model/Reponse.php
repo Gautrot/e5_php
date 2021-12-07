@@ -26,109 +26,99 @@ class Reponse extends Discussion
         }
     }
 
-// LISTE DES GETTERS
-
+    /**
+     * @return mixed
+     */
     public function getIdReponse()
     {
         return $this->idReponse;
     }
 
+    /**
+     * @param mixed $idReponse
+     */
+    public function setIdReponse($idReponse): void
+    {
+        $this->idReponse = $idReponse;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getReponse()
     {
         return $this->reponse;
     }
 
+    /**
+     * @param mixed $reponse
+     */
+    public function setReponse($reponse): void
+    {
+        $this->reponse = $reponse;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getDateCreation()
     {
         return $this->dateCreation;
     }
 
+    /**
+     * @param mixed $dateCreation
+     */
+    public function setDateCreation($dateCreation): void
+    {
+        $this->dateCreation = $dateCreation;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getIdDiscussion()
     {
         return $this->idDiscussion;
     }
 
+    /**
+     * @param mixed $idDiscussion
+     */
+    public function setIdDiscussion($idDiscussion): void
+    {
+        $this->idDiscussion = $idDiscussion;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getIdCreateurEleve()
     {
         return $this->idCreateurEleve;
     }
 
+    /**
+     * @param mixed $idCreateurEleve
+     */
+    public function setIdCreateurEleve($idCreateurEleve): void
+    {
+        $this->idCreateurEleve = $idCreateurEleve;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getIdCreateurProf()
     {
         return $this->idCreateurProf;
     }
 
-// LISTE DES SETTERS
-
-    public function setIdReponse($idReponse)
+    /**
+     * @param mixed $idCreateurProf
+     */
+    public function setIdCreateurProf($idCreateurProf): void
     {
-        // On convertit l'argument en nombre entier.
-        // Si c'en était déjà un, rien ne changera.
-        // Sinon, la $idDiscussion donnera le nombre 0 (à quelques exceptions près, mais rien d'important ici).
-        $id = (int)$idReponse;
-
-        // On vérifie ensuite si ce nombre est bien strictement positif.
-        if ($id > 0) {
-            // Si c'est le cas, c'est tout bon, on assigne la valeur à l'attribut correspondant.
-            $this->idReponse = $idReponse;
-        }
-    }
-
-    public function setReponse($reponse)
-    {
-        // On vérifie qu'il s'agit bien d'une chaîne de caractères.
-        if (is_string($reponse)) {
-            $this->reponse = $reponse;
-        }
-    }
-
-    public function setDateCreation($dateCreation)
-    {
-        // On vérifie qu'il s'agit bien d'une chaîne de caractères.
-        if (is_string($dateCreation)) {
-            $this->dateCreation = $dateCreation;
-        }
-    }
-
-    public function setIdDiscussion($idDiscussion)
-    {
-        // On convertit l'argument en nombre entier.
-        // Si c'en était déjà un, rien ne changera.
-        // Sinon, la $idDiscussion donnera le nombre 0 (à quelques exceptions près, mais rien d'important ici).
-        $id = (int)$idDiscussion;
-
-        // On vérifie ensuite si ce nombre est bien strictement positif.
-        if ($id > 0) {
-            // Si c'est le cas, c'est tout bon, on assigne la valeur à l'attribut correspondant.
-            $this->idDiscussion = $idDiscussion;
-        }
-    }
-
-    public function setIdCreateurEleve($idCreateurEleve)
-    {
-        // On convertit l'argument en nombre entier.
-        // Si c'en était déjà un, rien ne changera.
-        // Sinon, la $idDiscussion donnera le nombre 0 (à quelques exceptions près, mais rien d'important ici).
-        $id = (int)$idCreateurEleve;
-
-        // On vérifie ensuite si ce nombre est bien strictement positif.
-        if ($id > 0) {
-            // Si c'est le cas, c'est tout bon, on assigne la valeur à l'attribut correspondant.
-            $this->idCreateurEleve = $idCreateurEleve;
-        }
-    }
-
-    public function setIdCreateurProf($idCreateurProf)
-    {
-        // On convertit l'argument en nombre entier.
-        // Si c'en était déjà un, rien ne changera.
-        // Sinon, la $idDiscussion donnera le nombre 0 (à quelques exceptions près, mais rien d'important ici).
-        $id = (int)$idCreateurProf;
-
-        // On vérifie ensuite si ce nombre est bien strictement positif.
-        if ($id > 0) {
-            // Si c'est le cas, c'est tout bon, on assigne la valeur à l'attribut correspondant.
-            $this->idCreateurProf = $idCreateurProf;
-        }
+        $this->idCreateurProf = $idCreateurProf;
     }
 }
