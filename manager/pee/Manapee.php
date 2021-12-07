@@ -19,7 +19,7 @@ class Manapee extends Manager
         ]);
         $res2 = $req->fetch();
 
-        $req = $bdd->prepare('INSERT INTO classe (nom, description, ref_classe, date, ref_prof) VALUES (:nom, :description, :ref_classe, :date, :ref_prof)');
+        $req = $bdd->prepare('INSERT INTO projet_edu (nom,description, ref_classe, date, ref_prof) VALUES (:nom, :description, :ref_classe, :date, :ref_prof)');
         $res1 = $req->execute([
             'nom' => $pee->getNom(),
             'description' => $pee->getDescription(),
@@ -28,7 +28,6 @@ class Manapee extends Manager
             'ref_prof' => $res2['idProf']
         ]);
         var_dump($res1);
-        die();
         if ($res1) {
             unset($_SESSION['erreur']);
             return true;
