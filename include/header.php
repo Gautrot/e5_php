@@ -47,6 +47,7 @@ include_once '../../../manager/Manager.php';
                                         case '4':
                                             ?>
                                             <a class="dropdown-item" href="discussions">Discussion</a>
+                                            <a class="dropdown-item" href="pee">Projets éducatifs de l’établissemen</a>
                                             <a class="dropdown-item" href="rdv">Rendez-vous</a>
                                             <?php break;
                                     } ?>
