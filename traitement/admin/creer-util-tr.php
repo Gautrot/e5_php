@@ -10,8 +10,8 @@ require_once '../../manager/admin/ManaAdmin.php';
 try {
 # Instancie la classe ManaAdmin
     $manager = new ManaAdmin();
-
     $statut = $_POST['statut'];
+
     switch ($statut) {
         case '1':
             # Instancie la classe Eleve
@@ -24,7 +24,6 @@ try {
                 'mail' => $_POST['mail'],
                 'login' => $_POST['login'],
                 'mdp' => $_POST['mdp'],
-                'statut' => $_POST['statut'],
                 'classe' => $_POST['classe']
             ]);
             # Lance la méthode creerEleve
@@ -41,7 +40,6 @@ try {
                 'mail' => $_POST['mail'],
                 'login' => $_POST['login'],
                 'mdp' => $_POST['mdp'],
-                'statut' => $_POST['statut'],
                 'metier' => $_POST['metier'],
                 'idEleve' => $_POST['idEleve']
             ]);
@@ -59,9 +57,7 @@ try {
                 'mail' => $_POST['mail'],
                 'login' => $_POST['login'],
                 'mdp' => $_POST['mdp'],
-                'statut' => $_POST['statut'],
                 'matiere' => $_POST['matiere'],
-                'validation' => $_POST['validation']
             ]);
             # Lance la méthode creerProf
             $manager->creerProf($prof);
@@ -77,9 +73,6 @@ try {
                 'mail' => $_POST['mail'],
                 'login' => $_POST['login'],
                 'mdp' => $_POST['mdp'],
-                'statut' => $_POST['statut'],
-                'validUtilisateur' => 1,
-                'validation' => $_POST['validation']
             ]);
             # Lance la méthode creerAdmin
             $manager->creerAdmin($admin);
@@ -95,7 +88,6 @@ try {
                 'mail' => $_POST['mail'],
                 'login' => $_POST['login'],
                 'mdp' => $_POST['mdp'],
-                'statut' => $_POST['statut']
             ]);
             # Lance la méthode creerUtil
             $manager->creerUtil($user);

@@ -125,6 +125,8 @@ class ManaAdmin extends Manager
      */
     public function creerUtil(Utilisateur $user)
     {
+        // Encryptage du mot de passe
+        $hash = password_hash($_POST['mdp'], PASSWORD_DEFAULT);
         // On appelle la base de données
         $bdd = (new BDD)->getBase();
         $req = $bdd->query('SELECT * FROM utilisateur');
@@ -143,7 +145,7 @@ class ManaAdmin extends Manager
                     throw new Exception('Le nom et prénom sont déjà pris par un autre utilisateur.');
             }
         }
-        $req = $bdd->prepare('INSERT INTO utilisateur (nom, prenom, dateNaissance, adresse, telephone, mail, login, mdp) VALUES (:nom, :prenom, :dateNaissance, :adresse, :telephone, :mail, :login, :mdp)');
+        $req = $bdd->prepare('INSERT INTO utilisateur (nom, prenom, dateNaissance, adresse, telephone, mail, login, mdp, statut) VALUES (:nom, :prenom, :dateNaissance, :adresse, :telephone, :mail, :login, :mdp, 0)');
         $res2 = $req->execute([
             'nom' => $user->getNom(),
             'prenom' => $user->getPrenom(),
@@ -152,7 +154,7 @@ class ManaAdmin extends Manager
             'telephone' => $user->getTelephone(),
             'mail' => $user->getMail(),
             'login' => $user->getLogin(),
-            'mdp' => $user->getMdp()
+            'mdp' => $hash
         ]);
         // S'il créé avec succès l'utilisateur, alors il retourne un succès.
         if ($res2) {
@@ -170,6 +172,8 @@ class ManaAdmin extends Manager
      */
     public function creerEleve(Eleve $eleve)
     {
+        // Encryptage du mot de passe
+        $hash = password_hash($_POST['mdp'], PASSWORD_DEFAULT);
         // On appelle la base de données
         $bdd = (new BDD)->getBase();
         $req = $bdd->query('SELECT * FROM utilisateur');
@@ -189,7 +193,7 @@ class ManaAdmin extends Manager
             }
         }
         $req = $bdd->prepare('
-            INSERT INTO utilisateur (nom, prenom, dateNaissance, adresse, telephone, mail, login, mdp) VALUES (:nom, :prenom, :dateNaissance, :adresse, :telephone, :mail, :login, :mdp);
+            INSERT INTO utilisateur (nom, prenom, dateNaissance, adresse, telephone, mail, login, mdp, statut) VALUES (:nom, :prenom, :dateNaissance, :adresse, :telephone, :mail, :login, :mdp, 1);
             INSERT INTO eleve (classe, idUtil) VALUES (:classe, LAST_INSERT_ID());
         ');
         $res2 = $req->execute([
@@ -200,7 +204,7 @@ class ManaAdmin extends Manager
             'telephone' => $eleve->getTelephone(),
             'mail' => $eleve->getMail(),
             'login' => $eleve->getLogin(),
-            'mdp' => $eleve->getMdp(),
+            'mdp' => $hash,
             'classe' => $eleve->getClasse()
         ]);
         // S'il créé avec succès l'étudiant, alors il retourne un succès.
@@ -219,6 +223,8 @@ class ManaAdmin extends Manager
      */
     public function creerParent(Parents $parent)
     {
+        // Encryptage du mot de passe
+        $hash = password_hash($_POST['mdp'], PASSWORD_DEFAULT);
         // On appelle la base de données
         $bdd = (new BDD)->getBase();
         $req = $bdd->query('SELECT * FROM utilisateur');
@@ -238,7 +244,7 @@ class ManaAdmin extends Manager
             }
         }
         $req = $bdd->prepare('
-                INSERT INTO utilisateur (nom, prenom, dateNaissance, adresse, telephone, mail, login, mdp) VALUES (:nom, :prenom, :dateNaissance, :adresse, :telephone, :mail, :login, :mdp);
+                INSERT INTO utilisateur (nom, prenom, dateNaissance, adresse, telephone, mail, login, mdp, statut) VALUES (:nom, :prenom, :dateNaissance, :adresse, :telephone, :mail, :login, :mdp, 2);
                 INSERT INTO parent (metier, idUtil) VALUES (:metier, LAST_INSERT_ID());
             ');
         $res2 = $req->execute([
@@ -249,7 +255,7 @@ class ManaAdmin extends Manager
             'telephone' => $parent->getTelephone(),
             'mail' => $parent->getMail(),
             'login' => $parent->getLogin(),
-            'mdp' => $parent->getMdp(),
+            'mdp' => $hash,
             'metier' => $parent->getMetier()
         ]);
         // S'il créé avec succès le parent, alors il retourne un succès.
@@ -268,6 +274,8 @@ class ManaAdmin extends Manager
      */
     public function creerProf(Professeur $prof)
     {
+        // Encryptage du mot de passe
+        $hash = password_hash($_POST['mdp'], PASSWORD_DEFAULT);
         // On appelle la base de données
         $bdd = (new BDD)->getBase();
         $req = $bdd->query('SELECT * FROM utilisateur');
@@ -287,7 +295,7 @@ class ManaAdmin extends Manager
             }
         }
         $req = $bdd->prepare('
-                INSERT INTO utilisateur (nom, prenom, dateNaissance, adresse, telephone, mail, login, mdp) VALUES (:nom, :prenom, :dateNaissance, :adresse, :telephone, :mail, :login, :mdp);
+                INSERT INTO utilisateur (nom, prenom, dateNaissance, adresse, telephone, mail, login, mdp, statut) VALUES (:nom, :prenom, :dateNaissance, :adresse, :telephone, :mail, :login, :mdp, 3);
                 INSERT INTO professeur (matiere, idUtil) VALUES (:matiere, LAST_INSERT_ID());
             ');
         $res2 = $req->execute([
@@ -298,7 +306,7 @@ class ManaAdmin extends Manager
             'telephone' => $prof->getTelephone(),
             'mail' => $prof->getMail(),
             'login' => $prof->getLogin(),
-            'mdp' => $prof->getMdp(),
+            'mdp' => $hash,
             'matiere' => $prof->getMatiere()
         ]);
         // S'il créé avec succès le professeur, alors il retourne un succès.
@@ -317,6 +325,8 @@ class ManaAdmin extends Manager
      */
     public function creerAdmin(Administrateur $admin)
     {
+        // Encryptage du mot de passe
+        $hash = password_hash($_POST['mdp'], PASSWORD_DEFAULT);
         // On appelle la base de données
         $bdd = (new BDD)->getBase();
         $req = $bdd->query('SELECT * FROM utilisateur');
@@ -336,7 +346,7 @@ class ManaAdmin extends Manager
             }
         }
         $req = $bdd->prepare('
-                INSERT INTO utilisateur (nom, prenom, dateNaissance, adresse, telephone, mail, login, mdp, validUtilisateur) VALUES (:nom, :prenom, :dateNaissance, :adresse, :telephone, :mail, :login, :mdp, :validUtilisateur);
+                INSERT INTO utilisateur (nom, prenom, dateNaissance, adresse, telephone, mail, login, mdp, validUtilisateur, statut) VALUES (:nom, :prenom, :dateNaissance, :adresse, :telephone, :mail, :login, :mdp, 1, 4);
                 INSERT INTO administrateur (idUtil) VALUES (LAST_INSERT_ID());
             ');
         $res2 = $req->execute([
@@ -347,8 +357,7 @@ class ManaAdmin extends Manager
             'telephone' => $admin->getTelephone(),
             'mail' => $admin->getMail(),
             'login' => $admin->getLogin(),
-            'mdp' => $admin->getMdp(),
-            'validUtilisateur' => $admin->getValidUtilisateur()
+            'mdp' => $hash,
         ]);
         // S'il créé avec succès l'administrateur, alors il retourne un succès.
         if ($res2) {

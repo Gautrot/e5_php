@@ -55,16 +55,7 @@ include_once '../../../include/modal/connectionAdmin.php';
                     <tr>
                         <th></th>
                         <th>Nom</th>
-                        <!--
-                        <th>ID</th>
-                        <th>Né.e le</th>
-                        <th>Adresse</th>
-                        <th>Tél.</th>
-                        <th>E-mail</th>
-                        <th>Login</th>
-                        <th>Mot de passe</th>
-                        <th>Statut</th>
-                        -->
+                        <th class="hide">Statut</th>
                         <th>Activation</th>
                     </tr>
                     </thead>
@@ -72,16 +63,7 @@ include_once '../../../include/modal/connectionAdmin.php';
                     <tr>
                         <th></th>
                         <th>Nom</th>
-                        <!--
-                        <th>ID</th>
-                        <th>Né.e le</th>
-                        <th>Adresse</th>
-                        <th>Tél.</th>
-                        <th>E-mail</th>
-                        <th>Login</th>
-                        <th>Mot de passe</th>
-                        <th>Statut</th>
-                        -->
+                        <th class="hide">Statut</th>
                         <th>Activation</th>
                     </tr>
                     </tfoot>

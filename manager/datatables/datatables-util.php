@@ -35,24 +35,7 @@ $columns = [
     ['db' => 'idUtilisateur', 'dt' => 'idUtilisateur'],
     ['db' => 'nom', 'dt' => 'nom'],
     ['db' => 'prenom', 'dt' => 'prenom'],
-/*
-    [
-        'db' => 'dateNaissance',
-        'dt' => 'dateNaissance',
-        'formatter' => function ($d) {
-            // Set the locale to french
-            setlocale(LC_TIME, 'fr_FR.UTF-8', 'fra');
-            // Outputs e.g "28 septembre 2021"
-            return strftime("%e %B %Y", strtotime($d));
-        }
-    ],
-    ['db' => 'adresse', 'dt' => 'adresse'],
-    ['db' => 'telephone', 'dt' => 'telephone'],
-    ['db' => 'mail', 'dt' => 'mail'],
-    ['db' => 'login', 'dt' => 'login'],
-    ['db' => 'mdp', 'dt' => 'mdp'],
     ['db' => 'statut', 'dt' => 'statut'],
-*/
     ['db' => 'validUtilisateur', 'dt' => 'validUtilisateur']
 ];
 
