@@ -2,8 +2,6 @@
 include_once '../../../manager/evenement/ManaEvent.php';
 // Traitement "cherche-event-tr"
 require_once '../../../traitement/evenement/cherche-event-tr.php';
-var_dump($show);
-die();
 // Traitement de liste d'évènement
 $liste = new ManaEvent();
 try {
@@ -163,7 +161,7 @@ include_once '../../../include/modal/connectionAdmin.php';
         <!-- event speakers -->
         <div class="row">
             <div class="col-12">
-                <h3 class="mb-4">Organisateur.s</h3>
+                <h3 class="mb-4">Organisateur.trice.s</h3>
             </div>
             <!-- speakers -->
             <?php if (isset($show['idCreateurEleve'])) { ?>
