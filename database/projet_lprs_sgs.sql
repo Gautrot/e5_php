@@ -203,7 +203,7 @@ INSERT INTO `professeur` (`idProf`, `matiere`, `idUtil`) VALUES
 DROP TABLE IF EXISTS `rdv`;
 CREATE TABLE IF NOT EXISTS `rdv` (
   `idRdv` int(11) NOT NULL AUTO_INCREMENT,
-  `nom` varchar(40) NOT NULL,
+  `objet` varchar(40) NOT NULL,
   `message` varchar(40) NOT NULL,
   `date` date NOT NULL,
   `horaire` time NOT NULL,
@@ -212,6 +212,7 @@ CREATE TABLE IF NOT EXISTS `rdv` (
   `idCreateurProf` int(11) DEFAULT NULL,
   `idInviteParent` int(11) DEFAULT NULL,
   `idInviteProf` int(11) DEFAULT NULL,
+  `validEvent` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`idRdv`),
   KEY `idCreateurProf` (`idCreateurProf`),
   KEY `idCreateurParent` (`idCreateurParent`) USING BTREE,
