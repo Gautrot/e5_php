@@ -84,13 +84,17 @@ CREATE TABLE IF NOT EXISTS `discussion`
     `dateCreation`    datetime     NOT NULL,
     `idCreateurEleve` int(11) DEFAULT NULL,
     `idCreateurProf`  int(11) DEFAULT NULL,
+    `idCreateurParent`  int(11) DEFAULT NULL,
     `idInviteEleve`   int(11) DEFAULT NULL,
     `idInviteProf`    int(11) DEFAULT NULL,
+    `idInviteParent`    int(11) DEFAULT NULL,
     PRIMARY KEY (`idDiscussion`),
     KEY `idCreateurProf` (`idCreateurProf`),
-    KEY `idCreateurEleve` (`idCreateurEleve`) USING BTREE,
+    KEY `idCreateurEleve` (`idCreateurEleve`),
+    KEY `idCreateurParent` (`idCreateurParent`),
     KEY `idInviteEleve` (`idInviteEleve`),
-    KEY `idInviteProf` (`idInviteProf`) USING BTREE
+    KEY `idInviteProf` (`idInviteProf`),
+    KEY `idInviteParent` (`idInviteParent`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
 
@@ -407,7 +411,9 @@ ALTER TABLE `discussion`
     ADD CONSTRAINT `discussion_ibfk_1` FOREIGN KEY (`idCreateurProf`) REFERENCES `professeur` (`idProf`),
     ADD CONSTRAINT `discussion_ibfk_2` FOREIGN KEY (`idInviteProf`) REFERENCES `professeur` (`idProf`),
     ADD CONSTRAINT `discussion_ibfk_3` FOREIGN KEY (`idCreateurEleve`) REFERENCES `eleve` (`idEleve`),
-    ADD CONSTRAINT `discussion_ibfk_4` FOREIGN KEY (`idInviteEleve`) REFERENCES `eleve` (`idEleve`);
+    ADD CONSTRAINT `discussion_ibfk_4` FOREIGN KEY (`idInviteEleve`) REFERENCES `eleve` (`idEleve`),
+    ADD CONSTRAINT `discussion_ibfk_5` FOREIGN KEY (`idCreateurParent`) REFERENCES `parent` (`idParent`),
+    ADD CONSTRAINT `discussion_ibfk_6` FOREIGN KEY (`idInviteParent`) REFERENCES `parent` (`idParent`);
 
 --
 -- Contraintes pour la table `eleve`

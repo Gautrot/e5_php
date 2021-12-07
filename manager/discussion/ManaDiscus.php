@@ -31,7 +31,7 @@ class ManaDiscus extends Manager
                 'idUtilisateur' => $_SESSION['user']['idUtilisateur']
             ]);
             $res2 = $req->fetch();
-            if (isset($res2['idProf']) && $res2['idUtil'] == $_SESSION['user']['idUtilisateur'] || isset($res2['idEleve']) && $res2['idUtil'] == $_SESSION['user']['idUtilisateur']) {
+            if (isset($res2['idProf']) && $res2['idUtil'] == $_SESSION['user']['idUtilisateur'] || isset($res2['idEleve']) && $res2['idUtil'] == $_SESSION['user']['idUtilisateur'] || isset($res2['idParent']) && $res2['idUtil'] == $_SESSION['user']['idUtilisateur']) {
                 $idCreateur = $res2;
             }
             // Cherche l'id de la personne invitée dans la discussion
@@ -40,10 +40,11 @@ class ManaDiscus extends Manager
                 'idUtilisateur' => $_POST['idInvite']
             ]);
             $res3 = $req->fetch();
-            if (isset($res3['idProf']) && $res3['idUtil'] != $_SESSION['user']['idUtilisateur'] || isset($res3['idEleve']) && $res3['idUtil'] != $_SESSION['user']['idUtilisateur']) {
+            if (isset($res3['idProf']) && $res3['idUtil'] != $_SESSION['user']['idUtilisateur'] || isset($res3['idEleve']) && $res3['idUtil'] != $_SESSION['user']['idUtilisateur'] || isset($res3['idParent']) && $res3['idUtil'] != $_SESSION['user']['idUtilisateur']) {
                 $idInvite = $res3;
                 break;
             }
+
         }
         switch ($idCreateur['statut']) {
             // Si le créateur de la discussion est un étudiant
@@ -91,6 +92,30 @@ class ManaDiscus extends Manager
                 }
                 break;
         }
+
+        // Si le créateur de la discussion est un parent
+        case '2':
+            if ($idInvite['statut'] === '2') {
+                // Si la personne invitée dans la discussion est un parent
+                $req = $bdd->prepare('INSERT INTO discussion (titre, description, dateCreation, idCreateurParent, idInviteParent) VALUES (:titre, :description, NOW(), :idCreateurParent, :idInviteParent)');
+                $res4 = $req->execute([
+                    'titre' => $discus->getTitre(),
+                    'description' => $discus->getDescription(),
+                    'idCreateurParent' => $idCreateur['idParent'],
+                    'idInviteParent' => $idInvite['idParent']
+                ]);
+            } else {
+                // Si la personne invitée dans la discussion est un professeur
+                $req = $bdd->prepare('INSERT INTO discussion (titre, description, dateCreation, idCreateurParent, idInviteProf) VALUES (:titre, :description, NOW(), :idCreateurParent, :idInviteProf)');
+                $res4 = $req->execute([
+                    'titre' => $discus->getTitre(),
+                    'description' => $discus->getDescription(),
+                    'idCreateurParent' => $idCreateur['idParent'],
+                    'idInviteProf' => $idInvite['idProf']
+                ]);
+            }
+            break;
+
         // S'il créé avec succès la discussion, alors il retourne un succès.
         if ($res4) {
             unset($_SESSION['erreur']);
@@ -120,9 +145,9 @@ class ManaDiscus extends Manager
      */
     public function chercheDiscussion(Discussion $discus)
     {
-        $statut = ['eleve', 'professeur'];
-        $id = ['Eleve', 'Prof'];
-        $idDis = ['idCreateurEleve', 'idCreateurProf'];
+        $statut = ['eleve', 'professeur', 'parent'];
+        $id = ['Eleve', 'Prof', 'Parent'];
+        $idDis = ['idCreateurEleve', 'idCreateurProf', 'idCreateurParent'];
         // on appelle la base de données
         $bdd = (new BDD)->getBase();
         $req = $bdd->prepare('SELECT * FROM discussion WHERE idDiscussion = :idDiscussion');
@@ -130,8 +155,8 @@ class ManaDiscus extends Manager
             'idDiscussion' => $discus->getIdDiscussion()
         ]);
         $res = $req->fetch();
-        for ($i = 0; $i < 2; $i++) {
-            for ($j = 0; $j < 2; $j++) {
+        for ($i = 0; $i < 3; $i++) {
+            for ($j = 0; $j < 3; $j++) {
                 $req = $bdd->prepare('SELECT * FROM discussion INNER JOIN ' . $statut[$i] . ' ON ' . $statut[$i] . '.id' . $id[$i] . ' = discussion.' . $idDis[$j] . ' WHERE idDiscussion = :idDiscussion');
                 $req->execute([
                     'idDiscussion' => $res[0]
@@ -157,19 +182,19 @@ class ManaDiscus extends Manager
      */
     public function reponseDiscussion(Reponse $reponse)
     {
-        $statut = ['eleve', 'professeur'];
+        $statut = ['eleve', 'professeur', 'parent'];
         $bdd = (new BDD)->getBase();
         // Cherche l'id de l'auteur de la réponse
         $req = $bdd->query('SELECT idUtilisateur FROM utilisateur ORDER BY idUtilisateur DESC');
         $res2 = $req->fetchAll();
         foreach ($res2 as $user) {
-            for ($j = 0; $j < 2; $j++) {
+            for ($j = 0; $j < 3; $j++) {
                 $req = $bdd->prepare('SELECT * FROM utilisateur INNER JOIN ' . $statut[$j] . ' ON ' . $statut[$j] . '.idUtil = utilisateur.idUtilisateur WHERE idUtilisateur = :idUtilisateur');
                 $req->execute([
                     'idUtilisateur' => $user[0]
                 ]);
                 $res3 = $req->fetch();
-                if (isset($res3['idProf']) && $res3['idUtil'] == $_SESSION['user']['idUtilisateur'] || isset($res3['idEleve']) && $res3['idUtil'] == $_SESSION['user']['idUtilisateur']) {
+                if (isset($res3['idProf']) && $res3['idUtil'] == $_SESSION['user']['idUtilisateur'] || isset($res3['idEleve']) && $res3['idUtil'] == $_SESSION['user']['idUtilisateur'] || isset($res3['idParent']) && $res3['idUtil'] == $_SESSION['user']['idUtilisateur']) {
                     $id = $res3;
                     break;
                 }
@@ -183,7 +208,7 @@ class ManaDiscus extends Manager
                 'idDiscussion' => $reponse->getIdDiscussion(),
                 'idCreateurEleve' => $id['idEleve']
             ]);
-        } else {
+        } else if ($id['statut'] === '3') {
             // Si la réponse vient d'un professeur
             $req = $bdd->prepare('INSERT INTO reponse (reponse, dateCreation, idDiscussion, idCreateurProf) VALUES (:reponse, NOW(), :idDiscussion, :idCreateurProf)');
             $res4 = $req->execute([
@@ -191,7 +216,8 @@ class ManaDiscus extends Manager
                 'idDiscussion' => $reponse->getIdDiscussion(),
                 'idCreateurProf' => $id['idProf']
             ]);
-        }
+        } 
+
         // S'il créé avec succès l'évènement, alors il retourne un succès.
         if ($res4) {
             unset($_SESSION['erreur']);

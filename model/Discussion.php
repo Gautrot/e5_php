@@ -2,7 +2,7 @@
 
 class Discussion
 {
-    private $idDiscussion, $titre, $description, $dateCreation, $idCreateurEleve, $idCreateurProf, $idInviteEleve, $idInviteProf;
+    private $idDiscussion, $titre, $description, $dateCreation, $idCreateurEleve, $idCreateurProf, $idCreateurParent, $idInviteEleve, $idInviteProf, $idInviteParent;
 
 // constructeur
 
@@ -121,6 +121,24 @@ class Discussion
         $this->idCreateurProf = $idCreateurProf;
     }
 
+
+    /**
+     * @return mixed
+     */
+    public function getIdCreateurParent()
+    {
+        return $this->idCreateurParent;
+    }
+
+    /**
+     * @param mixed $idCreateurParent
+     */
+    public function setIdCreateurParent($idCreateurParent): void
+    {
+        $this->idCreateurParent = $idCreateurParent;
+    }
+
+
     /**
      * @return mixed
      */
@@ -151,5 +169,22 @@ class Discussion
     public function setIdInviteProf($idInviteProf): void
     {
         $this->idInviteProf = $idInviteProf;
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getIdInviteParent()
+    {
+        return $this->idInviteParent;
+    }
+
+    /**
+     * @param mixed $idInviteParent
+     */
+    public function setIdInviteParent($idInviteParent): void
+    {
+        $this->idInviteParent = $idInviteParent;
     }
 }
