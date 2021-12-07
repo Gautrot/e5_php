@@ -50,7 +50,7 @@ include_once '../../../include/modal/connectionAdmin.php';
 
 <!-- creer event -->
 <?php if ($_SESSION['user']['validUtilisateur'] === '1') {
-    if ($_SESSION['user']['statut'] === '3' || $_SESSION['user']['statut'] === '1') { ?>
+    if ($_SESSION['user']['statut'] === '3' || $_SESSION['user']['statut'] === '1' || $_SESSION['user']['statut'] === '2') { ?>
         <section class="section-sm bg-primary">
             <div class="container">
                 <div class="row">

@@ -91,20 +91,10 @@ class ManaDiscus extends Manager
                     ]);
                 }
                 break;
-        }
 
         // Si le créateur de la discussion est un parent
         case '2':
-            if ($idInvite['statut'] === '2') {
-                // Si la personne invitée dans la discussion est un parent
-                $req = $bdd->prepare('INSERT INTO discussion (titre, description, dateCreation, idCreateurParent, idInviteParent) VALUES (:titre, :description, NOW(), :idCreateurParent, :idInviteParent)');
-                $res4 = $req->execute([
-                    'titre' => $discus->getTitre(),
-                    'description' => $discus->getDescription(),
-                    'idCreateurParent' => $idCreateur['idParent'],
-                    'idInviteParent' => $idInvite['idParent']
-                ]);
-            } else {
+            if ($idInvite['statut'] === '3') {
                 // Si la personne invitée dans la discussion est un professeur
                 $req = $bdd->prepare('INSERT INTO discussion (titre, description, dateCreation, idCreateurParent, idInviteProf) VALUES (:titre, :description, NOW(), :idCreateurParent, :idInviteProf)');
                 $res4 = $req->execute([
@@ -115,7 +105,7 @@ class ManaDiscus extends Manager
                 ]);
             }
             break;
-
+      }
         // S'il créé avec succès la discussion, alors il retourne un succès.
         if ($res4) {
             unset($_SESSION['erreur']);
@@ -216,7 +206,17 @@ class ManaDiscus extends Manager
                 'idDiscussion' => $reponse->getIdDiscussion(),
                 'idCreateurProf' => $id['idProf']
             ]);
-        } 
+
+        } else if ($id['statut'] === '2') {
+            // Si la réponse vient d'un parent
+            $req = $bdd->prepare('INSERT INTO reponse (reponse, dateCreation, idDiscussion, idCreateurParent) VALUES (:reponse, NOW(), :idDiscussion, :idCreateurParent)');
+            $res4 = $req->execute([
+                'reponse' => $reponse->getReponse(),
+                'idDiscussion' => $reponse->getIdDiscussion(),
+                'idCreateurParent' => $id['idParent']
+            ]);
+
+        }
 
         // S'il créé avec succès l'évènement, alors il retourne un succès.
         if ($res4) {
@@ -234,15 +234,15 @@ class ManaDiscus extends Manager
      */
     public function listeReponse()
     {
-        $statut = ['eleve', 'professeur'];
-        $id = ['Eleve', 'Prof'];
-        $idDis = ['idCreateurEleve', 'idCreateurProf'];
+        $statut = ['eleve', 'professeur', 'parent'];
+        $id = ['Eleve', 'Prof', 'Parent'];
+        $idDis = ['idCreateurEleve', 'idCreateurProf', 'idCreateurParent'];
         #Instancie la classe BDD
         $bdd = (new BDD)->getBase();
         $req = $bdd->query('SELECT idDiscussion FROM discussion ORDER BY dateCreation DESC');
         $res = $req->fetch();
-        for ($i = 0; $i < 2; $i++) {
-            for ($j = 0; $j < 2; $j++) {
+        for ($i = 0; $i < 3; $i++) {
+            for ($j = 0; $j < 3; $j++) {
                 $req = $bdd->prepare('SELECT * FROM reponse INNER JOIN ' . $statut[$j] . ' ON ' . $statut[$j] . '.id' . $id[$j] . ' = reponse.' . $idDis[$i] . ' WHERE idDiscussion = :idDiscussion');
                 $req->execute([
                     'idDiscussion' => $res[0]
