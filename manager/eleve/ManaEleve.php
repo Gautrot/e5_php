@@ -66,32 +66,37 @@ class ManaEleve extends Manager
                     throw new Exception('Le nom et prénom sont déjà pris par un autre utilisateur.');
             }
         }
-        // Préparation de l'ajout d'un étudiant dans la BDD
-        $req = $bdd->prepare('
+        // Confirmation du mot de passe
+        if ($_POST['mdp'] === $_POST['confirm']) {
+            var_dump($_POST);
+            die();
+            // Préparation de l'ajout d'un étudiant dans la BDD
+            $req = $bdd->prepare('
                 INSERT INTO utilisateur (nom, prenom, dateNaissance, adresse, telephone, mail, login, mdp, statut) VALUES (:nom, :prenom, :dateNaissance, :adresse, :telephone, :mail, :login, :mdp, 1);
-                INSERT INTO eleve (classe, idUtil) VALUES (:classe, LAST_INSERT_ID());
+                INSERT INTO eleve (ref_classe, idUtil) VALUES (:ref_classe, LAST_INSERT_ID());
             ');
-        // Execution de la requête
-        $req->execute([
-            'nom' => $eleve->getNom(),
-            'prenom' => $eleve->getPrenom(),
-            'dateNaissance' => $eleve->getDateNaissance(),
-            'adresse' => $eleve->getAdresse(),
-            'telephone' => $eleve->getTelephone(),
-            'mail' => $eleve->getMail(),
-            'login' => $eleve->getLogin(),
-            'mdp' => $hash,
-            'classe' => $eleve->getClasse()
-        ]);
-        $req = $bdd->prepare('SELECT idUtilisateur, login, mdp, statut, validUtilisateur FROM utilisateur WHERE login = :login');
-        $req->execute([
-            'login' => $eleve->getLogin()
-        ]);
-        $res2 = $req->fetch();
-        // S'il créé avec succès l'étudiant, alors il envoie la session.
-        if ($res2) {
-            unset($_SESSION['erreur']);
-            return $_SESSION['user'] = $res2;
+            // Execution de la requête
+            $req->execute([
+                'nom' => $eleve->getNom(),
+                'prenom' => $eleve->getPrenom(),
+                'dateNaissance' => $eleve->getDateNaissance(),
+                'adresse' => $eleve->getAdresse(),
+                'telephone' => $eleve->getTelephone(),
+                'mail' => $eleve->getMail(),
+                'login' => $eleve->getLogin(),
+                'mdp' => $hash,
+                'classe' => $_POST['idClasse']
+            ]);
+            $req = $bdd->prepare('SELECT idUtilisateur, login, mdp, statut, validUtilisateur FROM utilisateur WHERE login = :login');
+            $req->execute([
+                'login' => $eleve->getLogin()
+            ]);
+            $res2 = $req->fetch();
+            // S'il créé avec succès l'étudiant, alors il envoie la session.
+            if ($res2) {
+                unset($_SESSION['erreur']);
+                return $_SESSION['user'] = $res2;
+            }
         }
         // Sinon, on affiche un message d'erreur
         throw new Exception('Erreur.');

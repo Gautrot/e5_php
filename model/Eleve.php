@@ -2,7 +2,7 @@
 
 class Eleve extends Utilisateur
 {
-    private $idEleve, $classe, $idUtil;
+    private $idEleve, $ref_classe, $idUtil;
 
 // constructeur
 
@@ -45,17 +45,17 @@ class Eleve extends Utilisateur
     /**
      * @return mixed
      */
-    public function getClasse()
+    public function getRefClasse()
     {
-        return $this->classe;
+        return $this->ref_classe;
     }
 
     /**
-     * @param mixed $classe
+     * @param mixed $ref_classe
      */
-    public function setClasse($classe): void
+    public function setRefClasse($ref_classe): void
     {
-        $this->classe = $classe;
+        $this->ref_classe = $ref_classe;
     }
 
     /**

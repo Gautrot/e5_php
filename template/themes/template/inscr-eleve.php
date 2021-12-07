@@ -12,6 +12,10 @@
 include_once '../../../include/modal/preloader.php';
 // Header
 include_once '../../../include/header.php';
+// ManaClasse
+include_once '../../../manager/classe/ManaClasse.php';
+$liste = new ManaClasse();
+$res = $liste->listeClasse();
 // Modal Inscription
 include_once '../../../include/modal/inscription.php';
 // Modal Mot de passe oublié
@@ -79,33 +83,42 @@ include_once '../../../include/modal/connectionAdmin.php';
                                 <input type="text" class="form-control form-control-sm mb-3" id="adresse" name="adresse"
                                        required placeholder="ex : 123 rue Robert Schuman">
                             </div>
-                            <div class="form-group">
-                                <label for="mail">Adresse Mél</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="basic-addon1">@</span>
+                            <div class="form-row">
+                                <div class="col">
+                                    <label for="login">Login</label>
+                                    <input type="text" class="form-control form-control-sm mb-3" id="login"
+                                           name="login" required maxlength="40" placeholder="ex : rSchuman93">
+                                </div>
+                                <div class="col">
+                                    <label for="mail">Adresse Mél</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1">@</span>
+                                        </div>
+                                        <input type="email" class="form-control form-control-sm" id="mail"
+                                               name="mail" required placeholder="ex : r.schuman@gmail.com">
                                     </div>
-                                    <input type="email" class="form-control form-control-sm" id="mail" name="mail"
-                                           required placeholder="ex : r.schuman@gmail.com">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col">
+                                    <label for="mdp">Mot de passe</label>
+                                    <input type="password" class="form-control form-control-sm mb-3" id="mdp"
+                                           name="mdp" required>
+                                </div>
+                                <div class="col">
+                                    <label for="confirm">Confirmer</label>
+                                    <input type="password" class="form-control form-control-sm mb-3" id="confirm"
+                                           name="confirm" required>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="login">Login</label>
-                                <input type="text" class="form-control form-control-sm mb-3" id="login" name="login"
-                                       required maxlength="40" placeholder="ex : rSchuman93">
-                            </div>
-                            <div class="form-group">
-                                <label for="mdp">Mot de passe</label>
-                                <input type="password" class="form-control form-control-sm mb-3" id="mdp" name="mdp"
-                                       required>
-                            </div>
-                            <div class="form-group">
-                                <label for="classe">Classe</label>
-                                <select class="form-control classe" name="classe" id="classe">
-                                    <option value="SLAM1">SLAM1</option>
-                                    <option value="SLAM1">SLAM2</option>
-                                    <option value="SLAM1">SISR1</option>
-                                    <option value="SLAM1">SISR2</option>
+                                <label for="idClasse">Classe</label>
+                                <select class="form-control idClasse" name="idClasse" id="idClasse">
+                                    <option value="">- SELECTIONNER -</option>
+                                    <?php foreach ($res as $classe) { ?>
+                                        <option value="<?= $classe['id_classe'] ?>"><?= $classe['nom'] ?></option>
+                                    <?php } ?>
                                 </select>
                             </div>
                             <button type="submit" class="btn btn-primary">

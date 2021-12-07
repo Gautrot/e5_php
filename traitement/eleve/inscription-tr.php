@@ -15,7 +15,8 @@ try {
         'mail' => $_POST['mail'],
         'login' => $_POST['login'],
         'mdp' => $_POST['mdp'],
-        'classe' => $_POST['classe']
+        'confirm' => $_POST['confirm'],
+        'classe' => $_POST['id_classe']
     ]);
 
 # Instancie la classe ManaEleve
