@@ -8,8 +8,6 @@
 
 <body>
 <?php
-<<<<<<< Updated upstream
-=======
 // Manager
 include_once 'manager/Manager.php';
 // Preloader
@@ -143,4 +141,3 @@ include_once 'include/script.php';
 
 </body>
 </html>
->>>>>>> Stashed changes
