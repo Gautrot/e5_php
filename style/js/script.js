@@ -1,5 +1,3 @@
-<<<<<<< Updated upstream
-=======
 (function ($) {
 	'use strict';
 
@@ -96,4 +94,3 @@
 	});
 
 })(jQuery);
->>>>>>> Stashed changes
