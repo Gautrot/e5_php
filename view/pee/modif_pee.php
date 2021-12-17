@@ -3,7 +3,7 @@
 
 <head>
     <?php include_once '../../include/head.php' ?>
-    <title>Creer un projet éducatif</title>
+    <title>Modifier un projet éducatif</title>
 </head>
 
 <body>
@@ -35,13 +35,13 @@ include_once '../../include/modal/connectionAdmin.php';
             <div class="col-md-8">
                 <ul class="list-inline custom-breadcrumb">
                     <li class="list-inline-item">
-                        <a class="h2 text-primary font-secondary">
-                            Creer un projet éducatif sur le site.
+                        <a class="h2 text-primary font-secondary" href="@@page-link">
+                            Modifier un projet éducatif sur le site.
                         </a>
                     </li>
                     <li class="list-inline-item text-white h3 font-secondary @@nasted"></li>
                 </ul>
-                <p class="text-lighten">Vous pouvez creer un projet éducatif sur le site..</p>
+                <p class="text-lighten">Vous pouvez modifier un projet éducatif sur le site..</p>
             </div>
         </div>
     </div>
@@ -55,10 +55,10 @@ include_once '../../include/modal/connectionAdmin.php';
             <div class="col-12">
                 <div class="modal-body">
                     <div class="login">
-                        <form method="POST" action="/e5_php/traitement/pee/creer-pee-tr.php"
+                        <form method="POST" action="/e5_php/traitement/pee/modif-pee-tr.php"
                               style="width:100%">
                             <div class="form-group">
-                                <label for="nom">Nom</label>
+                                <label for="objet">Nom</label>
                                 <input type="text" class="form-control form-control-sm mb-3" id="nom" name="nom"
                                        maxlength="100" required placeholder="ex : Vente de gateau.">
                             </div>
@@ -74,15 +74,18 @@ include_once '../../include/modal/connectionAdmin.php';
                                 </div>
                             <?php } ?>
                             <div class="form-group">
-                                <label for="description">Description du projet éducatif:</label>
+                                <label for="message">Description du projet educatif:</label>
                                 <textarea type="text" class="form-control form-control-sm mb-3" id="description"
                                           name="description" required></textarea>
                             </div>
+
                             <div class="form-group">
-                                <label for="date">Date du projet éducatif:</label>
+                                <label for="date">Date du projet educatif:</label>
                                 <input type="date" class="form-control form-control-sm mb-3" id="date"
-                                       name="date" required>
+                                       name="date"
+                                       required>
                             </div>
+
                             <button type="submit" class="btn btn-primary">Envoyer</button>
                         </form>
                     </div>

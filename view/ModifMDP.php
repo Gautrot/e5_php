@@ -24,30 +24,30 @@ $donne = $reponse->fetch(); //on execute finalement la requete
 
 <head>
     <meta charset="utf-8">
-    <?php include_once '../../../include/head.php' ?>
+    <?php include_once '../../include/head.php' ?>
     <title>Modifier mon mots de passe</title>
 </head>
 
 <body>
 <?php
 // Manager
-include_once '../../../manager/Manager.php';
+include_once '../../manager/Manager.php';
 // Preloader
-include_once '../../../include/modal/preloader.php';
+include_once '../../include/modal/preloader.php';
 // Header
-include_once '../../../include/header.php';
+include_once '../../include/header.php';
 // Modal Inscription
-include_once '../../../include/modal/inscription.php';
+include_once '../../include/modal/inscription.php';
 // Modal Mot de passe oublié
-include_once '../../../include/modal/mdp.php';
+include_once '../../include/modal/mdp.php';
 // Modal Login
-include_once '../../../include/modal/login.php';
-include_once '../../../include/modal/connectionEleve.php';
-include_once '../../../include/modal/connectionParent.php';
-include_once '../../../include/modal/connectionProf.php';
-include_once '../../../include/modal/connectionAdmin.php';
+include_once '../../include/modal/login.php';
+include_once '../../include/modal/connectionEleve.php';
+include_once '../../include/modal/connectionParent.php';
+include_once '../../include/modal/connectionProf.php';
+include_once '../../include/modal/connectionAdmin.php';
 // Traitement "cherche-util-tr"
-require_once '../../../traitement/cherche-util-tr.php'
+require_once '../../traitement/cherche-util-tr.php'
 ?>
 
 <!-- page title -->
@@ -118,9 +118,9 @@ require_once '../../../traitement/cherche-util-tr.php'
 
 <?php
 // Footer
-include_once '../../../include/footer.php';
+include_once '../../include/footer.php';
 // Script
-include_once '../../../include/script.php';
+include_once '../../include/script.php';
 ?>
 
 </body>

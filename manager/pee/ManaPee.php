@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../Manager.php';
 
-// création de la classe Manapee
+// création de la classe ManaPee
 class ManaPee extends Manager
 {
 // Méthode de création d'un évènement

@@ -8,8 +8,6 @@
 
 <body>
 <?php
-// Manager
-include_once '../../manager/Manager.php';
 // Preloader
 include_once '../../include/modal/preloader.php';
 // Header
@@ -51,62 +49,35 @@ include_once '../../include/modal/connectionAdmin.php';
 <!-- /about -->
 
 <!-- creer un pee -->
-<?php if ($_SESSION['user']['validUtilisateur'] === '1') {
-    if ($_SESSION['user']['statut'] === '2' || $_SESSION['user']['statut'] === '3') { ?>
-        <section class="section-sm bg-primary">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="text-center">
-                            <form method="POST" action="/e5_php/view/pee/creer-pee">
-                                <button type="submit" class="btn btn-primary">Creer un projet éducatif</button>
-                            </form>
-                        </div>
+<?php if ($_SESSION['user']['statut'] === '2' || $_SESSION['user']['statut'] === '3') { ?>
+    <section class="section-sm bg-primary">
+        <div class="container">
+            <div class="row">
+                <div class="col-4">
+                    <div class="text-center">
+                        <form method="POST" action="/e5_php/view/pee/creer-pee">
+                            <button type="submit" class="btn btn-primary">Creer un projet éducatif</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="text-center">
+                        <form method="POST" action="/e5_php/view/pee/modif_pee">
+                            <button type="submit" class="btn btn-primary">Modifier un projet éducatif</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="text-center">
+                        <form method="POST" action="/e5_php/view/pee/suppr-pee">
+                            <button type="submit" class="btn btn-primary">Supprimer un projet éducatif</button>
+                        </form>
                     </div>
                 </div>
             </div>
-        </section>
-    <?php }
-} ?>
-
-
-<!-- courses -->
-<section class="section">
-    <div class="container">
-        <div class="row">
-            <!-- event -->
-            <?php if (empty($res)) { ?>
-                <div class="col-lg-4 col-sm-6 mb-5">
-                    Il n'y a aucun projet éducatif pour le moment.
-                </div>
-            <?php } else {
-                foreach ($res as $pee) { ?>
-                    <div class="col-lg-4 col-sm-6 mb-5">
-                        <div class="card border-0 rounded-0 hover-shadow">
-                            <div class="card-img position-relative">
-                                <img class="card-img-top rounded-0" src="/e5_php/style/images/events/event-1.jpg"
-                                     alt="event thumb">
-                                <div class="card-date">
-                                    <span><?php echo substr($pee['date'], 8, 2); ?></span><br>
-                                    <?php echo substr($pee['date'], 5, 2) . '/' . substr($pee['date'], 0, 4) ?>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <form method="post" action="/e5_php/view/pee/pee-no">
-                                    <button class="btn btn-lg btn-white" type="submit"
-                                            value="<?php echo $pee['idPee']; ?>"
-                                            name="idPee"><?php echo $pee['nom']; ?></button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                <?php }
-            } ?>
         </div>
-    </div>
-</section>
-
-<?php
+    </section>
+<?php }
 // Footer
 include_once '../../include/footer.php';
 // Script
