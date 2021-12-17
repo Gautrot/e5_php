@@ -17,7 +17,7 @@ include_once '../../include/header.php';
 // ManaPee
 include_once '../../manager/pee/ManaPee.php';
 $liste = new ManaPee();
-$res = $liste->listeClasse();
+$res = $liste->listePee();
 // Modal Inscription
 include_once '../../include/modal/inscription.php';
 // Modal Mot de passe oublié
@@ -43,7 +43,7 @@ include_once '../../include/modal/connectionAdmin.php';
                     </li>
                     <li class="list-inline-item text-white h3 font-secondary @@nasted"></li>
                 </ul>
-                <p class="text-lighten">Vous pouvez modifier un projet éducatif sur le site..</p>
+                <p class="text-lighten">Vous pouvez modifier un projet éducatif sur le site.</p>
             </div>
         </div>
     </div>
@@ -56,41 +56,14 @@ include_once '../../include/modal/connectionAdmin.php';
         <div class="row">
             <div class="col-12">
                 <div class="modal-body">
-                    <div class="login">
-                        <form method="POST" action="/e5_php/traitement/pee/modif-pee-tr.php"
-                              style="width:100%">
-                            <div class="form-group">
-                                <label for="objet">Nom</label>
-                                <input type="text" class="form-control form-control-sm mb-3" id="nom" name="nom"
-                                       maxlength="100" required placeholder="ex : Vente de gateau.">
-                            </div>
-                            <?php if ($_SESSION['user']['statut'] === '3') { ?>
-                                <div class="form-group">
-                                    <label for="ref_classe">Entrer la classe concernée par le projet éducatif :</label>
-                                    <select class="form-control" name="ref_classe" id="ref_classe">
-                                        <option value="">- SELECTIONNER -</option>
-                                        <?php foreach ($res as $pee) { ?>
-                                            <option value="<?= $pee['id_classe'] ?>"><?= $pee['nom'] ?></option>
-                                        <?php } ?>
-                                    </select>
-                                </div>
-                            <?php } ?>
-                            <div class="form-group">
-                                <label for="message">Description du projet educatif:</label>
-                                <textarea type="text" class="form-control form-control-sm mb-3" id="description"
-                                          name="description" required></textarea>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="date">Date du projet educatif:</label>
-                                <input type="date" class="form-control form-control-sm mb-3" id="date"
-                                       name="date"
-                                       required>
-                            </div>
-
-                            <button type="submit" class="btn btn-primary">Envoyer</button>
-                        </form>
-                    </div>
+                    <?php foreach ($res as $pee) { ?>
+                        <div class="mb-3">
+                            <a class="w-70 d-block mx-auto btn btn-primary text-white"
+                               href="/e5_php/view/pee/modif_pee_no?id_projet=<?= $pee['id_projet']; ?>">
+                                <i class="fas fa-times"></i>Modifier <?= $pee['nom']; ?>
+                            </a>
+                        </div>
+                    <?php } ?>
                 </div>
             </div>
         </div>

@@ -82,4 +82,40 @@ class ManaPee extends Manager
         }
         throw new Exception('Suppression échouée !');
     }
+
+// Méthode de modification d'un pee
+
+    /**
+     * @throws Exception
+     */
+    public function modifPee(Pee $pee)
+    {
+        // On appelle la base de données
+        $bdd = (new BDD)->getBase();
+        $req = $bdd->prepare('SELECT idProf FROM professeur WHERE idUtil = :idUtil');
+        $req->execute([
+            'idUtil' => $_SESSION['user']['idUtilisateur']
+        ]);
+        $res = $req->fetch();
+        $req = $bdd->prepare('SELECT ref_prof FROM projet_edu WHERE id_projet = :id_projet');
+        $req->execute([
+            'id_projet' => $_POST['id_projet']
+        ]);
+        $res2 = $req->fetch();
+        // S'il trouve l'id de l'évènement, il va annuler celui-ci
+        if ($res[0] === $res2[0]) {
+            $req = $bdd->prepare('UPDATE projet_edu SET nom = :nom, description = :description, ref_classe = :ref_classe, date = :date WHERE id_projet = :id_projet');
+            $req->execute([
+                'nom' => $pee->getNom(),
+                'description' => $pee->getDescription(),
+                'ref_classe' => $pee->getRef_classe(),
+                'date' => $pee->getDate(),
+                'id_projet' => $_POST['id_projet']
+            ]);
+            unset($_SESSION['erreur']);
+            return true;
+        }
+        // Sinon, on affiche un message d'erreur
+        throw new Exception('Annulation échouée.', 1);
+    }
 }
