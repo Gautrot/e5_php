@@ -57,92 +57,52 @@ include_once '../../include/modal/connectionAdmin.php';
             <div class="col-12">
                 <div class="modal-body">
                     <div class="login">
-                        <form method="POST" action="/e5_php/traitement/rdv/creer-rdv-tr.php"
-                              style="width:100%">
+                        <form method="POST" action="/e5_php/traitement/rdv/creer-rdv-tr.php" style="width:100%">
                             <div class="form-group">
                                 <label for="objet">Objet</label>
                                 <input type="text" class="form-control form-control-sm mb-3" id="objet" name="objet"
                                        maxlength="100" required placeholder="ex : Rendez-vous pour l'orientation.">
                             </div>
-
-
-                            <?php if ($_SESSION['user']['statut'] === '2') {
-                            //$bdd = (new BDD)->getBase();
-                            //$req = $bdd->query("SELECT nom, prenom, idUtilisateur FROM parent ");
-                            //$res = $req->fetchall(); } ?>
-                            <div class="form-group">
-                                <label for="idPriseRDV">Prendre rendez-vous avec :</label>
-                                <select class="form-control" name="idInviteProf" id="idInviteProf">
-                                    <option value="">- SELECTIONNER -</option>
-
-                                    <?php foreach ($res as $rdv) {
-                                        if ($rdv['statut'] == '3' && $rdv['idUtilisateur'] != $_SESSION['user']['idUtilisateur']) { ?>
-                                            <option value="<?= $rdv['idProf'] ?>"><?= $rdv['nom'] ?></option>
-                                        <?php }
-                                    }
-                                    } ?>
-
-                                </select>
-                            </div>
-
-
-                            <?php if ($_SESSION['user']['statut'] === '3') {
-                            //$bdd = (new BDD)->getBase();
-                            //$req = $bdd->query("SELECT nom, prenom, idUtilisateur FROM professeur ");
-                            //$res = $req->fetchall();  } ?>
-
-                            <div class="form-group">
-                                <label for="idPriseRDV">Prendre rendez-vous avec :</label>
-                                <select class="form-control" name="idInviteParent" id="idInviteParent">
-                                    <option value="">- SELECTIONNER -</option>
-
-
-                                    <?php foreach ($res as $rdv) {
-                                        if ($rdv['statut'] == '2' && $rdv['idUtilisateur'] != $_SESSION['user']['idUtilisateur']) { ?>
-                                            <option value="<?= $rdv['idParent'] ?>"><?= $rdv['nom'] ?></option>
-                                        <?php }
-                                    }
-                                    } ?>
-
-                                </select>
-                            </div>
-
-
-                            <!--                              --><?php //if ($_SESSION['user']['statut'] === '2') {
-                            //                              $bdd = (new BDD)->getBase();
-                            //                              $req = $bdd->query("SELECT nom, prenom, idUtilisateur FROM utilisateur WHERE statut = '3'");
-                            //                              $res = $req->fetchall(); } ?>
-                            <!---->
-                            <!--                              --><?php //if ($_SESSION['user']['statut'] === '3') {
-                            //                              $bdd = (new BDD)->getBase();
-                            //                              $req = $bdd->query("SELECT nom, prenom, idUtilisateur FROM utilisateur WHERE statut = '2'");
-                            //                              $res = $req->fetchall(); } ?>
-                            <!---->
-                            <!--                              --><?php
-                            //                              foreach ($res as $value) { ?>
-                            <!--                                <option value="-->
-                            <?php //echo $value['idUtilisateur']?><!--">-->
-                            <?php //echo $value['nom'] , $value['prenom']?><!--</option>-->
-                            <!--                            --><?php //} ?>
-
-
+                            <?php if ($_SESSION['user']['statut'] === '2') { ?>
+                                <div class="form-group">
+                                    <label for="idInviteProf">Prendre rendez-vous avec :</label>
+                                    <select class="form-control" name="idInviteProf" id="idInviteProf">
+                                        <option value="">- SELECTIONNER -</option>
+                                        <?php foreach ($res as $rdv) {
+                                            if ($rdv['statut'] == '3' && $rdv['idUtilisateur'] != $_SESSION['user']['idUtilisateur']) { ?>
+                                                <option value="<?= $rdv['idProf'] ?>"><?= $rdv['nom'] ?></option>
+                                            <?php }
+                                        } ?>
+                                    </select>
+                                </div>
+                            <?php }
+                            if ($_SESSION['user']['statut'] === '3') { ?>
+                                <div class="form-group">
+                                    <label for="idInviteParent">Prendre rendez-vous avec :</label>
+                                    <select class="form-control" name="idInviteParent" id="idInviteParent">
+                                        <option value="">- SELECTIONNER -</option>
+                                        <?php foreach ($res as $rdv) {
+                                            if ($rdv['statut'] == '2' && $rdv['idUtilisateur'] != $_SESSION['user']['idUtilisateur']) { ?>
+                                                <option value="<?= $rdv['idParent'] ?>"><?= $rdv['nom'] ?></option>
+                                            <?php }
+                                        } ?>
+                                    </select>
+                                </div>
+                            <?php } ?>
                             <div class="form-group">
                                 <label for="message">Message</label>
                                 <textarea type="text" class="form-control form-control-sm mb-3" id="message"
                                           name="message" required></textarea>
                             </div>
-
                             <div class="form-group">
                                 <label for="date">Date du rendez-vous (que les samedis !)</label>
                                 <input type="date" class="form-control form-control-sm mb-3" id="date" name="date"
                                        required>
                             </div>
-
                             <div class="form-group">
                                 <label for="horaire">Heure du rendez-vous (de 8h00 à 12h30 !)</label>
                                 <input type="time" class="form-control form-control-sm mb-3" id="horaire" name="horaire"
-                                       min="08:00" max="12:30"
-                                       required>
+                                       min="08:00" max="12:30" required>
                             </div>
                             <button type="submit" class="btn btn-primary">Envoyer</button>
                         </form>

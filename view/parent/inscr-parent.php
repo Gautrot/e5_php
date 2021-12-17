@@ -243,6 +243,11 @@ include_once '../../include/modal/connectionAdmin.php';
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label for="metier">Métier</label>
+                                <input type="text" class="form-control form-control-sm mb-3" id="metier" name="metier"
+                                       required placeholder="ex : Français">
+                            </div>
+                            <div class="form-group">
                                 <label for="idEleve">Parent de :</label>
                                 <select class="form-control idEleve" name="idEleve" id="idEleve">
                                     <option value="">- SELECTIONNER -</option>
