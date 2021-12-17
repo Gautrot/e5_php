@@ -8,6 +8,8 @@
 
 <body>
 <?php
+// Manager
+include_once '../../manager/Manager.php';
 // Preloader
 include_once '../../include/modal/preloader.php';
 // Header

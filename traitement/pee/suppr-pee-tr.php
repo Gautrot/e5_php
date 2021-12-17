@@ -8,8 +8,7 @@ try {
     if ($_SESSION['user']['statut'] === '3') {
         # Instancie la classe Pee
         $pee = new Pee([
-            'id_projet' => $_GET['id_projet'],
-            'nom' => $_POST['nom']
+            'id_projet' => $_POST['id_projet']
         ]);
         # Instancie la classe ManaPee
         $manager = new ManaPee();

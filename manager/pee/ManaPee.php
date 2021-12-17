@@ -4,7 +4,7 @@ require_once __DIR__ . '/../Manager.php';
 // création de la classe ManaPee
 class ManaPee extends Manager
 {
-// Méthode de création d'un évènement
+// Méthode de création d'un pee
 
     /**
      * @throws Exception
@@ -33,7 +33,7 @@ class ManaPee extends Manager
         throw new Exception('Ajout échouée !');
     }
 
-    // Liste deroulante classe
+// Liste deroulante classe
 
     /**
      * @throws Exception
@@ -46,7 +46,7 @@ class ManaPee extends Manager
         return $req->fetchAll();
     }
 
-    // Liste deroulante classe
+// Liste deroulante Pee
 
     /**
      * @throws Exception
@@ -57,5 +57,29 @@ class ManaPee extends Manager
         $bdd = (new BDD)->getBase();
         $req = $bdd->query('SELECT * FROM projet_edu ORDER BY nom DESC');
         return $req->fetchAll();
+    }
+
+// Méthode de suppression d'un pee
+
+    /**
+     * @throws Exception
+     */
+    public function supprPee(Pee $pee)
+    {
+        #Instancie la classe BDD
+        $bdd = (new BDD)->getBase();
+        $req = $bdd->prepare('SELECT id_projet FROM projet_edu WHERE id_projet = :id_projet');
+        $req->execute([
+            'id_projet' => $_POST['id_projet']
+        ]);
+        $res = $req->fetch();
+        if ($res) {
+            $req = $bdd->prepare('DELETE FROM projet_edu WHERE id_projet = :id_projet');
+            $req->execute([
+                'id_projet' => $_POST['id_projet']
+            ]);
+            return true;
+        }
+        throw new Exception('Suppression échouée !');
     }
 }

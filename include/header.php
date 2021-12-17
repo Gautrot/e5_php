@@ -43,7 +43,7 @@
                                         case '4':
                                             ?>
                                             <a class="dropdown-item" href="/e5_php/view/discussion/discussions">Discussion</a>
-                                            <a class="dropdown-item" href="/e5_php/view/pee/pee">Projets éducatifs de l’établissemen</a>
+                                            <a class="dropdown-item" href="/e5_php/view/pee/pee">Projets éducatifs de l’établissement</a>
                                             <a class="dropdown-item" href="/e5_php/view/rdv/rdv">Rendez-vous</a>
                                             <?php break;
                                     } ?>

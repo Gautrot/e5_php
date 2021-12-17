@@ -8,6 +8,8 @@
 
 <body>
 <?php
+// Manager
+include_once '../../manager/Manager.php';
 // Preloader
 include_once '../../include/modal/preloader.php';
 // Header
@@ -54,28 +56,16 @@ include_once '../../include/modal/connectionAdmin.php';
         <div class="row">
             <div class="col-12">
                 <div class="modal-body">
-                    <tbody>
-                    // $bdd = (new BDD)->getBase();
-                    // // Cherche le créateur du projet
-                    // $pee = $bdd->prepare("SELECT * FROM projet_edu ");
-                    // $pee->execute(array());
-                    // $pee = $pee->fetchall();
                     <?php foreach ($res as $pee) { ?>
-                        <tr>
-                            <td><?= $pee['id_projet']; ?></td>
-                            </br>
-                            <td><?= $pee['nom']; ?></td>
-                            </br>
-                            <td>
-                                <a class="w-70 d-block mx-auto btn btn-danger text-white"
-                                   href="../../traitement/pee/suppr-pee-tr.php?id_projet=<?= $pee['id_projet']; ?>"><i
-                                            class="fas fa-times" onclick="(this.id)"> SUPPRIMER</i></a>
-                            </td>
-
-                        </tr>
-
+                        <div class="mb-3">
+                            <form method="post" action="/e5_php/traitement/pee/suppr-pee-tr">
+                                <button type="submit" name="id_projet" value="<?= $pee['id_projet']; ?>"
+                                        class="w-70 d-block mx-auto btn btn-danger text-white">
+                                    <i class="fas fa-times"></i>Supprimer <?= $pee['nom']; ?>
+                                </button>
+                            </form>
+                        </div>
                     <?php } ?>
-                    </tbody>
                 </div>
             </div>
         </div>
