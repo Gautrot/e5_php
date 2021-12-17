@@ -10,7 +10,7 @@ try {
         'nom' => $_POST['nom'],
         'prenom' => $_POST['prenom'],
         'dateNaissance' => $_POST['dateNaissance'],
-        'adresse' => $_POST['adresse'],
+        'adresse' => $_POST['adresse'] . ' ' . $_POST['codePostal'] . ' ' . $_POST['ville'],
         'telephone' => $_POST['telephone'],
         'mail' => $_POST['mail'],
         'login' => $_POST['login'],
