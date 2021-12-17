@@ -53,10 +53,24 @@ include_once '../../../include/modal/connectionAdmin.php';
     <section class="section-sm bg-primary">
         <div class="container">
             <div class="row">
-                <div class="col-12">
+                <div class="col-4">
                     <div class="text-center">
                         <form method="POST" action="creer-pee.php">
                             <button type="submit" class="btn btn-primary">Creer un projet éducatif</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="text-center">
+                        <form method="POST" action="modif_pee.php">
+                            <button type="submit" class="btn btn-primary">Modifier un projet éducatif</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="text-center">
+                        <form method="POST" action="suppr-pee.php">
+                            <button type="submit" class="btn btn-primary">Supprimer un projet éducatif</button>
                         </form>
                     </div>
                 </div>
@@ -64,43 +78,6 @@ include_once '../../../include/modal/connectionAdmin.php';
         </div>
     </section>
 <?php } ?>
-
-
-<!-- courses -->
-<section class="section">
-    <div class="container">
-        <div class="row">
-            <!-- event -->
-            <?php if (empty($res)) { ?>
-                <div class="col-lg-4 col-sm-6 mb-5">
-                    Il n'y a aucun projet éducatif pour le moment.
-                </div>
-            <?php } else {
-                foreach ($res as $rdv) { ?>
-                    <div class="col-lg-4 col-sm-6 mb-5">
-                        <div class="card border-0 rounded-0 hover-shadow">
-                            <div class="card-img position-relative">
-                                <img class="card-img-top rounded-0" src="images/events/event-1.jpg" alt="event thumb">
-                                <div class="card-date">
-                                    <span><?php echo substr($rdv['date'], 8, 2); ?></span><br>
-                                    <?php echo substr($rdv['date'], 5, 2) . '/' . substr($rdv['date'], 0, 4) ?>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <form method="post" action="rdv-no">
-                                    <button class="btn btn-lg btn-white" type="submit"
-                                            value="<?php echo $rdv['idRdv']; ?>"
-                                            name="idRdv"><?php echo $rdv['objet']; ?></button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                <?php }
-            } ?>
-        </div>
-    </div>
-</section>
-
 <?php
 // Footer
 include_once '../../../include/footer.php';
