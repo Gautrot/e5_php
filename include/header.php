@@ -13,9 +13,6 @@
                         <li class="nav-item active">
                             <a class="nav-link" href="/e5_php/index">Accueil et Presentation</a>
                         </li>
-                        <li class="nav-item @@courses">
-                            <a class="nav-link" href="/e5_php/view/courses">Formations</a>
-                        </li>
                         <li class="nav-item dropdown view">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Profil
