@@ -21,9 +21,9 @@ try {
     ]);
 # Lance la méthode modifParent
     $manager->modifParent($parent);
-    header("Location: /e5_php/index");
+    header("Location: /e5_php/index.php");
 } catch (Exception $e) {
 # Affiche un message d'erreur
     $_SESSION['erreur'] = 'Erreur : ' . $e->getMessage();
-    header("Location: /e5_php/view/modif-util");
+    header("Location: /e5_php/view/modif-util.php");
 }

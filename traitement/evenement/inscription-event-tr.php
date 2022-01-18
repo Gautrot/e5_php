@@ -14,8 +14,8 @@ try {
     $manager = new ManaEvent();
 # Lance la méthode inscrEvenement
     $manager->inscrEvenement($event);
-    header('Location: /e5_php/view/evenement/evenement-no?idEvent=' . $_POST['inscription']);
+    header('Location: /e5_php/view/evenement/evenement-no.php?idEvent=' . $_POST['inscription']);
 } catch (Exception $e) {
     $_SESSION['erreur'] = $e->getMessage();
-    header('Location: /e5_php/view/evenement/evenement-no?idEvent=' . $_POST['inscription']);
+    header('Location: /e5_php/view/evenement/evenement-no.php?idEvent=' . $_POST['inscription']);
 }

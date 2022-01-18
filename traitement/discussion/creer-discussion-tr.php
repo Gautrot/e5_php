@@ -14,9 +14,9 @@ try {
     $manager = new ManaDiscus();
     # Lance la méthode creerDiscussion
     $manager->creerDiscussion($discus);
-    header('Location: /e5_php/view/discussion/discussions');
+    header('Location: /e5_php/view/discussion/discussions.php');
 } catch (Exception $e) {
 # Affiche un message d'erreur
     $_SESSION['erreur'] = 'Erreur : ' . $e->getMessage();
-    header('Location: /e5_php/view/discussion/creer-discussion');
+    header('Location: /e5_php/view/discussion/creer-discussion.php');
 }

@@ -93,9 +93,9 @@ try {
             $manager->creerUtil($user);
             break;
     }
-    header('Location: /e5_php/view/admin/table-util');
+    header('Location: /e5_php/view/admin/table-util.php');
 } catch (Exception $e) {
 # Affiche un message d'erreur
     $_SESSION['erreur'] = 'Erreur : ' . $e->getMessage();
-    header('Location: /e5_php/view/admin/table-util');
+    header('Location: /e5_php/view/admin/table-util.php');
 }

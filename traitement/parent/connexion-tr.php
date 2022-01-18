@@ -14,8 +14,8 @@ try {
     $manager = new ManaParent();
 # Lance la méthode connexionParent
     $manager->connexionParent($parent);
-    header('Location: /e5_php/index');
+    header('Location: /e5_php/index.php');
 } catch (Exception $e) {
     $_SESSION["erreur"] = $e->getMessage();
-    header('Location: /e5_php/index');
+    header('Location: /e5_php/index.php');
 }

@@ -14,8 +14,8 @@ try {
     $manager = new ManaAdmin();
 # Lance la méthode connexionAdmin
     $manager->connexionAdmin($admin);
-    header('Location: /e5_php/index');
+    header('Location: /e5_php/index.php');
 } catch (Exception $e) {
     $_SESSION["erreur"] = $e->getMessage();
-    header('Location: /e5_php/index');
+    header('Location: /e5_php/index.php');
 }

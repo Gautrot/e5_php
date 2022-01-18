@@ -135,6 +135,6 @@ class Manager
             $select_idUtilisateur = '';
             $this->mail('Mot de passe oublié', $body, $select_idUser, $mail_user);
         }
-        header('Location: /e5_php/template/themes/template/index.php');
+        header('Location: /e5_php/index.php');
     }
 }

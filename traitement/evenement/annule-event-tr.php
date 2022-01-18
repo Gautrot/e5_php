@@ -11,8 +11,8 @@ try {
     $man = new ManaEvent();
 # Lance la méthode annuleEvenement
     $annul = $man->annuleEvenement($event);
-    header('Location: /e5_php/view/evenement/evenement-no?idEvent=' . $_POST['annulation']);
+    header('Location: /e5_php/view/evenement/evenement-no.php?idEvent=' . $_POST['annulation']);
 } catch (Exception $e) {
     $_SESSION["erreur"] = $e->getMessage();
-    header('Location: /e5_php/view/evenement/evenement-no?idEvent=' . $_POST['annulation']);
+    header('Location: /e5_php/view/evenement/evenement-no.php?idEvent=' . $_POST['annulation']);
 }

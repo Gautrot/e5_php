@@ -26,9 +26,9 @@ try {
     $manager = new ManaEvent();
     # Lance la méthode creerEvenement
     $manager->creerEvenement($event);
-    header('Location: /e5_php/view/evenement/evenements');
+    header('Location: /e5_php/view/evenement/evenements.php');
 } catch (Exception $e) {
 # Affiche un message d'erreur
     $_SESSION['erreur'] = 'Erreur : ' . $e->getMessage();
-    header('Location: /e5_php/view/evenement/creer-evenement');
+    header('Location: /e5_php/view/evenement/creer-evenement.php');
 }

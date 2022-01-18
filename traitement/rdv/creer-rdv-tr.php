@@ -27,9 +27,9 @@ try {
     $manager = new ManaRdv();
     # Lance la méthode creerRdv
     $manager->creerRdv($rdv);
-    header('Location: /e5_php/view/rdv/rdv');
+    header('Location: /e5_php/view/rdv/rdv.php');
 } catch (Exception $e) {
 # Affiche un message d'erreur
     $_SESSION['erreur'] = 'Erreur : ' . $e->getMessage();
-    header('Location: /e5_php/view/rdv/creer-rdv');
+    header('Location: /e5_php/view/rdv/creer-rdv.php');
 }

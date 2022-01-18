@@ -13,7 +13,7 @@ try {
     ]);
 # Lance la méthode modifMDP
     $manager->modifMDP($MDP_Modif);
-    header("Location: /e5_php/template/themes/template/index");
+    header("Location: /e5_php/template/themes/template/index.php");
 } catch (Exception $e) {
 # Affiche un message d'erreur
     $_SESSION['erreur'] = 'Erreur : ' . $e->getMessage();

@@ -20,10 +20,10 @@ try {
         # Lance la méthode modifPee
         $manager->modifPee($pee);
 
-        header('Location: /e5_php/view/pee/pee');
+        header('Location: /e5_php/view/pee/pee.php');
     }
 } catch (Exception $e) {
 # Affiche un message d'erreur
     $_SESSION['erreur'] = 'Erreur : ' . $e->getMessage();
-    header('Location: /e5_php/view/pee/modif_pee');
+    header('Location: /e5_php/view/pee/modif_pee.php');
 }

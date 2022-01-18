@@ -12,9 +12,9 @@ try {
     $manager = new ManaAdmin();
 # Lance la méthode activerUtil
     $manager->activerUtil($user);
-    header('Location: /e5_php/view/admin/table-util');
+    header('Location: /e5_php/view/admin/table-util.php');
 } catch (Exception $e) {
 # Affiche un message d'erreur
     $_SESSION['erreur'] = 'Erreur : ' . $e->getMessage();
-    header('Location: /e5_php/view/admin/table-util');
+    header('Location: /e5_php/view/admin/table-util.php');
 }

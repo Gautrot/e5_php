@@ -10,5 +10,5 @@ try {
     $show = $man->chercheEvenement($event);
 } catch (Exception $e) {
     $_SESSION["erreur"] = $e->getMessage();
-    header('Location: /e5_php/view/evenement/evenements');
+    header('Location: /e5_php/view/evenement/evenements.php');
 }

@@ -10,5 +10,5 @@ try {
     $show = $man->chercheDiscussion($discus);
 } catch (Exception $e) {
     $_SESSION["erreur"] = $e->getMessage();
-    header('Location: /e5_php/view/discussion/discussions');
+    header('Location: /e5_php/view/discussion/discussions.php');
 }

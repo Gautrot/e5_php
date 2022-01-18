@@ -216,4 +216,4 @@ Pas de probl&#232;me, cliquez sur le bouton pour acceder &#224; un changement de
     $_SESSION['erreur_mail'] = 1;
 }
 die();
-header('location: /e5_php/index');
+header('location: /e5_php/index.php');

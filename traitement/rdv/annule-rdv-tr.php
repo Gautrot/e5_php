@@ -11,8 +11,8 @@ try {
     $man = new ManaRdv();
 # Lance la méthode annuleRdv
     $annulation = $man->annuleRdv($rdv);
-    header('Location: /e5_php/view/rdv/rdv-no?idRdv=' . $_POST['annulation']);
+    header('Location: /e5_php/view/rdv/rdv-no.php?idRdv=' . $_POST['annulation']);
 } catch (Exception $e) {
     $_SESSION["erreur"] = $e->getMessage();
-    header('Location: /e5_php/view/rdv/rdv-no?idRdv=' . $_POST['annulation']);
+    header('Location: /e5_php/view/rdv/rdv-no.php?idRdv=' . $_POST['annulation']);
 }

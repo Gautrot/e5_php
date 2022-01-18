@@ -15,9 +15,9 @@ try {
     $manager = new ManaDiscus();
     # Lance la méthode reponseDiscussion
     $manager->reponseDiscussion($reponse);
-    header('Location: /e5_php/view/discussion/discussion-no?idDiscussion=' . $_POST['idDiscussion']);
+    header('Location: /e5_php/view/discussion/discussion-no.php?idDiscussion=' . $_POST['idDiscussion']);
 } catch (Exception $e) {
 # Affiche un message d'erreur
     $_SESSION['erreur'] = 'Erreur : ' . $e->getMessage();
-    header('Location: /e5_php/view/discussion/discussions');
+    header('Location: /e5_php/view/discussion/discussions.php');
 }
