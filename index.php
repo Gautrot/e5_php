@@ -38,7 +38,7 @@ include_once 'include/modal/connectionAdmin.php';
                             data-animation-in="fadeInDown" data-delay-in=".1">LYCÉE PRIVÉ ET UFA - ROBERT SCHUMAN </h1>
                         <p class="text-muted mb-4" data-animation-out="fadeOutUp" data-delay-out="5"
                            data-duration-in=".3" data-animation-in="fadeInDown" data-delay-in=".4">Enseignement catholique sous contrat avec l'état.</p>
-                        <a href="/e5_php/view/contact" class="btn btn-primary" data-animation-out="fadeOutUp" data-delay-out="5"
+                        <a href="/e5_php/view/contact.php" class="btn btn-primary" data-animation-out="fadeOutUp" data-delay-out="5"
                            data-duration-in=".3" data-animation-in="fadeInDown" data-delay-in=".7">Contactez-nous</a>
                     </div>
                 </div>

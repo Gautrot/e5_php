@@ -57,7 +57,7 @@ include_once '../../include/modal/connectionAdmin.php';
             <div class="col-12">
                 <div class="modal-body">
                     <div class="login">
-                        <form method="POST" action="/e5_php/traitement/discussion/creer-discussion-tr"
+                        <form method="POST" action="/e5_php/traitement/discussion/creer-discussion-tr.php"
                               style="width:100%">
                             <div class="form-group">
                                 <label for="titre">Titre</label>

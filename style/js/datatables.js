@@ -54,7 +54,7 @@ $(document).ready(function () {
                         // Le bouton est désactivé s'il l'utilisateur est un admin
                         return '<button class="btn btn-xs btn-secondary" disabled> ' + value + ' </button>';
                     } else {
-                        return '<form method="post" action="/e5_php/traitement/admin/' + traitement + '-util-tr">' +
+                        return '<form method="post" action="/e5_php/traitement/admin/' + traitement + '-util-tr.php">' +
                             '<button class="btn btn-xs btn-primary" type="submit" value="' + id + '" name="idUtilisateur"> ' + value + ' </button>' +
                             '</form>';
                     }

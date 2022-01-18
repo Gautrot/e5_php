@@ -58,7 +58,7 @@ include_once '../../include/modal/connectionAdmin.php';
                 <div class="modal-body">
                     <?php foreach ($res as $pee) { ?>
                         <div class="mb-3">
-                            <form method="post" action="/e5_php/traitement/pee/suppr-pee-tr">
+                            <form method="post" action="/e5_php/traitement/pee/suppr-pee-tr.php">
                                 <button type="submit" name="id_projet" value="<?= $pee['id_projet']; ?>"
                                         class="w-70 d-block mx-auto btn btn-danger text-white">
                                     <i class="fas fa-times"></i>Supprimer <?= $pee['nom']; ?>

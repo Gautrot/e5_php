@@ -58,7 +58,7 @@ include_once '../../include/modal/connectionAdmin.php';
                 <div class="row">
                     <div class="col-12">
                         <div class="text-center">
-                            <form method="POST" action="/e5_php/view/rdv/creer-rdv">
+                            <form method="POST" action="/e5_php/view/rdv/creer-rdv.php">
                                 <button type="submit" class="btn btn-primary">Prendre un rendez-vous</button>
                             </form>
                         </div>
@@ -84,7 +84,7 @@ include_once '../../include/modal/connectionAdmin.php';
                     <div class="col-lg-4 col-sm-6 mb-5">
                         <div class="card border-0 rounded-0 hover-shadow">
                             <div class="card-img position-relative">
-                                <a href="/e5_php/view/rdv/rdv-no?idRdv=<?= $rdv['idRdv']; ?>">
+                                <a href="/e5_php/view/rdv/rdv-no.php?idRdv=<?= $rdv['idRdv']; ?>">
                                     <img class="card-img-top rounded-0" src="/e5_php/style/images/events/event-1.jpg"
                                          alt="<?= $rdv['objet']; ?>">
                                 </a>
@@ -95,7 +95,7 @@ include_once '../../include/modal/connectionAdmin.php';
                             </div>
                             <div class="card-body">
                                 <div class="card-body">
-                                    <a href="/e5_php/view/rdv/rdv-no?idRdv=<?= $rdv['idRdv']; ?>">
+                                    <a href="/e5_php/view/rdv/rdv-no.php?idRdv=<?= $rdv['idRdv']; ?>">
                                         <h4 class="card-title"><?= $rdv['objet']; ?></h4>
                                     </a>
                                 </div>

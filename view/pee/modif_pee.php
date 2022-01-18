@@ -59,7 +59,7 @@ include_once '../../include/modal/connectionAdmin.php';
                     <?php foreach ($res as $pee) { ?>
                         <div class="mb-3">
                             <a class="w-70 d-block mx-auto btn btn-primary text-white"
-                               href="/e5_php/view/pee/modif_pee_no?id_projet=<?= $pee['id_projet']; ?>">
+                               href="/e5_php/view/pee/modif_pee_no.php?id_projet=<?= $pee['id_projet']; ?>">
                                 <i class="fas fa-times"></i>Modifier <?= $pee['nom']; ?>
                             </a>
                         </div>

@@ -8,7 +8,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="/e5_php/traitement/prof/connexion-tr" method="POST" style="width: 100%;">
+                <form action="/e5_php/traitement/prof/connexion-tr.php" method="POST" style="width: 100%;">
                     <div class="form-group">
                         <label for="login">Login</label>
                         <input type="text" class="form-control mb-3" id="loginProf" name="login" required>

@@ -36,7 +36,7 @@ require_once '../traitement/cherche-util-tr.php'
             <div class="col-md-8">
                 <ul class="list-inline custom-breadcrumb">
                     <li class="list-inline-item">
-                        <a class="h2 text-primary font-secondary" href="profil">Profil</a>
+                        <a class="h2 text-primary font-secondary" href="profil.php">Profil</a>
                     </li>
                 </ul>
                 <p class="text-lighten">Votre profil.</p>

@@ -8,7 +8,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <a class="navbar-brand" href="index">
+                <a class="navbar-brand" href="index.php">
                     <img src="/e5_php/style/images/logoLPRS1.jpg" alt="logo">
                 </a>
                 <div class="text-center mt-3">
@@ -21,7 +21,7 @@
                             <?= ((array_key_exists("err", $_GET) && $_GET["err"] == "mail") ? "Une erreur est survenue, l'email saisi n'a pas été reconnu" : "") ?>
                         </p>
                         <label>
-                            <input type="mail" class="inputform" placeholder="Entrer votre mail ICI" name="mail" required>
+                            <input type="email" class="inputform" placeholder="Entrer votre mail ICI" name="mail" required>
                         </label>
                         <br>
                         <button type="submit" name="submit" class="btn btn-primary">Recevoir un mail</button>

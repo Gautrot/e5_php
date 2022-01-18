@@ -58,7 +58,7 @@ include_once '../../include/modal/connectionAdmin.php';
                 <div class="row">
                     <div class="col-12">
                         <div class="text-center">
-                            <form method="POST" action="creer-discussion">
+                            <form method="POST" action="creer-discussion.php">
                                 <button type="submit" class="btn btn-primary">Discutez avec une personne</button>
                             </form>
                         </div>
@@ -83,7 +83,7 @@ include_once '../../include/modal/connectionAdmin.php';
                     <div class="col-lg-4 col-sm-6 mb-5">
                         <div class="card border-0 rounded-0 hover-shadow">
                             <div class="card-img position-relative">
-                                <a href="/e5_php/view/discussion/discussion-no?idDiscussion=<?= $discus['idDiscussion']; ?>">
+                                <a href="/e5_php/view/discussion/discussion-no.php?idDiscussion=<?= $discus['idDiscussion']; ?>">
                                     <img class="card-img-top rounded-0" src="/e5_php/style/images/events/event-1.jpg"
                                          alt="<?= $discus['titre']; ?>">
                                 </a>
@@ -93,7 +93,7 @@ include_once '../../include/modal/connectionAdmin.php';
                                 </div>
                             </div>
                             <div class="card-body">
-                                <a href="/e5_php/view/discussion/discussion-no?idDiscussion=<?= $discus['idDiscussion']; ?>">
+                                <a href="/e5_php/view/discussion/discussion-no.php?idDiscussion=<?= $discus['idDiscussion']; ?>">
                                     <h4 class="card-title"><?= $discus['titre']; ?></h4>
                                 </a>
                             </div>

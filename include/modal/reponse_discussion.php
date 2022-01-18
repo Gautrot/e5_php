@@ -17,10 +17,10 @@
                         } ?>:
                     </div>
                     <div class="row justify-content-center">
-                        <form method="POST" action="/e5_php/traitement/discussion/reponse-discussion-tr"
+                        <form method="POST" action="/e5_php/traitement/discussion/reponse-discussion-tr.php"
                               style="width:100%">
                             <div class="form-group">
-                                <label for="archive"></label>
+                                <label for="reponse"></label>
                                 <textarea type="text" class="form-control form-control-sm mb-3" id="reponse"
                                           name="reponse" required></textarea>
                             </div>

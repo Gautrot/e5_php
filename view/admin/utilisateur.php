@@ -141,7 +141,7 @@ require_once '../../traitement/admin/cherche-util-tr.php'
         <div class="row">
             <div class="col-12">
                 <div class="text-center">
-                    <a href="/e5_php/view/admin/table-util" type="submit" class="btn btn-primary">Retour</a>
+                    <a href="/e5_php/view/admin/table-util.php" type="submit" class="btn btn-primary">Retour</a>
                 </div>
             </div>
         </div>

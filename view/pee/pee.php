@@ -57,21 +57,21 @@ include_once '../../include/modal/connectionAdmin.php';
             <div class="row">
                 <div class="col-4">
                     <div class="text-center">
-                        <form method="POST" action="/e5_php/view/pee/creer-pee">
+                        <form method="POST" action="/e5_php/view/pee/creer-pee.php">
                             <button type="submit" class="btn btn-primary">Creer un projet éducatif</button>
                         </form>
                     </div>
                 </div>
                 <div class="col-4">
                     <div class="text-center">
-                        <form method="POST" action="/e5_php/view/pee/modif_pee">
+                        <form method="POST" action="/e5_php/view/pee/modif_pee.php">
                             <button type="submit" class="btn btn-primary">Modifier un projet éducatif</button>
                         </form>
                     </div>
                 </div>
                 <div class="col-4">
                     <div class="text-center">
-                        <form method="POST" action="/e5_php/view/pee/suppr-pee">
+                        <form method="POST" action="/e5_php/view/pee/suppr-pee.php">
                             <button type="submit" class="btn btn-primary">Supprimer un projet éducatif</button>
                         </form>
                     </div>

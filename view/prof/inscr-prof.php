@@ -264,7 +264,7 @@ include_once '../../include/modal/connectionAdmin.php';
         <div class="row">
             <div class="col-12">
                 <div class="text-center">
-                    <form method="POST" action="/e5_php/index">
+                    <form method="POST" action="/e5_php/index.php">
                         <button type="submit" class="btn btn-primary">
                             Retour
                         </button>

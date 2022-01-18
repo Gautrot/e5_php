@@ -52,7 +52,7 @@ include_once '../../include/modal/connectionAdmin.php';
             <div class="col-md-8">
                 <ul class="list-inline custom-breadcrumb">
                     <li class="list-inline-item"><a class="h2 text-primary font-secondary"
-                                                    href="/e5_php/view/evenement/evenements">Évènement</a></li>
+                                                    href="/e5_php/view/evenement/evenements.php">Évènement</a></li>
                     <li class="list-inline-item text-white h3 font-secondary nasted"><?= $show['titre']; ?></li>
                 </ul>
                 <p class="text-lighten"></p>
@@ -103,7 +103,7 @@ include_once '../../include/modal/connectionAdmin.php';
                 if ($show['validEvent'] !== '0') {
                     if (!isset($show['idInscription']) || $_SESSION['user']['idUtilisateur'] !== $show['idUtil']) { ?>
                         <div class="col-lg-3 text-lg-right text-left">
-                            <form method="post" action="/e5_php/traitement/evenement/inscription-event-tr">
+                            <form method="post" action="/e5_php/traitement/evenement/inscription-event-tr.php">
                                 <button type="submit" class="btn btn-primary" name="inscription"
                                         value="<?= $show['idEvent']; ?>">S'inscrire
                                 </button>
@@ -125,7 +125,7 @@ include_once '../../include/modal/connectionAdmin.php';
             <?php if (isset($show['idCreateurEleve']) && $_SESSION['user']['idUtilisateur'] === $show['idUtil'] || isset($show['idCreateurProf']) && $_SESSION['user']['idUtilisateur'] === $show['idUtil']) {
                 if ($annul > $today && $show['validEvent'] !== '0') { ?>
                     <div class="col-lg-3 text-left">
-                        <form method="post" action="/e5_php/traitement/evenement/annule-event-tr">
+                        <form method="post" action="/e5_php/traitement/evenement/annule-event-tr.php">
                             <button type="submit" name="annulation" value="<?= $show['idEvent']; ?>"
                                     class="btn btn-danger">Annuler l'évènement
                             </button>
@@ -133,7 +133,7 @@ include_once '../../include/modal/connectionAdmin.php';
                     </div>
                 <?php } else if ($_SESSION['user']['statut'] === '3' && $show['validEvent'] === '0') { ?>
                     <div class="col-lg-3 text-left">
-                        <form method="post" action="/e5_php/traitement/evenement/valide-event-tr">
+                        <form method="post" action="/e5_php/traitement/evenement/valide-event-tr.php">
                             <button type="submit" name="validation" value="<?= $show['idEvent']; ?>"
                                     class="btn btn-success">Valider l'évènement
                             </button>
@@ -141,7 +141,7 @@ include_once '../../include/modal/connectionAdmin.php';
                     </div>
                 <?php } ?>
                 <div class="col-lg-3 text-left">
-                    <form method="post" action="/e5_php/traitement/evenement/ajout-organisateur-event-tr">
+                    <form method="post" action="/e5_php/traitement/evenement/ajout-organisateur-event-tr.php">
                         <button type="submit" name="ajoutOrganisateur" value="<?= $show['idEvent']; ?>"
                                 class="btn btn-success">+ Organisateur
                         </button>
@@ -228,7 +228,7 @@ include_once '../../include/modal/connectionAdmin.php';
                         <div class="col-lg-4 col-sm-6 mb-5">
                             <div class="card border-0 rounded-0 hover-shadow">
                                 <div class="card-img position-relative">
-                                    <a href="/e5_php/view/evenement/evenement-no?idEvent=<?= $event['idEvent']; ?>">
+                                    <a href="/e5_php/view/evenement/evenement-no.php?idEvent=<?= $event['idEvent']; ?>">
                                         <img class="card-img-top rounded-0" src="/e5_php/style/images/events/event-1.jpg"
                                              alt="<?= $event['titre']; ?>">
                                     </a>
@@ -238,7 +238,7 @@ include_once '../../include/modal/connectionAdmin.php';
                                     </div>
                                 </div>
                                 <div class="card-body">
-                                    <a href="/e5_php/view/evenement/evenement-no?idEvent=<?= $event['idEvent']; ?>">
+                                    <a href="/e5_php/view/evenement/evenement-no.php?idEvent=<?= $event['idEvent']; ?>">
                                         <h4 class="card-title"><?= $event['titre']; ?></h4>
                                     </a>
                                 </div>

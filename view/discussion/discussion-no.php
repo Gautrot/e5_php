@@ -50,7 +50,7 @@ include_once '../../include/modal/reponse_discussion.php'
             <div class="col-md-8">
                 <ul class="list-inline custom-breadcrumb">
                     <li class="list-inline-item"><a class="h2 text-primary font-secondary"
-                                                    href="discussions">Discussion</a></li>
+                                                    href="discussions.php">Discussion</a></li>
                     <li class="list-inline-item text-white h3 font-secondary nasted"><?= $show['titre']; ?></li>
                 </ul>
                 <p class="text-lighten"></p>
@@ -216,7 +216,7 @@ include_once '../../include/modal/reponse_discussion.php'
                         <div class="col-lg-4 col-sm-6 mb-5">
                             <div class="card border-0 rounded-0 hover-shadow">
                                 <div class="card-img position-relative">
-                                    <a href="/e5_php/view/discussion/discussion-no?idDiscussion=<?= $discus['idDiscussion']; ?>">
+                                    <a href="/e5_php/view/discussion/discussion-no.php?idDiscussion=<?= $discus['idDiscussion']; ?>">
                                         <img class="card-img-top rounded-0"
                                              src="/e5_php/style/images/events/event-1.jpg"
                                              alt="<?= $discus['titre']; ?>">
@@ -227,7 +227,7 @@ include_once '../../include/modal/reponse_discussion.php'
                                     </div>
                                 </div>
                                 <div class="card-body">
-                                    <a href="/e5_php/view/discussion/discussion-no?idDiscussion=<?= $discus['idDiscussion']; ?>">
+                                    <a href="/e5_php/view/discussion/discussion-no.php?idDiscussion=<?= $discus['idDiscussion']; ?>">
                                         <h4 class="card-title"><?= $discus['titre']; ?></h4>
                                     </a>
                                 </div>

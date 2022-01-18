@@ -52,7 +52,7 @@ include_once '../../include/modal/connectionAdmin.php';
             <div class="col-md-8">
                 <ul class="list-inline custom-breadcrumb">
                     <li class="list-inline-item"><a class="h2 text-primary font-secondary"
-                                                    href="/e5_php/view/rdv/rdv">Rendez-vous</a></li>
+                                                    href="/e5_php/view/rdv/rdv.php">Rendez-vous</a></li>
                     <li class="list-inline-item text-white h3 font-secondary nasted"><?= $show['objet']; ?></li>
                 </ul>
                 <p class="text-lighten"></p>
@@ -185,7 +185,7 @@ include_once '../../include/modal/connectionAdmin.php';
                         <div class="col-lg-4 col-sm-6 mb-5">
                             <div class="card border-0 rounded-0 hover-shadow">
                                 <div class="card-img position-relative">
-                                    <a href="/e5_php/view/rdv/rdv-no?idRdv=<?= $rdv['idRdv']; ?>">
+                                    <a href="/e5_php/view/rdv/rdv-no.php?idRdv=<?= $rdv['idRdv']; ?>">
                                         <img class="card-img-top rounded-0" src="/e5_php/style/images/events/event-1.jpg"
                                              alt="<?= $rdv['objet']; ?>">
                                     </a>
@@ -195,7 +195,7 @@ include_once '../../include/modal/connectionAdmin.php';
                                     </div>
                                 </div>
                                 <div class="card-body">
-                                    <a href="/e5_php/view/rdv/rdv-no?idRdv=<?= $rdv['idRdv']; ?>">
+                                    <a href="/e5_php/view/rdv/rdv-no.php?idRdv=<?= $rdv['idRdv']; ?>">
                                         <h4 class="card-title"><?= $rdv['objet']; ?></h4>
                                     </a>
                                 </div>

@@ -57,7 +57,7 @@ require_once '../../traitement/cherche-util-tr.php'
             <div class="col-md-8">
                 <ul class="list-inline custom-breadcrumb">
                     <li class="list-inline-item">
-                        <a class="h2 text-primary font-secondary" href="profil">Profil</a></li>
+                        <a class="h2 text-primary font-secondary" href="profil.php">Profil</a></li>
                     <li class="list-inline-item text-white h3 font-secondary nasted">Modification de mots de passe</li>
                 </ul>
             </div>
@@ -90,7 +90,7 @@ require_once '../../traitement/cherche-util-tr.php'
                             <input type="password" class="form-control form-control-sm mb-3" id="mdp" name="mdp"
                                    required>
                         </div>
-                        <button type="submit" class="btn btn-primary" href="/e5_php/traitement/modifMDP-tr">
+                        <button type="submit" class="btn btn-primary" href="/e5_php/traitement/modifMDP-tr.php">
                             Modifier
                         </button>
                 </form>
@@ -105,7 +105,7 @@ require_once '../../traitement/cherche-util-tr.php'
         <div class="row">
             <div class="col-12">
                 <div class="text-center">
-                    <form method="POST" action="index">
+                    <form method="POST" action="index.php">
                         <button type="submit" class="btn btn-primary">
                             Retour
                         </button>

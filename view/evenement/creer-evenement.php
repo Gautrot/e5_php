@@ -57,7 +57,7 @@ include_once '../../include/modal/connectionAdmin.php';
             <div class="col-12">
                 <div class="modal-body">
                     <div class="login">
-                        <form method="POST" action="/e5_php/traitement/evenement/creer-event-tr" style="width:100%">
+                        <form method="POST" action="/e5_php/traitement/evenement/creer-event-tr.php" style="width:100%">
                             <div class="form-group">
                                 <label for="titre">Nom de l'évènement</label>
                                 <input type="text" class="form-control form-control-sm mb-3" id="titre" name="titre"

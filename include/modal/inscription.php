@@ -13,13 +13,13 @@
                         Inscrivez-vous en tant que :
                     </div>
                     <div class="row justify-content-center">
-                        <form action="/e5_php/view/eleve/inscr-eleve" method="post">
+                        <form action="/e5_php/view/eleve/inscr-eleve.php" method="post">
                             <button type="submit" class="btn btn-dark m-1">Étudiant</button>
                         </form>
-                        <form action="/e5_php/view/parent/inscr-parent" method="post">
+                        <form action="/e5_php/view/parent/inscr-parent.php" method="post">
                             <button type="submit" class="btn btn-info m-1">Parent</button>
                         </form>
-                        <form action="/e5_php/view/prof/inscr-prof" method="post">
+                        <form action="/e5_php/view/prof/inscr-prof.php" method="post">
                             <button type="submit" class="btn btn-warning m-1">Professeur</button>
                         </form>
                     </div>

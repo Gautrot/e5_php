@@ -58,7 +58,7 @@ include_once '../../include/modal/connectionAdmin.php';
                 <div class="row">
                     <div class="col-12">
                         <div class="text-center">
-                            <form method="POST" action="/e5_php/view/evenement/creer-evenement">
+                            <form method="POST" action="/e5_php/view/evenement/creer-evenement.php">
                                 <button type="submit" class="btn btn-primary">Créer un évènement</button>
                             </form>
                         </div>
@@ -83,7 +83,7 @@ include_once '../../include/modal/connectionAdmin.php';
                     <div class="col-lg-4 col-sm-6 mb-5">
                         <div class="card border-0 rounded-0 hover-shadow">
                             <div class="card-img position-relative">
-                                <a href="/e5_php/view/evenement/evenement-no?idEvent=<?= $event['idEvent']; ?>">
+                                <a href="/e5_php/view/evenement/evenement-no.php?idEvent=<?= $event['idEvent']; ?>">
                                     <img class="card-img-top rounded-0" src="/e5_php/style/images/events/event-1.jpg"
                                          alt="<?= $event['titre']; ?>">
                                 </a>
@@ -94,7 +94,7 @@ include_once '../../include/modal/connectionAdmin.php';
                             </div>
                             <div class="card-body">
                                 <div class="card-body">
-                                    <a href="/e5_php/view/evenement/evenement-no?idEvent=<?= $event['idEvent']; ?>">
+                                    <a href="/e5_php/view/evenement/evenement-no.php?idEvent=<?= $event['idEvent']; ?>">
                                         <h4 class="card-title"><?= $event['titre']; ?></h4>
                                     </a>
                                 </div>

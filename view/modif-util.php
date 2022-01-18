@@ -36,7 +36,7 @@ require_once '../traitement/cherche-util-tr.php'
             <div class="col-md-8">
                 <ul class="list-inline custom-breadcrumb">
                     <li class="list-inline-item">
-                        <a class="h2 text-primary font-secondary" href="profil">Profil</a></li>
+                        <a class="h2 text-primary font-secondary" href="profil.php">Profil</a></li>
                     <li class="list-inline-item text-white h3 font-secondary nasted">Modification</li>
                 </ul>
             </div>
@@ -54,12 +54,12 @@ require_once '../traitement/cherche-util-tr.php'
             <div class="col-12">
                 <form method="POST" action="<?php switch ($_SESSION['user']['statut']) {
                     case '1':
-                        ?>/e5_php/traitement/eleve/modifier-util-tr<?php break;
+                        ?>/e5_php/traitement/eleve/modifier-util-tr.php<?php break;
                     case '2':
-                        ?>/e5_php/traitement/parent/modifier-util-tr<?php break;
+                        ?>/e5_php/traitement/parent/modifier-util-tr.php<?php break;
                     case '3':
-                        ?>/e5_php/traitement/prof/modifier-util-tr<?php break;
-                    default: ?>/e5_php/traitement/admin/modifier-util-tr<?php break;
+                        ?>/e5_php/traitement/prof/modifier-util-tr.php<?php break;
+                    default: ?>/e5_php/traitement/admin/modifier-util-tr.php<?php break;
                 } ?>" style="width:100%">
                     <div class="form-group">
                         <label for="idUtilisateur" hidden>ID</label>
@@ -128,7 +128,7 @@ require_once '../traitement/cherche-util-tr.php'
         <div class="row">
             <div class="col-12">
                 <div class="text-center">
-                    <form method="POST" action="index">
+                    <form method="POST" action="index.php">
                         <button type="submit" class="btn btn-primary">
                             Retour
                         </button>
